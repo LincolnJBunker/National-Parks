@@ -11,6 +11,7 @@
     "seed": " node backend/database/seed.js"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.1",
     "axios": "^1.6.8",
     "express": "^4.18.3",
     "express-session": "^1.18.0",
