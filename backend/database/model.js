@@ -20,6 +20,9 @@ export const db = await connectToDB('postgresql:///national-parks');
 
 
 
+
+
+
 // export class User extends Model {
 //   [util.inspect.custom]() {
 //     return this.toJSON();
