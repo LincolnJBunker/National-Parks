@@ -1,6 +1,7 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-
+import { useSelector} from "react-redux";
 function RootLayout() {
+    const userId = useSelector((state) => state.userId);
     const navigate = useNavigate();
 
   return (
@@ -8,14 +9,26 @@ function RootLayout() {
         <header className="header">
             <nav>
                 <h1 className='home-nav'onClick={() => navigate('home')}>National Parks</h1>
+                
+                {!userId &&
                 <NavLink to='/'>Login</NavLink>
+                }
 
-                {/* here i want to add a conditional render to show these other NavLink once a user is logged in */}
-
+                {userId &&
                 <NavLink to='parks'>Parks</NavLink>
+                }
+
+                {userId &&
                 <NavLink to='home'>Home</NavLink>
+                }
+
+                {userId &&
                 <NavLink to='map'>Map</NavLink>
-                <NavLink to='profile'>Profile</NavLink>
+                }
+                
+                {userId &&
+                <NavLink to='profile'>Profile</NavLink> 
+                }
             </nav>
         </header>
 
