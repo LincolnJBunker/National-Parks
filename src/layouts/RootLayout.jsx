@@ -7,8 +7,9 @@ function RootLayout() {
     <div className="roote-layout">
         <header className="header">
             <nav>
-                <h1>National Parks</h1>
-                <NavLink to='/'>Home</NavLink>
+                <h1 onClick={() => navigate('home')}>National Parks</h1>
+                <NavLink to='/'>Login</NavLink>
+                <NavLink to='home'>Home</NavLink>
                 <NavLink to='map'>Map</NavLink>
                 <NavLink to='parks'>Parks</NavLink>
                 <NavLink to='profile'>Profile</NavLink>
