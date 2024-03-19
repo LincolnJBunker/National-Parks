@@ -4,11 +4,14 @@ function RootLayout() {
     const navigate = useNavigate();
 
   return (
-    <div className="roote-layout">
+    <div className="root-layout">
         <header className="header">
             <nav>
-                <h1 onClick={() => navigate('home')}>National Parks</h1>
+                <h1 className='home-nav'onClick={() => navigate('home')}>National Parks</h1>
                 <NavLink to='/'>Login</NavLink>
+
+                {/* here i want to add a conditional render to show these other NavLink once a user is logged in */}
+                
                 <NavLink to='home'>Home</NavLink>
                 <NavLink to='map'>Map</NavLink>
                 <NavLink to='parks'>Parks</NavLink>

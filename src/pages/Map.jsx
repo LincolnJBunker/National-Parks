@@ -1,7 +1,7 @@
 
 function Map() {
   return (
-    <div>Map</div>
+    <div className="map-page">Map</div>
   )
 }
 

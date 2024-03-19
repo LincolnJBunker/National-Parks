@@ -1,7 +1,7 @@
 
 function Parks() {
   return (
-    <div>Parks</div>
+    <div className="parks-page">Parks</div>
   )
 }
 
