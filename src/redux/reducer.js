@@ -1,5 +1,5 @@
 const initialState = {
-    userId: 1,
+    userId: null,
     otherValue: 'test'
 };
 

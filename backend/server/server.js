@@ -11,8 +11,10 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-
-
+//Routes
+app.get('/api/session-check', handlerFunctions.sessionCheck);
+app.post('/api/login', handlerFunctions.login);
+app.get('/api/logout', handlerFunctions.logout);
 
 
 
