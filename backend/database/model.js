@@ -1,10 +1,8 @@
-import { DataTypes, Model } from 'sequelize';
-import util from 'util';
-import connectToDB from './db.js';
+import { DataTypes, Model } from "sequelize";
+import util from "util";
+import connectToDB from "./db.js";
 
-export const db = await connectToDB('postgresql:///national-parks');
-
-
+export const db = await connectToDB("postgresql:///national-parks");
 
 // Model Names
 // Park
@@ -15,60 +13,56 @@ export const db = await connectToDB('postgresql:///national-parks');
 // Message
 // Follow
 
-
-
-
-
 export class Park extends Model {
-    [util.inspect.custom]() {
-      return this.toJSON();
-    }
-} 
+  [util.inspect.custom]() {
+    return this.toJSON();
+  }
+}
 Park.init(
-{
+  {
     parkId: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
     },
     fullName: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     description: {
-        type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     latitude: {
-        type: DataTypes.FLOAT,
-        allowNull: false,
+      type: DataTypes.FLOAT,
+      allowNull: false,
     },
     longitude: {
-        type: DataTypes.FLOAT,
-        allowNull: false,
+      type: DataTypes.FLOAT,
+      allowNull: false,
     },
     states: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     images: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
     createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
-},
-{
-    modelName: 'park',
+  },
+  {
+    modelName: "park",
     sequelize: db,
-}
+  }
 );
 
 export class User extends Model {
   [util.inspect.custom]() {
     return this.toJSON();
   }
-} 
+}
 User.init(
   {
     userId: {
@@ -77,9 +71,9 @@ User.init(
       primaryKey: true,
     },
     username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
     },
     email: {
       type: DataTypes.STRING,
@@ -90,176 +84,180 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    createdAt: {            // Just a time stamp for when the account was created
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
+    createdAt: {
+      // Just a time stamp for when the account was created
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
     bio: {
-        type: DataTypes.TEXT,
-        defaultValue: 'Update your bio'
+      type: DataTypes.TEXT,
+      defaultValue: "Update your bio",
     },
-    photoURL: {     // could 
-        type: DataTypes.STRING,
-        defaultValue: 'https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png'
+    photoURL: {
+      // could
+      type: DataTypes.STRING,
+      defaultValue:
+        "https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png",
     },
   },
   {
-    modelName: 'user',
+    modelName: "user",
     sequelize: db,
   }
 );
 
 export class Post extends Model {
-    [util.inspect.custom]() {
-      return this.toJSON();
-    }
-} 
+  [util.inspect.custom]() {
+    return this.toJSON();
+  }
+}
 Post.init(
-{
+  {
     postId: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
     },
     body: {
-        type: DataTypes.STRING,
+      type: DataTypes.STRING,
     },
     createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
     photoURL: {
-        type: DataTypes.STRING,
-        defaultValue: 'https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png'
+      type: DataTypes.STRING,
+      defaultValue:
+        "https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png",
     },
-},
-{
-    modelName: 'post',
+  },
+  {
+    modelName: "post",
     sequelize: db,
-}
+  }
 );
 
 export class Comment extends Model {
-    [util.inspect.custom]() {
-      return this.toJSON();
-    }
-} 
+  [util.inspect.custom]() {
+    return this.toJSON();
+  }
+}
 Comment.init(
-{
+  {
     commentId: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
     },
     body: {
-        type: DataTypes.STRING,
+      type: DataTypes.STRING,
     },
     createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
-},
-{
-    modelName: 'comment',
+  },
+  {
+    modelName: "comment",
     sequelize: db,
-}
+  }
 );
 
 export class Activity extends Model {
-    [util.inspect.custom]() {
-      return this.toJSON();
-    }
-} 
+  [util.inspect.custom]() {
+    return this.toJSON();
+  }
+}
 Activity.init(
-{
+  {
     activityId: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
     },
     name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
     },
     photoURL: {
-        type: DataTypes.STRING,
-        defaultValue: 'https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png'
+      type: DataTypes.STRING,
+      defaultValue:
+        "https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png",
     },
-},
-{
-    modelName: 'activity',
+  },
+  {
+    modelName: "activity",
     sequelize: db,
-}
+  }
 );
 
 export class Message extends Model {
-    [util.inspect.custom]() {
-      return this.toJSON();
-    }
-} 
+  [util.inspect.custom]() {
+    return this.toJSON();
+  }
+}
 Message.init(
-{
+  {
     messageId: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
     },
     senderId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     receiverId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     body: {
-        type: DataTypes.STRING,
+      type: DataTypes.STRING,
     },
     createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
-},
-{
-    modelName: 'message',
+  },
+  {
+    modelName: "message",
     sequelize: db,
-}
+  }
 );
 
 export class Follow extends Model {
-    [util.inspect.custom]() {
-      return this.toJSON();
-    }
-} 
+  [util.inspect.custom]() {
+    return this.toJSON();
+  }
+}
 Follow.init(
-{
+  {
     followId: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
     },
-    followerId: {   // userId of the person who's following
-        type: DataTypes.INTEGER,
-        allowNull: false,
+    followerId: {
+      // userId of the person who's following
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
-    followedId: {   // userId of the person who is being followed
-        type: DataTypes.INTEGER,
-        allowNull: false,
+    followedId: {
+      // userId of the person who is being followed
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
-},
-{
-    modelName: 'follow',
+  },
+  {
+    modelName: "follow",
     sequelize: db,
-}
+  }
 );
-
-
-
 
 Park.belongsToMany(Activity, { through: "ParkActivity" });
 Activity.belongsToMany(Park, { through: "ParkActivity" });
@@ -272,5 +270,3 @@ User.hasMany(Comment);
 
 Park.hasMany(Post);
 Post.belongsTo(Park);
-
-

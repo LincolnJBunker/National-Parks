@@ -1,5 +1,14 @@
 import axios from "axios";
-import { User, Post, Park, Activity, Message, Follow } from "./model.js";
+import {
+  db,
+  User,
+  Post,
+  Park,
+  Activity,
+  Message,
+  Follow,
+  Comment,
+} from "./model.js";
 
 await db.sync({
   force: true,
@@ -48,7 +57,9 @@ for (const post of posts) {
 
 let messages = [
   {
-    input: "",
+    senderId: 3,
+    receiverId: 2,
+    body: "Hey!",
   },
 ];
 
@@ -89,8 +100,8 @@ const actRes = await axios.get(
 const allActivities = actRes.data.data;
 // find all activity names possible and create an Activity in DB for each one
 for (const activity of allActivities) {
-  const activities = await Activity.create({
-    activity: activity.name,
+  await Activity.create({
+    name: activity.name,
   });
 }
 
@@ -104,9 +115,8 @@ const nationals = allParks.filter(
 );
 
 for (const park of nationals) {
-  const allImages = park.images.map((image) => {
-    image.url;
-  });
+  const allImages = park.images.map((image) => image.url);
+
   const newPark = await Park.create({
     fullName: park.fullName,
     description: park.description,
