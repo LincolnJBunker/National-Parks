@@ -3,8 +3,11 @@ import { useState } from "react";
 function Login() {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [newUserName, setNewUserName] = useState('');
+    const [newEmail, setNewEmail] = useState('');
+    const [newPassword, setNewPassword] = useState('');
     const [showCreateAccount, setShowCreateAccount] = useState(false);
-    const [showLogin, setShowLogin] = useState(true)
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,17 +21,24 @@ function Login() {
                     <div className="login-inputs">
                         <input 
                             type="text" 
-                            placeholder="Desired Username"
-                            value={userName}
-                            onChange={(e) => setUserName(e.target.value)}
+                            placeholder="Enter a Username"
+                            value={newUserName}
+                            onChange={(e) => setNewUserName(e.target.value)}
+                        />
+                        <input 
+                        type="email"
+                        placeholder="Enter your Email"
+                        value={newEmail}
+                        onChange={(e) => setNewEmail(e.target.value)}
                         />
                         <input 
                             type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Enter a Password"
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
                         />
                     </div>
+                    <button>Create Account</button>
                 </form>
             ) : (
                 <form className="login-form" onSubmit={handleSubmit}>
