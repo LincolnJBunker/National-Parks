@@ -21,7 +21,7 @@ function Login() {
                     <div className="login-inputs">
                         <input 
                             type="text" 
-                            placeholder="Enter a Username"
+                            placeholder="Create Username"
                             value={newUserName}
                             onChange={(e) => setNewUserName(e.target.value)}
                         />
@@ -33,12 +33,13 @@ function Login() {
                         />
                         <input 
                             type="password"
-                            placeholder="Enter a Password"
+                            placeholder="Create Password"
                             value={newPassword}
                             onChange={(e) => setNewPassword(e.target.value)}
                         />
                     </div>
-                    <button>Create Account</button>
+                    <button>Register</button>
+                    {/* <button onClick={() => setShowCreateAccount(false)}>Login</button> */}
                 </form>
             ) : (
                 <form className="login-form" onSubmit={handleSubmit}>
@@ -56,7 +57,7 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <button>Submit</button>
+                    <button>Login</button>
                     <button onClick={() => setShowCreateAccount(true)}>Create an Account</button>
                 </form>
             )}

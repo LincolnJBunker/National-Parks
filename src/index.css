@@ -30,6 +30,37 @@ body {
   min-height: 100vh;
 }
 
+/* header nav {
+  display: flex;
+  gap: 16px;
+  justify-content: end;
+  max-width: 100%;
+  margin: 0 auto;
+}
+header nav h1 {
+  margin-right: auto;
+}
+header nav a{
+  text-decoration: none;
+  padding: 6px;
+  border-radius: 4px;
+}
+header nav a.active {
+  color: #535bf3
+}
+
+.footer {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-top: 3%;
+}
+
+.footer a {
+  margin-right: 25px;
+  text-decoration: none;
+} */
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
