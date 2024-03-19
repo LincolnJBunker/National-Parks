@@ -11,10 +11,10 @@ function RootLayout() {
                 <NavLink to='/'>Login</NavLink>
 
                 {/* here i want to add a conditional render to show these other NavLink once a user is logged in */}
-                
+
+                <NavLink to='parks'>Parks</NavLink>
                 <NavLink to='home'>Home</NavLink>
                 <NavLink to='map'>Map</NavLink>
-                <NavLink to='parks'>Parks</NavLink>
                 <NavLink to='profile'>Profile</NavLink>
             </nav>
         </header>
