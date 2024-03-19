@@ -7,7 +7,6 @@ function Login() {
     const [newEmail, setNewEmail] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [showCreateAccount, setShowCreateAccount] = useState(false);
-    
 
     const handleSubmit = (e) => {
         e.preventDefault();

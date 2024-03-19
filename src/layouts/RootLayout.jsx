@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 function RootLayout() {
     const userId = useSelector((state) => state.userId);
     const navigate = useNavigate();
@@ -15,17 +15,18 @@ function RootLayout() {
                 }
 
                 {userId &&
+                <NavLink to='home'>Home</NavLink>
+                }
+                
+                {userId &&
                 <NavLink to='parks'>Parks</NavLink>
                 }
 
-                {userId &&
-                <NavLink to='home'>Home</NavLink>
-                }
 
                 {userId &&
                 <NavLink to='map'>Map</NavLink>
                 }
-                
+
                 {userId &&
                 <NavLink to='profile'>Profile</NavLink> 
                 }
