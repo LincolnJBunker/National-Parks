@@ -1,9 +1,11 @@
-import { Park, User, Post, Comment, Activity, Message, Follow } from '../database/model.js'
 
-
+import { User, Park, Comment, Post } from "../database/model.js";
 
 const handlerFunctions = {
-    sessionCheck: async (req, res) => {
+  getAllParks: async (req, res) => {
+    const allParks = await Park.findAll();
+  },
+      sessionCheck: async (req, res) => {
         if (req.session.userId) {
             res.send({
                 message: 'user is still logged in',
@@ -25,10 +27,7 @@ const handlerFunctions = {
         console.log(req.body)
  
     },
-}
+};
 
+export default handlerFunctions;
 
-
-
-
-export default handlerFunctions

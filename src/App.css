@@ -18,6 +18,33 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+/* .parks-page {
+} */
+
+.park-card {
+  border-radius: 10px;
+  border: 2px solid black;
+  margin: 1em;
+  padding: 2em;
+  display: inline-block;
+  text-align: unset;
+  cursor: pointer;
+  min-width: 270px;
+  min-height: 450px;
+  max-width: 350px;
+  align-content: center;
+  background-color: white;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: center;
+}
+
+nav {
+  /* background-color: rgb(197, 234, 181); */
+  justify-content: flex-start;
+  padding: 20px;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
