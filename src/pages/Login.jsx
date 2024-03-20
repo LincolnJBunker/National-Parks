@@ -5,8 +5,8 @@ import axios from 'axios';
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
     const [newUsername, setNewUsername] = useState('');
-    const [newEmail, setNewEmail] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [showCreateAccount, setShowCreateAccount] = useState(false);
 
@@ -33,8 +33,7 @@ function Login() {
                     username: res.data.username
                 }
             })
-            setUsername('')
-            setPassword('')
+            location.reload();
         }
         alert(res.data.message)
     }
@@ -50,6 +49,24 @@ function Login() {
         };
     };
 
+    const handleCreateAccount = (e) => {
+        e.preventDefault();
+        if (!username || !email || !password) {
+            alert('Please fill out all of the fields')
+            return
+        }
+        axios.post('/api/createaccount', {
+            username: username,
+            email: email,
+            password: password
+        })
+        .then((res) => {
+            setUsername('');
+            setEmail('')
+            setPassword('')
+        })
+    }
+
     useEffect(() => {
         sessionCheck()
     }, [])
@@ -58,25 +75,25 @@ function Login() {
     <div className="login-page">
             <h3>{showCreateAccount ? 'Create an Account' : 'Login Below'}</h3>
             {showCreateAccount ? (
-                <form className="create-account-form" onSubmit={handleSubmit}>
+                <form className="create-account-form" onSubmit={handleCreateAccount}>
                     <div className="login-inputs">
                         <input 
                             type="text" 
                             placeholder="Create Username"
-                            value={newUsername}
-                            onChange={(e) => setNewUsername(e.target.value)}
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                         <input 
                         type="email"
                         placeholder="Enter your Email"
-                        value={newEmail}
-                        onChange={(e) => setNewEmail(e.target.value)}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         />
                         <input 
                             type="password"
                             placeholder="Create Password"
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
                     <button>Register</button>

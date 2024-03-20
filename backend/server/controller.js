@@ -57,7 +57,7 @@ const handlerFunctions = {
         })
     },
 
-    logout: async(req, res) => {
+    logout: async (req, res) => {
         req.session.destroy()
     
         res.send({
@@ -66,6 +66,16 @@ const handlerFunctions = {
         })
         return
       },
+
+      createAccount: async (req, res) => {
+        const { username, email, password } = req.body
+        console.log(req.body)
+        const newUser = await User.create({
+            username,
+            email,
+            password,
+        })
+      }
 };
 
 export default handlerFunctions;
