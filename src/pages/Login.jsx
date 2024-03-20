@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 
 function Login() {
-    const [userName, setUserName] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [newUserName, setNewUserName] = useState('');
+    const [newUsername, setNewUsername] = useState('');
     const [newEmail, setNewEmail] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [showCreateAccount, setShowCreateAccount] = useState(false);
@@ -14,8 +14,29 @@ function Login() {
 
     const dispatch = useDispatch();
 
-    const handleSubmit = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
+
+        const bodyObj = {
+            username: username,
+            password: password
+        }
+        console.log(bodyObj)
+        // console.log(res.data)
+        const res = await axios.post('/api/login', bodyObj)
+
+        if (res.data.success) {
+            dispatch({
+                type: 'USER_AUTH',
+                payload: {
+                    userId: res.data.userId,
+                    username: res.data.username
+                }
+            })
+            setUsername('')
+            setPassword('')
+        }
+        alert(res.data.message)
     }
 
     const sessionCheck = async () => {
@@ -42,8 +63,8 @@ function Login() {
                         <input 
                             type="text" 
                             placeholder="Create Username"
-                            value={newUserName}
-                            onChange={(e) => setNewUserName(e.target.value)}
+                            value={newUsername}
+                            onChange={(e) => setNewUsername(e.target.value)}
                         />
                         <input 
                         type="email"
@@ -62,13 +83,13 @@ function Login() {
                     {/* <button onClick={() => setShowCreateAccount(false)}>Login</button> */}
                 </form>
             ) : (
-                <form className="login-form" onSubmit={handleSubmit}>
+                <form className="login-form" onSubmit={handleLogin}>
                     <div className="login-inputs">
                         <input 
                             type="text" 
                             placeholder="Username"
-                            value={userName}
-                            onChange={(e) => setUserName(e.target.value)}
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                         <input 
                             type="password"

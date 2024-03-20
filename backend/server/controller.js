@@ -25,8 +25,47 @@ const handlerFunctions = {
     login: async (req, res) => {
         const { username, password } = req.body;
         console.log(req.body)
- 
+
+        const user = await User.findOne({
+            where: {
+                username: username
+            }
+        })
+        //if no user if found
+        if(!user) {
+            res.send({
+                message: 'no user found',
+                success: false
+            })
+            return
+        }
+        if(user.password !== password) {
+            res.send({
+                message: 'password does not match',
+                success: false
+            })
+            return
+        }
+        req.session.userId = user.userId
+        req.session.username = user.username
+
+        res.send({
+            message: 'user logged in',
+            success: true,
+            userId: req.session.userId,
+            username: req.session.username
+        })
     },
+
+    logout: async(req, res) => {
+        req.session.destroy()
+    
+        res.send({
+          message: "user logged out",
+          success: true
+        })
+        return
+      },
 };
 
 export default handlerFunctions;
