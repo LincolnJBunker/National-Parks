@@ -38,6 +38,12 @@
   align-content: flex-start;
   justify-content: center;
 }
+img.park-img {
+  max-width: 200px;
+  
+  border-radius: 10px;
+}
+
 
 nav {
   /* background-color: rgb(197, 234, 181); */
