@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 
 function Login() {
-    const [userName, setUserName] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [newUserName, setNewUserName] = useState('');
-    const [newEmail, setNewEmail] = useState('');
+    const [email, setEmail] = useState('');
+    const [newUsername, setNewUsername] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [showCreateAccount, setShowCreateAccount] = useState(false);
 
@@ -14,8 +14,28 @@ function Login() {
 
     const dispatch = useDispatch();
 
-    const handleSubmit = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
+
+        const bodyObj = {
+            username: username,
+            password: password
+        }
+        console.log(bodyObj)
+        // console.log(res.data)
+        const res = await axios.post('/api/login', bodyObj)
+
+        if (res.data.success) {
+            dispatch({
+                type: 'USER_AUTH',
+                payload: {
+                    userId: res.data.userId,
+                    username: res.data.username
+                }
+            })
+            location.reload();
+        }
+        alert(res.data.message)
     }
 
     const sessionCheck = async () => {
@@ -29,6 +49,24 @@ function Login() {
         };
     };
 
+    const handleCreateAccount = (e) => {
+        e.preventDefault();
+        if (!username || !email || !password) {
+            alert('Please fill out all of the fields')
+            return
+        }
+        axios.post('/api/createaccount', {
+            username: username,
+            email: email,
+            password: password
+        })
+        .then((res) => {
+            setUsername('');
+            setEmail('')
+            setPassword('')
+        })
+    }
+
     useEffect(() => {
         sessionCheck()
     }, [])
@@ -37,38 +75,38 @@ function Login() {
     <div className="login-page">
             <h3>{showCreateAccount ? 'Create an Account' : 'Login Below'}</h3>
             {showCreateAccount ? (
-                <form className="create-account-form" onSubmit={handleSubmit}>
+                <form className="create-account-form" onSubmit={handleCreateAccount}>
                     <div className="login-inputs">
                         <input 
                             type="text" 
                             placeholder="Create Username"
-                            value={newUserName}
-                            onChange={(e) => setNewUserName(e.target.value)}
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                         <input 
                         type="email"
                         placeholder="Enter your Email"
-                        value={newEmail}
-                        onChange={(e) => setNewEmail(e.target.value)}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         />
                         <input 
                             type="password"
                             placeholder="Create Password"
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
                     <button>Register</button>
                     {/* <button onClick={() => setShowCreateAccount(false)}>Login</button> */}
                 </form>
             ) : (
-                <form className="login-form" onSubmit={handleSubmit}>
+                <form className="login-form" onSubmit={handleLogin}>
                     <div className="login-inputs">
                         <input 
                             type="text" 
                             placeholder="Username"
-                            value={userName}
-                            onChange={(e) => setUserName(e.target.value)}
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                         <input 
                             type="password"
