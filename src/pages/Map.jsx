@@ -44,10 +44,20 @@ console.log(selectedPark)
               onCloseClick={() => setSelectedPark(null)}>
                 <div>
                   <h3 style={{color: 'black'}}>{selectedPark.fullName}</h3>
+                  <p style={{ color: 'black' }}>Popular Actvities in {selectedPark.fullName}</p>
+                  <div className="marker-activities">
+                    <ul>
+                      {/* <li style={{ color: 'black'}}>{selectedPark.activities[0].name}</li>
+                      <li style={{ color: 'black'}}>{selectedPark.activities[1].name}</li>
+                      <li style={{ color: 'black'}}>{selectedPark.activities[2].name}</li> */}
+                      {selectedPark.activities.map(activity => (
+                        <li style={{ color: 'black' }}>{activity.name}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
             </InfoWindow>
           )}
-
         </Map>
       </div>
     </APIProvider>
