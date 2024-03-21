@@ -118,14 +118,14 @@ Post.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    body: {
+    postText: {
       type: DataTypes.STRING,
     },
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    photoURL: {
+    postPic: {
       type: DataTypes.STRING,
       defaultValue:
         "https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png",

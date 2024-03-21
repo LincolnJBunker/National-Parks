@@ -1,6 +1,7 @@
 const initialState = {
     userId: null,
-    otherValue: 'test'
+    otherValue: 'test',
+    profileId: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -16,6 +17,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 userId: null
             };
+
+        case 'SET_PROFILE':
+            return {
+                ...state,
+                profileId: action.payload
+            }
+
         default:
             return state;
     }

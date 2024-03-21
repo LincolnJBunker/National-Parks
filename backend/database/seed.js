@@ -38,16 +38,16 @@ for (const user of users) {
 
 let posts = [
   {
-    postPic: "",
-    postText: "",
+    postPic: "https://www.justgotravelstudios.com/cdn/shop/articles/IMG_8596-Edit.jpg?v=1644329437&width=1100",
+    postText: "Just hiked Angel's landing! 10/10 would recommend!",
   },
   {
-    postPic: "",
-    postText: "",
+    postPic: "https://pbs.twimg.com/media/GI0ODf3awAAuM66?format=jpg&name=large",
+    postText: "Scouts Lookout Trail\nCanyon Overlook Trail\nZion National Park",
   },
   {
-    postPic: "",
-    postText: "",
+    postPic: "https://pbs.twimg.com/media/GIxq5gBbAAAl5vC?format=jpg&name=medium",
+    postText: "The Observation Point Trail is one of the best hikes in Zion National Park. How to reach this epic viewpoint? Read all about it in this article. https://opreismetco.nl/en/united-states/hiking-to-observation-point-zion-national-park-utah-usa/",
   },
 ];
 
