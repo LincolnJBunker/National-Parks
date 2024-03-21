@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { APIProvider, Map, AdvancedMarker, Pin, InfoWindow } from '@vis.gl/react-google-maps';
 import googleAPIKey from "../hidden.js";
 import axios from 'axios';
+import { Carousel } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Maps() {
   const [isMapInitialized, setMapInitialized] = useState(false);
@@ -54,6 +56,15 @@ console.log(selectedPark)
                         <li style={{ color: 'black' }}>{activity.name}</li>
                       ))}
                     </ul>
+                  </div>
+                  <div className="marker-images">
+                        <Carousel controls indicators>
+                          <Carousel.Item>
+                            {selectedPark.images.map(image => (
+                              <img src={image} alt="park image" className="carousel-image"/>
+                            ))}
+                          </Carousel.Item>
+                        </Carousel>
                   </div>
                 </div>
             </InfoWindow>
