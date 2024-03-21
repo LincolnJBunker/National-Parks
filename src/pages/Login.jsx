@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
 
 function Login() {
     const [userName, setUserName] = useState('');
@@ -8,9 +10,28 @@ function Login() {
     const [newPassword, setNewPassword] = useState('');
     const [showCreateAccount, setShowCreateAccount] = useState(false);
 
+    const userId = useSelector((state) => state.userId);
+
+    const dispatch = useDispatch();
+
     const handleSubmit = (e) => {
         e.preventDefault();
     }
+
+    const sessionCheck = async () => {
+        const res = await axios.get('/api/session-check')
+        console.log(res)
+        if (res.data.success) {
+            dispatch({
+                type: 'USER_AUTH',
+                payload: res.data.userId,
+            });
+        };
+    };
+
+    useEffect(() => {
+        sessionCheck()
+    }, [])
 
   return (
     <div className="login-page">
