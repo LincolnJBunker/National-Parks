@@ -76,6 +76,13 @@ const handlerFunctions = {
             email,
             password,
         })
+      },
+
+      parkMarkers: async (req, res) => {
+        const allMarkers = await Park.findAll({
+            attributes: ['parkId', 'fullName', 'latitude', 'longitude']
+        })
+        res.send(allMarkers)
       }
 };
 
