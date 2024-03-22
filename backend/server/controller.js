@@ -2,7 +2,11 @@ import { User, Park, Comment, Post, Activity } from "../database/model.js";
 
 const handlerFunctions = {
   getAllParks: async (req, res) => {
-    const allParks = await Park.findAll();
+    const allParks = await Park.findAll({
+      include: {
+        model: Activity,
+      },
+    });
     res.send(allParks);
   },
 

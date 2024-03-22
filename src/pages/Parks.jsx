@@ -16,9 +16,11 @@ function Parks() {
 
   // function to take the current 'parks' array and filter it based on the 'searchVal'
   const filteredParks = parks.filter((park) => {
+
+
     const parkNameMatch = park.fullName.toLowerCase().includes(searchVal.trim().toLowerCase());
     const activityMatch = activityVal !== "" ? park.activities.some(activity => activity.name.toLowerCase().includes(activityVal.trim().toLowerCase())) : true;
-    return parkNameMatch || (park.activities && activityMatch); // Add condition to check if park.activities exists
+    return parkNameMatch && activityMatch; // Add condition to check if park.activities exists
   });
 
   useEffect(() => {
@@ -45,6 +47,7 @@ function Parks() {
   const myContent = filteredParks.map((park) => {
     return <ParkCard park={park} key={park.parkId} />
   })
+  console.log(filteredParks, activityVal)
 
   return (
     <>
