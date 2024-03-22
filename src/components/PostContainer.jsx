@@ -9,7 +9,7 @@
 //     }
 
 
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import PostCard from './PostCard'
 import axios from 'axios'
 
@@ -23,21 +23,34 @@ function PostContainer({mode, id}) {    // mode is either park, friends, or user
 
     const fetchPosts = () => {
         axios.get('/api/posts', {mode, id})
-        .then()
+        .then(res => {
+          if (res.success) {
+            setPosts(res.data.posts)
+          }
+        })
     }
 
+    useEffect(() => {
+      fetchPosts()
+    }, [])
 
 
 
-  return (
-    posts.length > 0 ? (
+  return posts.length > 0 ? (
     <div>
       <h4>Latest Posts</h4>
-      {posts.map(post => <PostCard postPic={post.postPic} postText={post.postPic} profileName={post.profileName} profileId={post.profileId} comments={post.comments} />)}
-    </div>) : (
-      <h4>Loading...</h4>
-    )
+      {posts.map(post => <PostCard
+        postPic={post.postPic}
+        postText={post.postPic}
+        profileName={post.profileName}
+        profileId={post.profileId}
+        comments={post.comments}
+      />)}
+    </div>
+  ) : (
+    <h4>Loading...</h4>
   )
+
   
 }
 
