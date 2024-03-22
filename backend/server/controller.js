@@ -205,6 +205,33 @@ const handlerFunctions = {
         // res.send(allActivities)
     },
 
+        userInfo: async (req, res) => {
+            const { userId } = req.body
+            const user = await User.findOne({
+                attributes: ['userId', 'password', 'bio', 'photoURL' ],
+                where: {
+                    userId: userId
+                }
+            });
+            res.send(user)
+    },
+
+
+        updateUser: async (req, res) => {
+          const {
+            username,
+            password
+          } = req.body
+
+          const user = await User.findByPk(req.params.id);
+
+          await user.update({
+            username: username ?? user.username,
+            password: password ?? user.password
+          })
+
+    },
+
 };
 
 export default handlerFunctions;

@@ -1,9 +1,9 @@
-import LogoutBtn from "../components/LogoutBtn"
+import EditProfileBtn from "../components/EditProfileBtn";
 function Profile() {
   return (
     <div className="profile-page">
       <h2>Profile</h2>
-      <LogoutBtn />
+      <EditProfileBtn />
     </div>
   )
 }
