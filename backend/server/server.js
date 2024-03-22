@@ -6,7 +6,7 @@ import handlerFunctions from "./controller.js";
 
 const app = express();
 
-const port = '9001';
+const port = "9001";
 
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
@@ -28,6 +28,12 @@ app.post('/api/createaccount', handlerFunctions.createAccount);
 app.get('/api/parkMarkers', handlerFunctions.parkMarkers);
 app.post('/api/userInfo', handlerFunctions.userInfo)
 app.put('/api/user/update/:id', handlerFunctions.updateUser);
+app.get("/allActivities", handlerFunctions.getAllActivities);
+
+// route to get posts use {mode: ['park', 'user', or 'friends'], id: id}
+app.get('/api/posts', handlerFunctions.getPosts)
+app.post('/api/createaccount', handlerFunctions.createAccount)
+app.get('/api/parkMarkers', handlerFunctions.parkMarkers);
 
 ViteExpress.listen(app, port, () =>
   console.log(`Server is listening on http://localhost:${port}`)
