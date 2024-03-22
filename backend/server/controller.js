@@ -1,4 +1,4 @@
-import { User, Park, Comment, Post, Follow } from "../database/model.js";
+import { User, Park, Comment, Post, Activity, Follow } from "../database/model.js";
 import { Op } from "sequelize";
 
 
@@ -59,7 +59,7 @@ const handlerFunctions = {
                     })
                 })
                 return
-
+            
             case 'user':        // get post of a user
                 User.findByPk(req.body.id, {
                     include: [
@@ -122,7 +122,42 @@ const handlerFunctions = {
                     })
                 })
         }
-    }
+    },
+      createAccount: async (req, res) => {
+        const { username, email, password } = req.body
+        console.log(req.body)
+        const newUser = await User.create({
+            username,
+            email,
+            password,
+        })
+      },
+
+      parkMarkers: async (req, res) => {
+        const allMarkers = await Park.findAll({
+            attributes: ['parkId', 'fullName', 'latitude', 'longitude', 'images'],
+            include: [{
+                model: Activity,
+                through: {
+                    attributes: ['activity_activity_id']
+                }
+            }]
+        })
+        res.send(allMarkers)
+        // res.send(allActivities)
+    },
+    
+    // activityMarkers: async (req, res) => {
+    //       const allActivities = await Park.findAll({
+    //           include: [{
+    //               model: Activity,
+    //               through: {
+    //                   attributes: ['activity_activity_id']
+    //               }
+    //           }]
+    //       })
+    //     res.send(allActivities)
+    //   }
 };
 
 export default handlerFunctions;
