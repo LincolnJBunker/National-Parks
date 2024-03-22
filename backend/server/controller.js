@@ -91,18 +91,20 @@ const handlerFunctions = {
         res.send(allMarkers)
         // res.send(allActivities)
     },
-    
-    // activityMarkers: async (req, res) => {
-    //       const allActivities = await Park.findAll({
-    //           include: [{
-    //               model: Activity,
-    //               through: {
-    //                   attributes: ['activity_activity_id']
-    //               }
-    //           }]
-    //       })
-    //     res.send(allActivities)
-    //   }
+        updateUser: async (req, res) => {
+          const {
+            username,
+            password
+          } = req.body
+
+          const user = await User.findByPk(req.params.id);
+
+          await user.update({
+            username: username ?? user.username,
+            password: password ?? user.password
+          })
+
+    },
 };
 
 export default handlerFunctions;

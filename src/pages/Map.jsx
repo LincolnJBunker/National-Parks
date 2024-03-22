@@ -3,7 +3,7 @@ import { APIProvider, Map, AdvancedMarker, Pin, InfoWindow } from '@vis.gl/react
 import googleAPIKey from "../hidden.js";
 import axios from 'axios';
 import { Carousel } from 'react-bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Maps() {
   const [isMapInitialized, setMapInitialized] = useState(false);
@@ -49,9 +49,6 @@ console.log(selectedPark)
                   <p style={{ color: 'black' }}>Popular Actvities in {selectedPark.fullName}</p>
                   <div className="marker-activities">
                     <ul>
-                      {/* <li style={{ color: 'black'}}>{selectedPark.activities[0].name}</li>
-                      <li style={{ color: 'black'}}>{selectedPark.activities[1].name}</li>
-                      <li style={{ color: 'black'}}>{selectedPark.activities[2].name}</li> */}
                       {selectedPark.activities.map(activity => (
                         <li style={{ color: 'black' }}>{activity.name}</li>
                       ))}
@@ -59,11 +56,11 @@ console.log(selectedPark)
                   </div>
                   <div className="marker-images">
                         <Carousel controls indicators>
-                          <Carousel.Item>
                             {selectedPark.images.map(image => (
+                          <Carousel.Item>
                               <img src={image} alt="park image" className="carousel-image"/>
-                            ))}
                           </Carousel.Item>
+                        ))}
                         </Carousel>
                   </div>
                 </div>
