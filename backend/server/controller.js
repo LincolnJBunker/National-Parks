@@ -91,6 +91,19 @@ const handlerFunctions = {
         res.send(allMarkers)
         // res.send(allActivities)
     },
+
+        userInfo: async (req, res) => {
+            const { userId } = req.body
+            const user = await User.findOne({
+                attributes: ['userId', 'password', 'bio', 'photoURL' ],
+                where: {
+                    userId: userId
+                }
+            });
+            res.send(user)
+    },
+
+
         updateUser: async (req, res) => {
           const {
             username,

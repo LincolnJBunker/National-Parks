@@ -1,0 +1,1661 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.11 (Homebrew)
+-- Dumped by pg_dump version 15.6 (Homebrew)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: lincoln
+--
+
+-- *not* creating schema, since initdb creates it
+
+
+ALTER SCHEMA public OWNER TO lincoln;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: ParkActivity; Type: TABLE; Schema: public; Owner: lincoln
+--
+
+CREATE TABLE public."ParkActivity" (
+    park_park_id integer NOT NULL,
+    activity_activity_id integer NOT NULL
+);
+
+
+ALTER TABLE public."ParkActivity" OWNER TO lincoln;
+
+--
+-- Name: activities; Type: TABLE; Schema: public; Owner: lincoln
+--
+
+CREATE TABLE public.activities (
+    activity_id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    photo_u_r_l character varying(255) DEFAULT 'https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png'::character varying
+);
+
+
+ALTER TABLE public.activities OWNER TO lincoln;
+
+--
+-- Name: activities_activity_id_seq; Type: SEQUENCE; Schema: public; Owner: lincoln
+--
+
+CREATE SEQUENCE public.activities_activity_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.activities_activity_id_seq OWNER TO lincoln;
+
+--
+-- Name: activities_activity_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: lincoln
+--
+
+ALTER SEQUENCE public.activities_activity_id_seq OWNED BY public.activities.activity_id;
+
+
+--
+-- Name: comments; Type: TABLE; Schema: public; Owner: lincoln
+--
+
+CREATE TABLE public.comments (
+    comment_id integer NOT NULL,
+    body character varying(255),
+    created_at timestamp with time zone,
+    user_user_id integer
+);
+
+
+ALTER TABLE public.comments OWNER TO lincoln;
+
+--
+-- Name: comments_comment_id_seq; Type: SEQUENCE; Schema: public; Owner: lincoln
+--
+
+CREATE SEQUENCE public.comments_comment_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.comments_comment_id_seq OWNER TO lincoln;
+
+--
+-- Name: comments_comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: lincoln
+--
+
+ALTER SEQUENCE public.comments_comment_id_seq OWNED BY public.comments.comment_id;
+
+
+--
+-- Name: follows; Type: TABLE; Schema: public; Owner: lincoln
+--
+
+CREATE TABLE public.follows (
+    follow_id integer NOT NULL,
+    follower_id integer NOT NULL,
+    followed_id integer NOT NULL,
+    created_at timestamp with time zone
+);
+
+
+ALTER TABLE public.follows OWNER TO lincoln;
+
+--
+-- Name: follows_follow_id_seq; Type: SEQUENCE; Schema: public; Owner: lincoln
+--
+
+CREATE SEQUENCE public.follows_follow_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.follows_follow_id_seq OWNER TO lincoln;
+
+--
+-- Name: follows_follow_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: lincoln
+--
+
+ALTER SEQUENCE public.follows_follow_id_seq OWNED BY public.follows.follow_id;
+
+
+--
+-- Name: messages; Type: TABLE; Schema: public; Owner: lincoln
+--
+
+CREATE TABLE public.messages (
+    message_id integer NOT NULL,
+    sender_id integer NOT NULL,
+    receiver_id integer NOT NULL,
+    body character varying(255),
+    created_at timestamp with time zone
+);
+
+
+ALTER TABLE public.messages OWNER TO lincoln;
+
+--
+-- Name: messages_message_id_seq; Type: SEQUENCE; Schema: public; Owner: lincoln
+--
+
+CREATE SEQUENCE public.messages_message_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.messages_message_id_seq OWNER TO lincoln;
+
+--
+-- Name: messages_message_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: lincoln
+--
+
+ALTER SEQUENCE public.messages_message_id_seq OWNED BY public.messages.message_id;
+
+
+--
+-- Name: parks; Type: TABLE; Schema: public; Owner: lincoln
+--
+
+CREATE TABLE public.parks (
+    park_id integer NOT NULL,
+    full_name character varying(255) NOT NULL,
+    description text,
+    latitude double precision NOT NULL,
+    longitude double precision NOT NULL,
+    states character varying(255) NOT NULL,
+    images character varying(255)[],
+    created_at timestamp with time zone
+);
+
+
+ALTER TABLE public.parks OWNER TO lincoln;
+
+--
+-- Name: parks_park_id_seq; Type: SEQUENCE; Schema: public; Owner: lincoln
+--
+
+CREATE SEQUENCE public.parks_park_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.parks_park_id_seq OWNER TO lincoln;
+
+--
+-- Name: parks_park_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: lincoln
+--
+
+ALTER SEQUENCE public.parks_park_id_seq OWNED BY public.parks.park_id;
+
+
+--
+-- Name: posts; Type: TABLE; Schema: public; Owner: lincoln
+--
+
+CREATE TABLE public.posts (
+    post_id integer NOT NULL,
+    body character varying(255),
+    created_at timestamp with time zone,
+    photo_u_r_l character varying(255) DEFAULT 'https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png'::character varying,
+    user_user_id integer,
+    park_park_id integer
+);
+
+
+ALTER TABLE public.posts OWNER TO lincoln;
+
+--
+-- Name: posts_post_id_seq; Type: SEQUENCE; Schema: public; Owner: lincoln
+--
+
+CREATE SEQUENCE public.posts_post_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.posts_post_id_seq OWNER TO lincoln;
+
+--
+-- Name: posts_post_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: lincoln
+--
+
+ALTER SEQUENCE public.posts_post_id_seq OWNED BY public.posts.post_id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: lincoln
+--
+
+CREATE TABLE public.users (
+    user_id integer NOT NULL,
+    username character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    password character varying(255) NOT NULL,
+    created_at timestamp with time zone,
+    bio text DEFAULT 'Update your bio'::text,
+    photo_u_r_l character varying(255) DEFAULT 'https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png'::character varying
+);
+
+
+ALTER TABLE public.users OWNER TO lincoln;
+
+--
+-- Name: users_user_id_seq; Type: SEQUENCE; Schema: public; Owner: lincoln
+--
+
+CREATE SEQUENCE public.users_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_user_id_seq OWNER TO lincoln;
+
+--
+-- Name: users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: lincoln
+--
+
+ALTER SEQUENCE public.users_user_id_seq OWNED BY public.users.user_id;
+
+
+--
+-- Name: activities activity_id; Type: DEFAULT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.activities ALTER COLUMN activity_id SET DEFAULT nextval('public.activities_activity_id_seq'::regclass);
+
+
+--
+-- Name: comments comment_id; Type: DEFAULT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.comments ALTER COLUMN comment_id SET DEFAULT nextval('public.comments_comment_id_seq'::regclass);
+
+
+--
+-- Name: follows follow_id; Type: DEFAULT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.follows ALTER COLUMN follow_id SET DEFAULT nextval('public.follows_follow_id_seq'::regclass);
+
+
+--
+-- Name: messages message_id; Type: DEFAULT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.messages ALTER COLUMN message_id SET DEFAULT nextval('public.messages_message_id_seq'::regclass);
+
+
+--
+-- Name: parks park_id; Type: DEFAULT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.parks ALTER COLUMN park_id SET DEFAULT nextval('public.parks_park_id_seq'::regclass);
+
+
+--
+-- Name: posts post_id; Type: DEFAULT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.posts ALTER COLUMN post_id SET DEFAULT nextval('public.posts_post_id_seq'::regclass);
+
+
+--
+-- Name: users user_id; Type: DEFAULT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.users_user_id_seq'::regclass);
+
+
+--
+-- Data for Name: ParkActivity; Type: TABLE DATA; Schema: public; Owner: lincoln
+--
+
+COPY public."ParkActivity" (park_park_id, activity_activity_id) FROM stdin;
+1	1
+1	2
+1	4
+1	5
+1	6
+1	9
+1	10
+1	12
+1	14
+1	16
+1	17
+1	18
+1	19
+1	21
+1	25
+1	22
+1	30
+1	32
+1	33
+1	34
+1	36
+1	40
+1	26
+1	29
+2	1
+2	2
+2	4
+2	6
+2	7
+2	9
+2	16
+2	18
+2	19
+2	22
+2	29
+3	3
+3	2
+3	4
+3	6
+3	10
+3	14
+3	18
+3	19
+3	22
+3	40
+3	26
+3	29
+4	3
+4	2
+4	4
+4	6
+4	14
+4	16
+4	18
+4	25
+4	22
+4	40
+4	26
+4	29
+5	5
+5	6
+5	12
+5	16
+5	25
+5	22
+5	28
+5	31
+5	36
+5	40
+5	26
+5	24
+5	29
+6	6
+6	9
+6	12
+6	18
+6	19
+6	25
+6	30
+6	34
+6	40
+7	2
+7	4
+7	6
+7	14
+7	16
+7	17
+7	18
+7	19
+7	22
+7	30
+7	34
+7	40
+7	26
+7	24
+7	29
+8	2
+8	4
+8	5
+8	6
+8	9
+8	16
+8	18
+8	19
+8	25
+8	22
+8	26
+8	29
+9	1
+9	2
+9	4
+9	6
+9	7
+9	9
+9	12
+9	14
+9	16
+9	17
+9	18
+9	19
+9	23
+9	22
+9	40
+9	26
+9	24
+9	29
+10	2
+10	6
+10	8
+10	14
+10	16
+10	18
+10	22
+10	40
+10	26
+10	29
+11	2
+11	5
+11	6
+11	10
+11	12
+11	14
+11	16
+11	18
+11	25
+11	22
+11	28
+11	31
+11	35
+11	36
+11	40
+11	26
+11	24
+11	29
+12	6
+12	12
+12	14
+12	16
+12	17
+12	18
+12	25
+12	22
+12	24
+12	29
+13	3
+13	2
+13	4
+13	5
+13	6
+13	10
+13	12
+13	14
+13	16
+13	17
+13	18
+13	22
+13	30
+13	32
+13	33
+13	34
+13	36
+13	40
+13	26
+13	24
+13	29
+14	1
+14	4
+14	12
+14	14
+14	17
+14	18
+14	19
+14	23
+14	25
+14	22
+14	30
+14	32
+14	34
+14	40
+14	29
+15	2
+15	4
+15	6
+15	7
+15	14
+15	13
+15	15
+15	16
+15	18
+15	19
+15	23
+15	22
+15	40
+15	26
+15	24
+15	29
+16	1
+16	2
+16	4
+16	6
+16	9
+16	11
+16	12
+16	14
+16	13
+16	16
+16	18
+16	20
+16	22
+16	30
+16	32
+16	33
+16	34
+16	40
+16	26
+16	29
+17	2
+17	5
+17	6
+17	12
+17	16
+17	17
+17	25
+17	22
+17	28
+17	31
+17	36
+17	40
+17	29
+18	3
+18	2
+18	4
+18	5
+18	6
+18	10
+18	12
+18	14
+18	16
+18	17
+18	18
+18	25
+18	22
+18	40
+18	26
+18	24
+18	29
+19	6
+19	9
+19	18
+19	20
+19	25
+19	22
+20	2
+20	4
+20	14
+20	16
+20	22
+20	26
+20	24
+20	29
+21	1
+21	3
+21	5
+21	6
+21	9
+21	12
+21	14
+21	13
+21	16
+21	18
+21	20
+21	25
+21	22
+21	40
+21	26
+21	29
+22	1
+22	3
+22	2
+22	4
+22	5
+22	6
+22	9
+22	12
+22	14
+22	16
+22	17
+22	18
+22	19
+22	25
+22	22
+22	30
+22	32
+22	34
+22	36
+22	26
+22	29
+23	1
+23	3
+23	2
+23	4
+23	5
+23	6
+23	12
+23	14
+23	13
+23	16
+23	17
+23	18
+23	19
+23	25
+23	22
+23	40
+23	26
+23	24
+23	29
+24	1
+24	3
+24	4
+24	5
+24	6
+24	9
+24	12
+24	14
+24	16
+24	18
+24	19
+24	20
+24	25
+24	22
+24	30
+24	32
+24	33
+24	34
+24	39
+24	40
+24	29
+25	3
+25	2
+25	4
+25	6
+25	8
+25	9
+25	12
+25	14
+25	16
+25	18
+25	19
+25	20
+25	22
+25	30
+25	34
+25	40
+25	26
+25	24
+25	29
+26	1
+26	3
+26	2
+26	4
+26	6
+26	9
+26	10
+26	12
+26	14
+26	16
+26	17
+26	18
+26	19
+26	20
+26	22
+26	38
+26	30
+26	32
+26	34
+26	36
+26	39
+26	40
+26	26
+26	24
+26	29
+27	1
+27	3
+27	2
+27	4
+27	6
+27	12
+27	14
+27	16
+27	17
+27	18
+27	19
+27	22
+27	40
+27	26
+27	24
+27	29
+28	3
+28	6
+28	16
+28	18
+28	19
+28	22
+28	40
+28	24
+29	6
+29	16
+29	18
+29	22
+29	36
+29	29
+30	1
+30	4
+30	6
+30	16
+30	18
+30	22
+30	40
+30	26
+30	24
+30	29
+31	3
+31	4
+31	6
+31	12
+31	14
+31	16
+31	18
+31	22
+31	40
+31	26
+31	24
+31	29
+32	1
+32	3
+32	2
+32	4
+32	5
+32	6
+32	12
+32	14
+32	16
+32	18
+32	19
+32	25
+32	22
+32	27
+32	30
+32	32
+32	34
+32	36
+32	40
+32	26
+32	29
+33	1
+33	2
+33	5
+33	6
+33	12
+33	14
+33	13
+33	16
+33	18
+33	25
+33	22
+33	28
+33	40
+33	26
+33	24
+33	29
+34	3
+34	2
+34	4
+34	6
+34	9
+34	14
+34	16
+34	18
+34	19
+34	22
+34	40
+34	24
+34	29
+35	5
+35	6
+35	12
+35	14
+35	13
+35	16
+35	18
+35	20
+35	25
+35	22
+35	40
+35	26
+35	29
+36	2
+36	5
+36	6
+36	9
+36	11
+36	12
+36	14
+36	13
+36	16
+36	18
+36	25
+36	22
+36	30
+36	33
+36	34
+36	40
+36	26
+36	29
+37	5
+37	6
+37	12
+37	13
+37	17
+37	18
+37	25
+37	22
+37	40
+37	24
+37	29
+38	2
+38	4
+38	5
+38	6
+38	9
+38	10
+38	12
+38	13
+38	16
+38	18
+38	20
+38	25
+38	22
+38	30
+38	32
+38	34
+38	40
+38	29
+39	3
+39	2
+39	4
+39	5
+39	6
+39	10
+39	12
+39	14
+39	16
+39	18
+39	19
+39	23
+39	25
+39	22
+39	30
+39	32
+39	34
+39	36
+39	40
+39	26
+39	24
+39	29
+40	2
+40	4
+40	5
+40	6
+40	8
+40	12
+40	14
+40	16
+40	17
+40	18
+40	19
+40	25
+40	22
+40	40
+40	26
+40	29
+41	3
+41	2
+41	4
+41	6
+41	14
+41	16
+41	18
+41	22
+41	30
+41	34
+41	40
+41	26
+41	24
+41	29
+42	3
+42	2
+42	4
+42	6
+42	9
+42	12
+42	14
+42	16
+42	17
+42	18
+42	23
+42	22
+42	30
+42	32
+42	33
+42	34
+42	40
+42	26
+42	24
+42	29
+43	1
+43	3
+43	2
+43	4
+43	5
+43	6
+43	9
+43	12
+43	14
+43	16
+43	18
+43	19
+43	20
+43	25
+43	22
+43	27
+43	40
+43	26
+43	24
+43	29
+44	3
+44	4
+44	5
+44	6
+44	9
+44	12
+44	16
+44	17
+44	18
+44	19
+44	25
+44	22
+44	29
+45	2
+45	4
+45	5
+45	6
+45	9
+45	12
+45	14
+45	16
+45	17
+45	18
+45	19
+45	25
+45	22
+45	38
+45	30
+45	32
+45	34
+45	35
+45	36
+45	40
+45	26
+45	24
+45	29
+46	1
+46	3
+46	2
+46	4
+46	6
+46	10
+46	14
+46	16
+46	17
+46	18
+46	19
+46	22
+46	40
+46	26
+46	24
+46	29
+47	2
+47	4
+47	6
+47	8
+47	9
+47	14
+47	17
+47	18
+47	22
+47	40
+47	26
+47	29
+48	1
+48	3
+48	4
+48	6
+48	12
+48	14
+48	16
+48	18
+48	19
+48	25
+48	22
+48	35
+48	36
+48	40
+48	26
+48	29
+49	3
+49	6
+49	9
+49	12
+49	17
+49	18
+49	22
+49	30
+49	32
+49	34
+49	40
+49	29
+50	1
+50	3
+50	2
+50	4
+50	6
+50	16
+50	18
+50	22
+50	26
+51	3
+51	2
+51	6
+51	8
+51	9
+51	12
+51	14
+51	16
+51	17
+51	18
+51	19
+51	22
+51	30
+51	32
+51	34
+51	40
+51	26
+51	24
+51	29
+52	3
+52	2
+52	4
+52	6
+52	9
+52	10
+52	12
+52	14
+52	17
+52	18
+52	19
+52	20
+52	22
+52	40
+52	24
+52	29
+53	3
+53	2
+53	4
+53	6
+53	14
+53	16
+53	18
+53	19
+53	22
+53	40
+53	26
+53	24
+53	29
+54	1
+54	2
+54	5
+54	6
+54	12
+54	14
+54	16
+54	18
+54	25
+54	28
+54	31
+54	36
+54	40
+54	29
+55	1
+55	2
+55	4
+55	5
+55	6
+55	12
+55	14
+55	16
+55	18
+55	23
+55	25
+55	22
+55	38
+55	30
+55	33
+55	34
+55	36
+55	39
+55	40
+55	26
+55	24
+55	29
+56	3
+56	4
+56	6
+56	14
+56	16
+56	18
+56	22
+57	3
+57	4
+57	6
+57	8
+57	14
+57	16
+57	18
+57	19
+57	22
+57	40
+57	26
+57	24
+57	29
+58	1
+58	3
+58	4
+58	5
+58	6
+58	7
+58	9
+58	12
+58	14
+58	13
+58	16
+58	18
+58	20
+58	25
+58	22
+58	33
+58	34
+58	40
+58	26
+58	24
+58	29
+59	1
+59	3
+59	2
+59	4
+59	5
+59	6
+59	12
+59	14
+59	16
+59	17
+59	18
+59	19
+59	25
+59	22
+59	30
+59	32
+59	33
+59	34
+59	36
+59	40
+59	26
+59	24
+59	29
+60	1
+60	3
+60	2
+60	4
+60	5
+60	6
+60	9
+60	12
+60	14
+60	16
+60	17
+60	18
+60	19
+60	21
+60	23
+60	25
+60	22
+60	38
+60	30
+60	32
+60	34
+60	36
+60	40
+60	26
+60	24
+60	29
+61	1
+61	2
+61	4
+61	6
+61	7
+61	9
+61	16
+61	18
+61	22
+61	40
+61	26
+61	24
+61	29
+\.
+
+
+--
+-- Data for Name: activities; Type: TABLE DATA; Schema: public; Owner: lincoln
+--
+
+COPY public.activities (activity_id, name, photo_u_r_l) FROM stdin;
+1	Arts and Culture	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+2	Astronomy	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+3	Auto and ATV	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+4	Biking	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+5	Boating	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+6	Camping	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+7	Canyoneering	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+8	Caving	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+9	Climbing	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+10	Compass and GPS	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+11	Dog Sledding	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+12	Fishing	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+13	Flying	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+14	Food	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+15	Golfing	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+16	Guided Tours	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+17	Hands-On	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+18	Hiking	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+19	Horse Trekking	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+20	Hunting and Gathering	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+21	Ice Skating	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+22	Junior Ranger Program	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+23	Living History	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+24	Museum Exhibits	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+25	Paddling	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+26	Park Film	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+27	Playground	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+28	SCUBA Diving	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+29	Shopping	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+30	Skiing	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+31	Snorkeling	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+32	Snow Play	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+33	Snowmobiling	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+34	Snowshoeing	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+35	Surfing	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+36	Swimming	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+37	Team Sports	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+38	Tubing	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+39	Water Skiing	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+40	Wildlife Watching	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+\.
+
+
+--
+-- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: lincoln
+--
+
+COPY public.comments (comment_id, body, created_at, user_user_id) FROM stdin;
+1	\N	2024-03-20 13:53:54.393-06	\N
+\.
+
+
+--
+-- Data for Name: follows; Type: TABLE DATA; Schema: public; Owner: lincoln
+--
+
+COPY public.follows (follow_id, follower_id, followed_id, created_at) FROM stdin;
+1	1	2	2024-03-20 13:53:54.395-06
+\.
+
+
+--
+-- Data for Name: messages; Type: TABLE DATA; Schema: public; Owner: lincoln
+--
+
+COPY public.messages (message_id, sender_id, receiver_id, body, created_at) FROM stdin;
+1	3	2	Hey!	2024-03-20 13:53:54.391-06
+\.
+
+
+--
+-- Data for Name: parks; Type: TABLE DATA; Schema: public; Owner: lincoln
+--
+
+COPY public.parks (park_id, full_name, description, latitude, longitude, states, images, created_at) FROM stdin;
+1	Acadia National Park	Acadia National Park protects the natural beauty of the highest rocky headlands along the Atlantic coastline of the United States, an abundance of habitats, and a rich cultural heritage. At 4 million visits a year, it's one of the top 10 most-visited national parks in the United States. Visitors enjoy 27 miles of historic motor roads, 158 miles of hiking trails, and 45 miles of carriage roads.	44.409286	-68.247501	ME	{https://www.nps.gov/common/uploads/structured_data/3C7B45AE-1DD8-B71B-0B7EE131C7DFC2F5.jpg,https://www.nps.gov/common/uploads/structured_data/3C7B4BEC-1DD8-B71B-0B2CF833F93140FF.jpg,https://www.nps.gov/common/uploads/structured_data/3C7B477B-1DD8-B71B-0BCB48E009241BAA.jpg,https://www.nps.gov/common/uploads/structured_data/3C7B48F9-1DD8-B71B-0BD3B413E58978F8.jpg}	2024-03-20 13:53:58.529-06
+2	Arches National Park	Discover a landscape of contrasting colors, land forms, and textures unlike any other. The park has over 2,000 natural stone arches, hundreds of soaring pinnacles, massive rock fins, and giant balanced rocks. This red-rock wonderland will amaze you with its formations, refresh you with its trails, and inspire you with its sunsets.	38.72261844	-109.5863666	UT	{https://www.nps.gov/common/uploads/structured_data/473F5463-F0D2-261D-CEF5FCB39363590B.jpg,https://www.nps.gov/common/uploads/structured_data/3C79931C-1DD8-B71B-0BF201E3DB540D04.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A0B2B-1DD8-B71B-0BE0E26B0740AA6B.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A0C49-1DD8-B71B-0B460D58D6E83B40.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A0DE5-1DD8-B71B-0BFBE720788EF4A3.jpg}	2024-03-20 13:53:58.616-06
+3	Badlands National Park	The rugged beauty of the Badlands draws visitors from around the world. These striking geologic deposits contain one of the world’s richest fossil beds. Ancient horses and rhinos once roamed here. The park’s 244,000 acres protect an expanse of mixed-grass prairie where bison, bighorn sheep, prairie dogs, and black-footed ferrets live today.	43.68584846	-102.482942	SD	{https://www.nps.gov/common/uploads/structured_data/3C82EE63-1DD8-B71B-0BD6EE0FDCB5D402.jpg,https://www.nps.gov/common/uploads/structured_data/3C82ED5D-1DD8-B71B-0B2F33D3B39D6D1B.jpg,https://www.nps.gov/common/uploads/structured_data/3C82EBFE-1DD8-B71B-0B21072718DB2A95.jpg,https://www.nps.gov/common/uploads/structured_data/28C2C88B-9904-7962-E60BEFC763604963.jpg,https://www.nps.gov/common/uploads/structured_data/36C156B0-F6CA-1972-F3B88C971DE39767.jpg}	2024-03-20 13:53:58.638-06
+4	Big Bend National Park	There is a place in Far West Texas where night skies are dark as coal and rivers carve temple-like canyons in ancient limestone. Here, at the end of the road, hundreds of bird species take refuge in a solitary mountain range surrounded by weather-beaten desert. Tenacious cactus bloom in sublime southwestern sun, and species diversity is the best in the country. This magical place is Big Bend...	29.29817767	-103.2297897	TX	{https://www.nps.gov/common/uploads/structured_data/8BF8356B-BB63-76A4-19F5296EF94C96B4.jpg,https://www.nps.gov/common/uploads/structured_data/8BCD073D-D2AF-C63C-F75A21DF9E355C61.jpg,https://www.nps.gov/common/uploads/structured_data/8BA1EB23-E950-8F6E-62C7523D37E42564.jpg,https://www.nps.gov/common/uploads/structured_data/8BDD8415-B290-DEF8-105D75C840EBFCD2.jpg,https://www.nps.gov/common/uploads/structured_data/8B115C1E-B4B2-AF30-1C562C5D39E4B637.jpg,https://www.nps.gov/common/uploads/structured_data/8AEFBCCC-0C9E-92DD-5E2B311EC6DA0339.jpg,https://www.nps.gov/common/uploads/structured_data/8B05A8A9-0539-1AA2-CC93A517B18103EC.jpg,https://www.nps.gov/common/uploads/structured_data/8B20FD43-C758-653A-10059B3D1C2309C8.jpg,https://www.nps.gov/common/uploads/structured_data/8BC4F255-E417-0A7C-272244055AA3F832.jpg,https://www.nps.gov/common/uploads/structured_data/C0B5E9B0-CD44-E6CF-C56A5DA23CFB65E6.jpg,https://www.nps.gov/common/uploads/structured_data/C0C2DD15-D536-D952-114F8FD11C5296FD.jpg,https://www.nps.gov/common/uploads/structured_data/CDAD3984-DB8E-117C-DFA6B184E5058201.jpg}	2024-03-20 13:53:58.662-06
+5	Biscayne National Park	Within sight of Miami, yet worlds away, Biscayne protects a rare combination of aquamarine waters, emerald islands, and fish-bejeweled coral reefs. Evidence of 10,000 years of human history is here too; from prehistoric tribes to shipwrecks, and pineapple farmers to presidents. For many, the park is a boating, fishing, and diving destination, while others enjoy a warm breeze and peaceful scenery.	25.490587	-80.21023851	FL	{https://www.nps.gov/common/uploads/structured_data/3C8717A4-1DD8-B71B-0B2EED68CFA7E008.jpg,https://www.nps.gov/common/uploads/structured_data/3C870533-1DD8-B71B-0B70CFF5EF6538F1.jpg,https://www.nps.gov/common/uploads/structured_data/E789390E-C7B5-2B1F-13974FC0EA9C7BD6.jpg,https://www.nps.gov/common/uploads/structured_data/3C870833-1DD8-B71B-0BE93D49E0DF6503.jpg,https://www.nps.gov/common/uploads/structured_data/3C870A07-1DD8-B71B-0B9BA7F6549AD537.jpg,https://www.nps.gov/common/uploads/structured_data/3C871441-1DD8-B71B-0BBD1985ADA0E585.jpg}	2024-03-20 13:53:58.694-06
+6	Black Canyon Of The Gunnison National Park	Big enough to be overwhelming, still intimate enough to feel the pulse of time, Black Canyon of the Gunnison National Park exposes you to some of the steepest cliffs, oldest rock, and craggiest spires in North America. With two million years to work, the Gunnison River, along with the forces of weathering, has sculpted this vertical wilderness of rock, water, and sky.	38.57779869	-107.7242756	CO	{https://www.nps.gov/common/uploads/structured_data/3C81655F-1DD8-B71B-0B4BCFFDB74EE723.jpg,https://www.nps.gov/common/uploads/structured_data/3C8166E8-1DD8-B71B-0BDEB9A4EEEED807.jpg}	2024-03-20 13:53:58.721-06
+61	Zion National Park	Follow the paths where people have walked for thousands of years. Gaze up at massive sandstone cliffs of cream, pink, and red that soar into a brilliant blue sky. Experience wilderness in a narrow slot canyon. Zion’s unique array of plants and animals will enchant you as you absorb the rich history of the past and enjoy the excitement of present-day adventures.	37.29839254	-113.0265138	UT	{https://www.nps.gov/common/uploads/structured_data/68BFC1AC-BF96-629F-89D261D78F181C64.jpg,https://www.nps.gov/common/uploads/structured_data/69162F54-D4AF-8695-A42F97A8F9774C19.jpg,https://www.nps.gov/common/uploads/structured_data/68D46E7D-A116-A443-ABA04AD1DD785208.jpg,https://www.nps.gov/common/uploads/structured_data/68ED8C2C-A9D3-90B2-BBC96E7A21BC3744.jpg,https://www.nps.gov/common/uploads/structured_data/69033C8D-B439-855D-6B260FB2F4CDB53B.jpg}	2024-03-20 13:54:00.437-06
+8	Canyonlands National Park	Canyonlands invites you to explore a wilderness of countless canyons and fantastically formed buttes carved by the Colorado River and its tributaries. Rivers divide the park into four districts: Island in the Sky, The Needles, The Maze, and the rivers themselves. These areas share a primitive desert atmosphere, but each offers different opportunities for sightseeing and adventure.	38.24555783	-109.8801624	UT	{https://www.nps.gov/common/uploads/structured_data/3C7A525D-1DD8-B71B-0B8E59D2EB39F6D0.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A53BC-1DD8-B71B-0BFF7AD2A83FC7A8.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A4FC2-1DD8-B71B-0B13118C99270C08.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A5534-1DD8-B71B-0B3887A48C037633.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A5677-1DD8-B71B-0BD6CF7287668A78.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A5840-1DD8-B71B-0B3C87EB4677BFA5.jpg}	2024-03-20 13:53:58.775-06
+9	Capitol Reef National Park	Located in south-central Utah in the heart of red rock country, Capitol Reef National Park is a hidden treasure filled with cliffs, canyons, domes, and bridges in the Waterpocket Fold, a geologic monocline (a wrinkle on the earth) extending almost 100 miles.	38.2821653131	-111.247048378	UT	{https://www.nps.gov/common/uploads/structured_data/3C82E3C7-1DD8-B71B-0B4181834EE46AED.jpg,https://www.nps.gov/common/uploads/structured_data/3C82E4FB-1DD8-B71B-0B8614194A6D08FA.jpg,https://www.nps.gov/common/uploads/structured_data/3C82E601-1DD8-B71B-0BCB6A40DE28B1CB.jpg,https://www.nps.gov/common/uploads/structured_data/3C82E740-1DD8-B71B-0B6FC6B644FB96D0.jpg,https://www.nps.gov/common/uploads/structured_data/3C82E9BB-1DD8-B71B-0B30AEA8D8052350.jpg}	2024-03-20 13:53:58.804-06
+10	Carlsbad Caverns National Park	High ancient sea ledges, deep rocky canyons, flowering cactus, and desert wildlife—treasures above the ground in the Chihuahuan Desert. Hidden beneath the surface are more than 119 caves—formed when sulfuric acid dissolved limestone leaving behind caverns of all sizes.	32.14089463	-104.5529688	NM	{https://www.nps.gov/common/uploads/structured_data/29C3C977-AAE6-B7FD-3C107828D704A5CB.jpg,https://www.nps.gov/common/uploads/structured_data/29A84FDD-D660-B07C-A6B12986D3123FC7.jpeg,https://www.nps.gov/common/uploads/structured_data/2A625FD0-AED3-63A2-C91828ED61F916C3.jpg,https://www.nps.gov/common/uploads/structured_data/2B40AD3D-DDDB-2F2E-1CB524F96FF08C4B.jpg,https://www.nps.gov/common/uploads/structured_data/2C9EB52A-BD34-F69C-0149C92FF24E215D.jpg,https://www.nps.gov/common/uploads/structured_data/2D096B53-E322-75F6-A065872E1CAB9EE6.jpg}	2024-03-20 13:53:58.85-06
+11	Channel Islands National Park	Channel Islands National Park encompasses five remarkable islands and their ocean environment, preserving and protecting a wealth of natural and cultural resources. Isolation over thousands of years has created unique animals, plants, and archeological resources found nowhere else on Earth and helped preserve a place where visitors can experience coastal southern California as it once was.	33.98680093	-119.9112735	CA	{https://www.nps.gov/common/uploads/structured_data/8DE774D1-CB22-37F2-D826E3F0A73D303A.jpg,https://www.nps.gov/common/uploads/structured_data/8E0CA65D-0CF8-87C6-DE4B4AA7AAC02DEA.jpg,https://www.nps.gov/common/uploads/structured_data/8DF30150-D91A-D761-4A5064BA77154E2C.jpg,https://www.nps.gov/common/uploads/structured_data/8E1AE30B-DBDB-C193-C1023F2C7591ABA0.jpg,https://www.nps.gov/common/uploads/structured_data/8E003516-C693-8617-61EC2F2E06BA1E45.jpg}	2024-03-20 13:53:58.875-06
+12	Congaree National Park	Astonishing biodiversity exists in Congaree National Park, the largest intact expanse of old growth bottomland hardwood forest remaining in the southeastern United States. Waters from the Congaree and Wateree Rivers sweep through the floodplain, carrying nutrients and sediments that nourish and rejuvenate this ecosystem and support the growth of national and state champion trees.	33.79187523	-80.74867805	SC	{https://www.nps.gov/common/uploads/structured_data/3C862C60-1DD8-B71B-0BB65F7B652BA840.jpg}	2024-03-20 13:53:58.916-06
+13	Crater Lake National Park	Crater Lake inspires awe. Native Americans witnessed its formation 7,700 years ago, when a violent eruption triggered the collapse of a tall peak. Scientists marvel at its purity—fed by rain and snow, it’s the deepest lake in the USA and one of the most pristine on Earth. Artists, photographers, and sightseers gaze in wonder at its blue water and stunning setting atop the Cascade Mountain Range.	42.94065854	-122.1338414	OR	{https://www.nps.gov/common/uploads/structured_data/3C7B227E-1DD8-B71B-0BEECDD24771C381.jpg,https://www.nps.gov/common/uploads/structured_data/3C7B23C5-1DD8-B71B-0B4F2400855714FA.jpg,https://www.nps.gov/common/uploads/structured_data/3C7B2524-1DD8-B71B-0B84C60FF964D102.jpg,https://www.nps.gov/common/uploads/structured_data/3C7B26D3-1DD8-B71B-0B939039D597B9A3.jpg,https://www.nps.gov/common/uploads/structured_data/3C7B28BD-1DD8-B71B-0B3EA88108473DEA.jpg,https://www.nps.gov/common/uploads/structured_data/3C7B2A16-1DD8-B71B-0B181596A537FAE3.jpg,https://www.nps.gov/common/uploads/structured_data/3C7B2B97-1DD8-B71B-0B8A0028F7FBEC27.jpg,https://www.nps.gov/common/uploads/structured_data/3C7B2D3B-1DD8-B71B-0B39E67A3DC57E94.jpg}	2024-03-20 13:53:58.94-06
+14	Cuyahoga Valley National Park	Though a short distance from the urban areas of Cleveland and Akron, Cuyahoga Valley National Park seems worlds away. The park is a refuge for native plants and wildlife, and provides routes of discovery for visitors. The winding Cuyahoga River gives way to deep forests, rolling hills, and open farmlands. Walk or ride the Towpath Trail to follow the historic route of the Ohio & Erie Canal.	41.26093905	-81.57116722	OH	{https://www.nps.gov/common/uploads/structured_data/F7425874-D97F-BFD6-36581A36C8A7FF0D.jpg,https://www.nps.gov/common/uploads/structured_data/F78A31A2-D7AD-F384-BEFACB28E45B7608.jpg,https://www.nps.gov/common/uploads/structured_data/F7E15C5E-AF19-2C8B-7BC519C9BBDB06CC.jpg,https://www.nps.gov/common/uploads/structured_data/F82FA0CD-D84B-D131-1A778346760D24FB.jpg,https://www.nps.gov/common/uploads/structured_data/F8E08661-CAAB-331C-C3AD53B479822346.jpg}	2024-03-20 13:53:58.999-06
+15	Death Valley National Park	In this below-sea-level basin, steady drought and record summer heat make Death Valley a land of extremes. Yet, each extreme has a striking contrast. Towering peaks are frosted with winter snow. Rare rainstorms bring vast fields of wildflowers. Lush oases harbor tiny fish and refuge for wildlife and humans. Despite its morbid name, a great diversity of life thrives in Death Valley.	36.48753731	-117.134395	CA,NV	{https://www.nps.gov/common/uploads/structured_data/010A933C-95B1-CBCD-D6D64D47D5B81E76.jpg,https://www.nps.gov/common/uploads/structured_data/3C7EC929-1DD8-B71B-0B6F8851F7D62846.jpg,https://www.nps.gov/common/uploads/structured_data/011D09CC-B05F-EFA0-820E55431CFBE5FE.jpg,https://www.nps.gov/common/uploads/structured_data/016AF1A5-E794-213A-6016B3C10486CF7E.jpg,https://www.nps.gov/common/uploads/structured_data/DE565754-0008-EEF4-AD521ED16178ADEA.jpg,https://www.nps.gov/common/uploads/structured_data/DE627F5D-DE99-659B-7F55B12323533BFC.jpg,https://www.nps.gov/common/uploads/structured_data/1A18EC97-EB1E-7D32-05BE1B8D08719225.jpg,https://www.nps.gov/common/uploads/structured_data/DEF5FFF0-0C8A-00A5-F2EA8F279F1DF876.jpg,https://www.nps.gov/common/uploads/structured_data/DF10832A-92CD-9646-134739E0F537887E.jpg}	2024-03-20 13:53:59.038-06
+16	Denali National Park & Preserve	Denali is six million acres of wild land, bisected by one ribbon of road. Travelers along it see the relatively low-elevation taiga forest give way to high alpine tundra and snowy mountains, culminating in North America's tallest peak, 20,310' Denali. Wild animals large and small roam un-fenced lands, living as they have for ages. Solitude, tranquility and wilderness await.	63.29777484	-151.0526568	AK	{https://www.nps.gov/common/uploads/structured_data/3C83CC90-1DD8-B71B-0B1F35E5ED96E36F.jpg,https://www.nps.gov/common/uploads/structured_data/3C83C9C7-1DD8-B71B-0B9B669ED961F97E.jpg,https://www.nps.gov/common/uploads/structured_data/FC6D4E23-02EE-B80D-09D9ECF7C334566E.jpg,https://www.nps.gov/common/uploads/structured_data/3C83CB1A-1DD8-B71B-0BBB071EB28A90FD.jpg,https://www.nps.gov/common/uploads/structured_data/FC76414B-E76C-63E7-C399A03433D924FE.jpg,https://www.nps.gov/common/uploads/structured_data/FC7B6DBE-B7A8-DC59-246E01A289DBF21E.jpg,https://www.nps.gov/common/uploads/structured_data/FC83BEFE-AE6C-5FF4-B24723DEBC350D5B.jpg,https://www.nps.gov/common/uploads/structured_data/FC8ECC8C-A531-46F8-0D60DF1C84105DBE.jpg,https://www.nps.gov/common/uploads/structured_data/FC931BD0-F8BD-057C-1A1C1B165BCADB38.jpg,https://www.nps.gov/common/uploads/structured_data/FC9EB92D-D2C5-B46F-3F9B7E4D1FC7EEE6.jpg}	2024-03-20 13:53:59.071-06
+17	Dry Tortugas National Park	Almost 70 miles (113 km) west of Key West lies the remote Dry Tortugas National Park. This 100-square mile park is mostly open water with seven small islands. Accessible only by boat or seaplane, the park is known the world over as the home of magnificent Fort Jefferson, picturesque blue waters, superlative coral reefs and marine life, and the vast assortment of bird life that frequents the area.	24.628741	-82.87319	FL	{https://www.nps.gov/common/uploads/structured_data/3C81050F-1DD8-B71B-0B45EDC68B621860.jpg,https://www.nps.gov/common/uploads/structured_data/3C80FF02-1DD8-B71B-0B39AC51BF7B2FA2.jpg,https://www.nps.gov/common/uploads/structured_data/3C8103D0-1DD8-B71B-0B6DB5CF9A4AC58F.jpg,https://www.nps.gov/common/uploads/structured_data/3C810626-1DD8-B71B-0B1DFF7BCF9A0682.jpg,https://www.nps.gov/common/uploads/structured_data/3C810258-1DD8-B71B-0BE07AC43C736990.jpg,https://www.nps.gov/common/uploads/structured_data/3C810049-1DD8-B71B-0B0040641619D4A6.jpg,https://www.nps.gov/common/uploads/structured_data/3C810722-1DD8-B71B-0BAD4B445F0C3D8C.jpg}	2024-03-20 13:53:59.112-06
+18	Everglades National Park	Everglades National Park protects an unparalleled landscape that provides important habitat for numerous rare and endangered species like the manatee, American crocodile, and the elusive Florida panther. An international treasure as well - a World Heritage Site, International Biosphere Reserve, a Wetland of International Importance, and a specially protected area under the Cartagena Treaty.	25.37294225	-80.88200301	FL	{https://www.nps.gov/common/uploads/structured_data/17EC840E-9926-2E09-F2DD47A282915BBB.jpg,https://www.nps.gov/common/uploads/structured_data/3C854681-1DD8-B71B-0BA4F6D9379336DF.jpg,https://www.nps.gov/common/uploads/structured_data/3C8547ED-1DD8-B71B-0B596F29F0A9A60B.jpg,https://www.nps.gov/common/uploads/structured_data/3C85E60F-1DD8-B71B-0BAB4F7583E96025.jpg,https://www.nps.gov/common/uploads/structured_data/3C85E70B-1DD8-B71B-0B7C75649CCDB907.jpg,https://www.nps.gov/common/uploads/structured_data/3C85F532-1DD8-B71B-0BFC5BB51D8AB675.jpg}	2024-03-20 13:53:59.136-06
+19	Gates Of The Arctic National Park & Preserve	This vast landscape does not contain any roads or trails. Visitors discover intact ecosystems where people have lived with the land for over ten thousand years. Wild rivers meander through glacier-carved valleys, caribou migrate along age-old trails, endless summer light fades into aurora-lit night skies of winter. Virtually unchanged, except by the forces of nature.	67.75961636	-153.2917758	AK	{https://www.nps.gov/common/uploads/structured_data/3C7A8B6B-1DD8-B71B-0B8B89FE0C6B6F4F.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A89F4-1DD8-B71B-0B52204A2EBF61A4.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A8CFC-1DD8-B71B-0BF455202A395DA6.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A8E6D-1DD8-B71B-0B34C967D29F5940.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A8FC3-1DD8-B71B-0BB9EF068FF8EFF7.jpg}	2024-03-20 13:53:59.176-06
+20	Gateway Arch National Park	The Gateway Arch reflects St. Louis' role in the Westward Expansion of the United States during the nineteenth century. The park is a memorial to Thomas Jefferson's role in opening the West, to the pioneers who helped shape its history, and to Dred Scott who sued for his freedom in the Old Courthouse.	38.6258069	-90.1892508	MO	{https://www.nps.gov/common/uploads/structured_data/200BA7E6-D782-9A97-A8C36AC178DEB31C.jpg,https://www.nps.gov/common/uploads/structured_data/3C7BE538-1DD8-B71B-0BFF11B2DBCF6E6E.jpg,https://www.nps.gov/common/uploads/structured_data/348E44EA-F431-FA18-DCB014F7BAA8D225.jpg,https://www.nps.gov/common/uploads/structured_data/34E649C6-F06F-EB7F-0F9B8B092450772F.jpg,https://www.nps.gov/common/uploads/structured_data/51613AEB-9CC1-53CF-90B993791222A9CB.jpg,https://www.nps.gov/common/uploads/structured_data/3C7BE38B-1DD8-B71B-0BBBE77BE3A2180A.jpg,https://www.nps.gov/common/uploads/structured_data/347D5E5B-B4B0-917D-A3F2C03D113E911E.jpg,https://www.nps.gov/common/uploads/structured_data/3C7BD9B5-1DD8-B71B-0B598216CE4E46D0.jpg,https://www.nps.gov/common/uploads/structured_data/210F20E5-CC93-0F9A-2A188CA8A29F29CC.jpg,https://www.nps.gov/common/uploads/structured_data/0BEDA5BC-0EEE-7EE5-17B82A3F665BB398.jpg}	2024-03-20 13:53:59.189-06
+21	Glacier Bay National Park & Preserve	Covering 3.3 million acres of rugged mountains, dynamic glaciers, temperate rainforest, wild coastlines and deep sheltered fjords, Glacier Bay National Park is a highlight of Alaska's Inside Passage and part of a 25-million acre World Heritage Site—one of the world’s largest international protected areas. From sea to summit, Glacier Bay offers limitless opportunities for adventure and inspiration.	58.80086718	-136.8407579	AK	{https://www.nps.gov/common/uploads/structured_data/3C791618-1DD8-B71B-0B113FBF2EC1D614.jpg,https://www.nps.gov/common/uploads/structured_data/3C790BBF-1DD8-B71B-0B0AE92D0B9C24EB.jpg,https://www.nps.gov/common/uploads/structured_data/3C790D9C-1DD8-B71B-0B4327321DED12AE.jpg,https://www.nps.gov/common/uploads/structured_data/3C790F92-1DD8-B71B-0BDF3774E82CB555.jpg,https://www.nps.gov/common/uploads/structured_data/3C79135D-1DD8-B71B-0BDF788A6D50B7A9.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A0EE5-1DD8-B71B-0BADF220CB5F20BE.jpg}	2024-03-20 13:53:59.207-06
+22	Glacier National Park	A showcase of melting glaciers, alpine meadows, carved valleys, and spectacular lakes. With over 700 miles of trails, Glacier is a paradise for adventurous visitors seeking wilderness steeped in human history. Relive the days of old through historic chalets, lodges, and the famous Going-to-the-Sun Road.	48.68414678	-113.8009306	MT	{https://www.nps.gov/common/uploads/structured_data/C20E6CD3-CDF7-B3AB-8448CDCD7FD590FF.jpg,https://www.nps.gov/common/uploads/structured_data/C19B20BB-C8CC-5BAB-22E3CA6AF9B2B67C.jpg,https://www.nps.gov/common/uploads/structured_data/3C7FF648-1DD8-B71B-0B074AA63C93947A.jpg,https://www.nps.gov/common/uploads/structured_data/656FC997-DD74-8921-C68040FE1A2CA8D2.jpg,https://www.nps.gov/common/uploads/structured_data/89491DA7-0FDD-BDB9-D0D03D996091EA72.jpg,https://www.nps.gov/common/uploads/structured_data/C1C49B92-9BE9-6A08-F2C851A2A4ACEC8D.jpg,https://www.nps.gov/common/uploads/structured_data/8B6A7473-B676-45CC-5663F191736048A4.jpg}	2024-03-20 13:53:59.239-06
+23	Grand Canyon National Park	Grand Canyon National Park, in Northern Arizona, encompasses 278 miles (447 km) of the Colorado River and adjacent uplands. Located on ancestral homeland of 11 Associated Tribes, Grand Canyon is one of the most spectacular examples of erosion anywhere in the world—unmatched in the incomparable vistas it offers visitors from the rims. The South Rim is open. The North Rim is CLOSED for the winter.	36.0001165336	-112.121516363	AZ	{https://www.nps.gov/common/uploads/structured_data/3C7B12D1-1DD8-B71B-0BCE0712F9CEA155.jpg,https://www.nps.gov/common/uploads/structured_data/3C7B143E-1DD8-B71B-0BD4A1EF96847292.jpg,https://www.nps.gov/common/uploads/structured_data/3C7B15A4-1DD8-B71B-0BFADECB506765CC.jpg,https://www.nps.gov/common/uploads/structured_data/3C7B1720-1DD8-B71B-0B74DCF6F887A960.jpg,https://www.nps.gov/common/uploads/structured_data/2B5BB10B-E098-B63E-6DA18036787C8D6E.jpg}	2024-03-20 13:53:59.285-06
+24	Grand Teton National Park	Soaring over a landscape rich with wildlife, pristine lakes, and majestic alpine vistas, the Teton Range stands as a testament to generations of stewards. For over 11,000 years, communities have thrived in the valley known as Jackson Hole, turning these mountains into more than just peaks—they embody imagination and enduring human connection.	43.81853565	-110.7054666	WY	{https://www.nps.gov/common/uploads/structured_data/3C7FA4C5-1DD8-B71B-0B7FCC54E43FEE79.jpg,https://www.nps.gov/common/uploads/structured_data/3C7FA7B7-1DD8-B71B-0B7B45B73D1C90C3.jpg,https://www.nps.gov/common/uploads/structured_data/3C7FA923-1DD8-B71B-0B30EAF26172B37E.jpg,https://www.nps.gov/common/uploads/structured_data/3C7FAC1D-1DD8-B71B-0B1A9E05DFA2AD10.jpg,https://www.nps.gov/common/uploads/structured_data/3C7FAD94-1DD8-B71B-0B3909D0F78F4B29.jpg,https://www.nps.gov/common/uploads/structured_data/3C7FB060-1DD8-B71B-0BC5EE916AAA7E86.jpg,https://www.nps.gov/common/uploads/structured_data/3C7FBF1F-1DD8-B71B-0B9125A1004AB2D5.jpg,https://www.nps.gov/common/uploads/structured_data/3C7FC084-1DD8-B71B-0BA15A2029FE25D5.jpg,https://www.nps.gov/common/uploads/structured_data/3C7FC1D0-1DD8-B71B-0BE07FCB0A12AC0B.jpg,https://www.nps.gov/common/uploads/structured_data/3C7FC332-1DD8-B71B-0B33576EE630E247.jpg,https://www.nps.gov/common/uploads/structured_data/3C7FC5D7-1DD8-B71B-0BD39976D94BEA47.jpg}	2024-03-20 13:53:59.318-06
+25	Great Basin National Park	From the 13,063-foot summit of Wheeler Peak to the sagebrush-covered foothills, Great Basin National Park hosts a sample of the incredible diversity of the larger Great Basin region. Come and partake of the solitude of the wilderness, walk among ancient bristlecone pines, bask in the darkest of night skies, and explore mysterious subterranean passages. There's a lot more than just desert here.	38.94617378	-114.2579782	NV	{https://www.nps.gov/common/uploads/structured_data/FD29737E-9549-8EF4-90C1076486DE559A.jpeg,https://www.nps.gov/common/uploads/structured_data/5F04461D-A4FD-8285-D2F63B264237D90C.jpg,https://www.nps.gov/common/uploads/structured_data/7B7499DC-0524-6350-FEE17484562DE778.jpg,https://www.nps.gov/common/uploads/structured_data/54B2591D-BE7F-C50A-A1C069132CD3FA1C.jpg,https://www.nps.gov/common/uploads/structured_data/7B044BE0-C96F-A30E-546520529A456B57.jpg,https://www.nps.gov/common/uploads/structured_data/7B10375F-92FE-77A4-A3E83F2F98E7C33D.jpg,https://www.nps.gov/common/uploads/structured_data/7B5F2CE2-010C-9E2E-4A0726C1F4AD4095.jpg,https://www.nps.gov/common/uploads/structured_data/7B308D3B-D910-3EB0-4C04E215333F2C5D.jpg,https://www.nps.gov/common/uploads/structured_data/AED0DAB8-0FB7-5710-46732DF80111AC64.jpg}	2024-03-20 13:53:59.361-06
+26	Great Sand Dunes National Park & Preserve	Open 24/7 year round! There are no limitations, timed entries, or reservations to visit. The tallest dunes in North America are the centerpiece in a diverse landscape of grasslands, wetlands, forests, alpine lakes, and tundra. Stay on a moonless night to experience countless stars in this International Dark Sky Park!	37.79256812	-105.5919572	CO	{https://www.nps.gov/common/uploads/structured_data/BC4ACB4C-0A6D-0188-E9A6AA1217827461.jpg,https://www.nps.gov/common/uploads/structured_data/3C7CE6BD-1DD8-B71B-0B572A2B7842A510.jpg,https://www.nps.gov/common/uploads/structured_data/3C7CFDEA-1DD8-B71B-0B5A198106C9A109.jpg,https://www.nps.gov/common/uploads/structured_data/3C7D0109-1DD8-B71B-0B95485B738AE811.jpg,https://www.nps.gov/common/uploads/structured_data/3C7D0254-1DD8-B71B-0B302F546130C0B3.jpg,https://www.nps.gov/common/uploads/structured_data/3C7D0B9A-1DD8-B71B-0B62FA4120CA0DE8.jpg,https://www.nps.gov/common/uploads/structured_data/B841835F-9E6C-AB24-2A2DCCD0200F302B.jpg,https://www.nps.gov/common/uploads/structured_data/BEB545F8-F6F7-AA30-7B7567CB4A800D66.jpg}	2024-03-20 13:53:59.399-06
+27	Great Smoky Mountains National Park	Ridge upon ridge of forest straddles the border between North Carolina and Tennessee in Great Smoky Mountains National Park. World renowned for its diversity of plant and animal life, the beauty of its ancient mountains, and the quality of its remnants of Southern Appalachian mountain culture, this is America's most visited national park. Plan your visit today!	35.60116374	-83.50818326	NC,TN	{https://www.nps.gov/common/uploads/structured_data/3C80F02B-1DD8-B71B-0BBC2DFD4E9349E9.jpg,https://www.nps.gov/common/uploads/structured_data/3C80EC37-1DD8-B71B-0B87F63E8B030D15.jpg,https://www.nps.gov/common/uploads/structured_data/3C80E3F4-1DD8-B71B-0BFF4F2280EF1B52.jpg,https://www.nps.gov/common/uploads/structured_data/3C80F1CC-1DD8-B71B-0B784AC1BCA74166.jpg,https://www.nps.gov/common/uploads/structured_data/3C80F6C9-1DD8-B71B-0B33F35922A21B3B.jpg,https://www.nps.gov/common/uploads/structured_data/3C80EDBC-1DD8-B71B-0B743AF911FE7557.jpg,https://www.nps.gov/common/uploads/structured_data/3C80EEE2-1DD8-B71B-0BC2620AAA57D7CA.jpg}	2024-03-20 13:53:59.45-06
+28	Guadalupe Mountains National Park	Come experience mountains and canyons, desert and dunes, night skies and spectacular vistas within a place unlike any other. Guadalupe Mountains National Park protects the world's most extensive Permian fossil reef, the four highest peaks in Texas, an environmentally diverse collection of flora and fauna, and the stories of lives shaped through conflict, cooperation and survival.	31.92304462	-104.885527	TX	{https://www.nps.gov/common/uploads/structured_data/3C825533-1DD8-B71B-0B6FDF436F604A3C.jpg,https://www.nps.gov/common/uploads/structured_data/3C825A11-1DD8-B71B-0BAAA0BDF174AA2F.jpg,https://www.nps.gov/common/uploads/structured_data/3C8256DA-1DD8-B71B-0B7E4BE83A8B56F9.jpg,https://www.nps.gov/common/uploads/structured_data/3C82588D-1DD8-B71B-0B233383D71368EB.jpg,https://www.nps.gov/common/uploads/structured_data/3C82A652-1DD8-B71B-0B7E219169341CAD.jpg,https://www.nps.gov/common/uploads/structured_data/AC3F41C8-CB05-1F59-18AFF80496BA94D1.jpg}	2024-03-20 13:53:59.483-06
+29	Haleakalā National Park	This special place vibrates with stories of ancient and modern Hawaiian culture and protects the bond between the land and its people. The park also cares for endangered species, some of which exist nowhere else. Come visit this special place - renew your spirit amid stark volcanic landscapes and sub-tropical rain forest with an unforgettable hike through the backcountry.	20.70693015	-156.1591775	HI	{https://www.nps.gov/common/uploads/structured_data/3D05E583-1DD8-B71B-0BBFF82F7F78AF6A.jpg,https://www.nps.gov/common/uploads/structured_data/3D3323B6-1DD8-B71B-0B78ACA534C1D05E.jpg,https://www.nps.gov/common/uploads/structured_data/3D771172-1DD8-B71B-0B981DA08B1FE163.jpg,https://www.nps.gov/common/uploads/structured_data/3C87A368-1DD8-B71B-0BD44B189D0D9368.jpg}	2024-03-20 13:53:59.5-06
+30	Hawaiʻi Volcanoes National Park	Hawai‘i Volcanoes National Park protects some of the most unique geological, biological, and cherished cultural landscapes in the world. Extending from sea level to 13,680 feet, the park encompasses the summits of two of the world's most active volcanoes - Kīlauea and Mauna Loa - and is a designated International Biosphere Reserve and UNESCO World Heritage Site.	19.3355036	-155.4700257	HI	{https://www.nps.gov/common/uploads/structured_data/C4E8415A-08E5-5976-833F494FFCA3FFE6.jpg,https://www.nps.gov/common/uploads/structured_data/C5AEDF53-AE4A-F6DB-2FBA7BE158386C0E.jpg,https://www.nps.gov/common/uploads/structured_data/C5D3655B-BF42-2E22-8068376035581BB2.jpg,https://www.nps.gov/common/uploads/structured_data/C69391EE-FBFA-BC85-885A49C4BD5CEC8D.jpg,https://www.nps.gov/common/uploads/structured_data/C8E997AB-E2A8-0AE2-346A65CEE6B0FD30.jpg,https://www.nps.gov/common/uploads/structured_data/C4C64AE6-092B-A593-7727CAE9487AC462.jpg,https://www.nps.gov/common/uploads/structured_data/C44A654D-DEFB-02B3-2EECDD47FA6BF2D8.jpg,https://www.nps.gov/common/uploads/structured_data/C524CE8E-BE01-B3D1-E9ED35AC2B79F2ED.jpg,https://www.nps.gov/common/uploads/structured_data/C6149CE4-DFB9-DECE-57311912C897C228.jpg,https://www.nps.gov/common/uploads/structured_data/C6730400-9060-5187-6DA91D10ADF30A99.jpg,https://www.nps.gov/common/uploads/structured_data/C63A45B4-9A0C-F1E4-39696608B85665D0.jpg,https://www.nps.gov/common/uploads/structured_data/7BCCBFDD-FDEB-2162-BD15DB1561BE5DA8.jpg,https://www.nps.gov/common/uploads/structured_data/7AE7B515-91B9-74CF-65F0E0D99C6C78EE.jpg,https://www.nps.gov/common/uploads/structured_data/7B6470EF-A9BB-8B7F-4D5991FC840700A9.jpg,https://www.nps.gov/common/uploads/structured_data/7C58F90C-0AB8-DF2A-1543251CCBBEF9D7.jpg,https://www.nps.gov/common/uploads/structured_data/7ABCA1B9-F4F9-660F-1752379E4517F1EE.jpg}	2024-03-20 13:53:59.51-06
+31	Hot Springs National Park	Hot Springs National Park has a rich cultural past. The grand architecture of our historic bathhouses is equally matched by the natural curiosities that have been drawing people here for hundreds of years. Ancient thermal springs, mountain views, incredible geology, forested hikes, and abundant creeks – all in the middle of town – make Hot Springs National Park a unique and beautiful destination.	34.52414366	-93.06332936	AR	{https://www.nps.gov/common/uploads/structured_data/C0D8DFDD-F151-C5B0-3004B0088C98BA5A.jpg,https://www.nps.gov/common/uploads/structured_data/C13C707D-B623-9D92-5CF6C917AA1B9078.jpg,https://www.nps.gov/common/uploads/structured_data/C11CC032-E6FC-33A3-A850BBC58A6DBD3C.jpg,https://www.nps.gov/common/uploads/structured_data/2417D601-FF9E-BFD8-5C6BD4375064FAD1.jpg,https://www.nps.gov/common/uploads/structured_data/23BF1E9D-A964-3BFE-BDEBFB703DE79463.jpeg,https://www.nps.gov/common/uploads/structured_data/23D55284-B7DD-D42F-4689A73DDA1DC0B9.jpg,https://www.nps.gov/common/uploads/structured_data/243E69E8-B5AB-6E14-DDD7BF3A6FEFE437.jpg,https://www.nps.gov/common/uploads/structured_data/C14F1D4A-FAF7-A20F-163F60EBF0B127F9.jpg,https://www.nps.gov/common/uploads/structured_data/245F811B-A97D-0C77-41A3D373703FB1FB.jpg,https://www.nps.gov/common/uploads/structured_data/C189E13D-FC70-0C3B-AFE8915E5B27F434.jpg,https://www.nps.gov/common/uploads/structured_data/C1A14390-C25E-5A82-BA89C2004C3A526B.jpg}	2024-03-20 13:53:59.527-06
+32	Indiana Dunes National Park	Lake Michigan's might has influenced Indiana Dunes for millennia. Wind and waves have shaped the land, leaving a rich mosaic of habitats along these 15 miles of Indiana coast. Over 50 miles of trails lead through shifting sand dunes, quiet woodlands, sunny prairies and lush wetlands. Known for its striking plant and bird diversity, it's easy to find inspiration throughout the park’s 15,000 acres.	41.63765525	-87.09647445	IN	{https://www.nps.gov/common/uploads/structured_data/9253EDFB-AAFD-E111-B985CD2747F5C48F.jpg,https://www.nps.gov/common/uploads/structured_data/3C7E501C-1DD8-B71B-0B78424BE2B09114.jpg,https://www.nps.gov/common/uploads/structured_data/3C7E49C3-1DD8-B71B-0B66A187F21A2292.jpg,https://www.nps.gov/common/uploads/structured_data/93317C03-A0F6-3587-DEFBDE06D879DF16.jpg,https://www.nps.gov/common/uploads/structured_data/3C7E3FE9-1DD8-B71B-0B4F1EBF7C0CFE04.jpg,https://www.nps.gov/common/uploads/structured_data/3C7E4345-1DD8-B71B-0B1054DD51E7798B.jpg,https://www.nps.gov/common/uploads/structured_data/3C7E4682-1DD8-B71B-0B750F94FDF9DFDC.jpg,https://www.nps.gov/common/uploads/structured_data/3C7E4819-1DD8-B71B-0B1F99B8AFB5C9AA.jpg}	2024-03-20 13:53:59.548-06
+33	Isle Royale National Park	Explore a rugged, isolated island far from our connected communities. Isle Royale offers adventures for backpackers, hikers, boaters, paddlers, and divers. Cross Lake Superior and make a commitment: Become a part of this island, and let it become a part of you. Find peace and refuge in island wilderness – because Isle Royale, in turn, finds refuge in us. Help Isle Royale stay wild.	48.01145819	-88.82780657	MI	{https://www.nps.gov/common/uploads/structured_data/6059CAD8-02E8-2E00-2922DF84800167E0.jpg,https://www.nps.gov/common/uploads/structured_data/3C7AC799-1DD8-B71B-0B4E94DE10F014E5.jpg,https://www.nps.gov/common/uploads/structured_data/3C7AC355-1DD8-B71B-0B9C2F07853F39F1.jpg,https://www.nps.gov/common/uploads/structured_data/3C7AC4C1-1DD8-B71B-0B8592CA6634ABEE.jpg,https://www.nps.gov/common/uploads/structured_data/3C7AC638-1DD8-B71B-0BD28B3407821A15.jpg,https://www.nps.gov/common/uploads/structured_data/3C7AC8F5-1DD8-B71B-0B661B7FF90F5407.jpg}	2024-03-20 13:53:59.581-06
+34	Joshua Tree National Park	Two distinct desert ecosystems, the Mojave and the Colorado, come together in Joshua Tree National Park. A fascinating variety of plants and animals make their homes in a land sculpted by strong winds and occasional torrents of rain. Dark night skies, a rich cultural history, and surreal geologic features add to the wonder of this vast wilderness in southern California. Come explore for yourself!	33.91418525	-115.8398125	CA	{https://www.nps.gov/common/uploads/structured_data/306D0D93-9CCA-76E1-AD48268F8D7A7E3E.jpg,https://www.nps.gov/common/uploads/structured_data/3C85E84D-1DD8-B71B-0B188E7820D60F14.jpg,https://www.nps.gov/common/uploads/structured_data/3C85EA46-1DD8-B71B-0B28B646B53F0C37.jpg,https://www.nps.gov/common/uploads/structured_data/3C85EF02-1DD8-B71B-0B467F2B5F7483AC.jpg,https://www.nps.gov/common/uploads/structured_data/3C85EC5C-1DD8-B71B-0B3B00469411625A.jpg,https://www.nps.gov/common/uploads/structured_data/3C85E941-1DD8-B71B-0BCAA9F8A0BD4E0F.jpg,https://www.nps.gov/common/uploads/structured_data/3C85EDAE-1DD8-B71B-0B3E7EAC7E299A23.jpg,https://www.nps.gov/common/uploads/structured_data/3C85EB5A-1DD8-B71B-0BACA59CC5E5A620.jpg}	2024-03-20 13:53:59.609-06
+35	Katmai National Park & Preserve	A landscape is alive underneath our feet, filled with creatures that remind us what it is to be wild. Katmai was established in 1918 to protect the volcanically devastated region surrounding Novarupta and the Valley of Ten Thousand Smokes. Today, Katmai National Park and Preserve also protects 9,000 years of human history and important habitat for salmon and thousands of brown bears.	58.62235668	-155.0126574	AK	{https://www.nps.gov/common/uploads/structured_data/3C7A0FDB-1DD8-B71B-0B8933ACA92FE6B3.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A32DB-1DD8-B71B-0B37F66E9D0832AF.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A3473-1DD8-B71B-0B65158B5807CE0D.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A35BF-1DD8-B71B-0BB1644AA6CF4C8B.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A3776-1DD8-B71B-0BB94C2392CD5B01.jpg}	2024-03-20 13:53:59.635-06
+36	Kenai Fjords National Park	At the edge of the Kenai Peninsula lies a land where the ice age lingers. Nearly 40 glaciers flow from the Harding Icefield, Kenai Fjords' crowning feature. Wildlife thrives in icy waters and lush forests around this vast expanse of ice. Sugpiaq people relied on these resources to nurture a life entwined with the sea. Today, shrinking glaciers bear witness to the effects of our changing climate.	59.81804414	-150.106502	AK	{https://www.nps.gov/common/uploads/structured_data/3C798EAB-1DD8-B71B-0BC4BEFB197F2C90.jpg,https://www.nps.gov/common/uploads/structured_data/3C7DE352-1DD8-B71B-0B35831ADF254DE0.jpg,https://www.nps.gov/common/uploads/structured_data/3C7DE50D-1DD8-B71B-0B23431BC04ACB33.jpg,https://www.nps.gov/common/uploads/structured_data/3C7DE88C-1DD8-B71B-0B3F02FD7F30F1AF.jpg,https://www.nps.gov/common/uploads/structured_data/3C7DEEE0-1DD8-B71B-0B7B85B29F07C371.jpg}	2024-03-20 13:53:59.661-06
+37	Kobuk Valley National Park	Caribou, sand dunes, the Kobuk River, Onion Portage - just some of the facets of Kobuk Valley National Park. Thousands of caribou migrate through, their tracks crisscrossing sculpted dunes. The Kobuk River is an ancient and current corridor for people and wildlife. For 9000 years, people came to Onion Portage to harvest caribou as they swam the river. Even today, that rich tradition continues.	67.35631336	-159.2002293	AK	{https://www.nps.gov/common/uploads/structured_data/3C7A1214-1DD8-B71B-0B00D823BD9BF4CF.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A134A-1DD8-B71B-0B3C2789713B6113.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A147D-1DD8-B71B-0BCC5182A7F0918A.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A1563-1DD8-B71B-0B76572CC32EBD25.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A168D-1DD8-B71B-0B5167863DD39B57.jpg}	2024-03-20 13:53:59.689-06
+38	Lake Clark National Park & Preserve	Lake Clark National Park and Preserve is a land of stunning beauty. Volcanoes steam, salmon run, bears forage, and craggy mountains reflect in shimmering turquoise lakes. Here, too, local people and culture still depend on the land and water. Venture into the park to become part of the wilderness.	60.57405857	-153.55535	AK	{https://www.nps.gov/common/uploads/structured_data/3C7A9F9E-1DD8-B71B-0B6CEC8EF3F377DA.jpg,https://www.nps.gov/common/uploads/structured_data/3C7AA462-1DD8-B71B-0BB13D97381C04B0.jpg,https://www.nps.gov/common/uploads/structured_data/3C7AA140-1DD8-B71B-0BE3ECC0A8EE0DE5.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A9D02-1DD8-B71B-0B154E93FCC5D7F9.jpg,https://www.nps.gov/common/uploads/structured_data/C521C4DB-C6CB-EB6B-242225CB76BAB42E.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A9BBB-1DD8-B71B-0BD4675D87449A15.jpg,https://www.nps.gov/common/uploads/structured_data/3C7AA70A-1DD8-B71B-0BCA87C6E2CA136E.jpg,https://www.nps.gov/common/uploads/structured_data/3C7AA5B4-1DD8-B71B-0BCD819BADB29D2E.jpg,https://www.nps.gov/common/uploads/structured_data/3C7AA314-1DD8-B71B-0B5E93E5AD68E6D5.jpg}	2024-03-20 13:53:59.708-06
+39	Lassen Volcanic National Park	Lassen Volcanic National Park is home to steaming fumaroles, meadows freckled with wildflowers, clear mountain lakes, and numerous volcanoes. Jagged peaks tell the story of its eruptive past while hot water continues to shape the land.	40.49354575	-121.4075993	CA	{https://www.nps.gov/common/uploads/structured_data/3C873811-1DD8-B71B-0B9C62ED8E12E7B5.jpg,https://www.nps.gov/common/uploads/structured_data/3C8739BB-1DD8-B71B-0B8336A925B1A6C7.jpg,https://www.nps.gov/common/uploads/structured_data/3C873B2E-1DD8-B71B-0B28C044BC4B9DC6.jpg,https://www.nps.gov/common/uploads/structured_data/3C873CC3-1DD8-B71B-0B076FC2806DF140.jpg,https://www.nps.gov/common/uploads/structured_data/3C873E3A-1DD8-B71B-0BBD47F2E441D2F7.jpg,https://www.nps.gov/common/uploads/structured_data/3C874252-1DD8-B71B-0B6BC0D39B9A51C2.jpg,https://www.nps.gov/common/uploads/structured_data/3C8743DC-1DD8-B71B-0B1DE16014F1A63F.jpg}	2024-03-20 13:53:59.737-06
+40	Mammoth Cave National Park	Rolling hills, deep river valleys, and the world's longest known cave system. Mammoth Cave National Park is home to thousands of years of human history and a rich diversity of plant and animal life, earning it the title of UNESCO World Heritage Site and International Biosphere Reserve.	37.19760458	-86.13090198	KY	{https://www.nps.gov/common/uploads/structured_data/95EAA431-F26B-66EB-E9E6B108F47F70B0.jpg,https://www.nps.gov/common/uploads/structured_data/947D4300-ECE7-A506-8A6FF2BA4AECCFBB.jpg,https://www.nps.gov/common/uploads/structured_data/94A76787-FA1B-8DC8-71277FDFA5E7CC79.jpg,https://www.nps.gov/common/uploads/structured_data/94F61E66-ACE7-ED8C-FC411F6BFDD80490.jpg,https://www.nps.gov/common/uploads/structured_data/9472C6B0-DF25-7F27-BA8D162F34D2CB2F.jpg,https://www.nps.gov/common/uploads/structured_data/95357AD9-E6A5-DDCF-432D3E3832808431.jpg,https://www.nps.gov/common/uploads/structured_data/958C8BC3-9657-7E73-D0697F507A869B69.jpg}	2024-03-20 13:53:59.786-06
+41	Mesa Verde National Park	For over 700 years, the Ancestral Pueblo people built thriving communities on the mesas and in the cliffs of Mesa Verde. Today, the park protects the rich cultural heritage of 26 Pueblos and Tribes and offers visitors a spectacular window into the past. This World Heritage Site and International Dark Sky Park is home to over a thousand species, including several that live nowhere else on earth.	37.23908345	-108.4624032	CO	{https://www.nps.gov/common/uploads/structured_data/3C7C0089-1DD8-B71B-0BC397BA671C0616.jpg,https://www.nps.gov/common/uploads/structured_data/3C7C0207-1DD8-B71B-0B74281D9C40EAB9.jpg,https://www.nps.gov/common/uploads/structured_data/3C7C0371-1DD8-B71B-0B50861380661D68.jpg,https://www.nps.gov/common/uploads/structured_data/3C7C04EC-1DD8-B71B-0BD94A784A808041.jpg,https://www.nps.gov/common/uploads/structured_data/3C7C0716-1DD8-B71B-0B441C4B55F42D92.jpg,https://www.nps.gov/common/uploads/structured_data/3C7C0874-1DD8-B71B-0B223C1FF22A5351.jpg,https://www.nps.gov/common/uploads/structured_data/843DFA61-1DD8-B71B-0B2CA37EAC5F6718.jpg}	2024-03-20 13:53:59.834-06
+42	Mount Rainier National Park	Ascending to 14,410 feet above sea level, Mount Rainier stands as an icon in the Washington landscape. An active volcano, Mount Rainier is the most glaciated peak in the contiguous U.S.A., spawning five major rivers. Subalpine wildflower meadows ring the icy volcano while ancient forest cloaks Mount Rainier’s lower slopes. Wildlife abounds in the park’s ecosystems. A lifetime of discovery awaits.	46.86075416	-121.7043885	WA	{https://www.nps.gov/common/uploads/structured_data/49F34094-B893-7DD6-5AE0F0220724B0EF.jpg,https://www.nps.gov/common/uploads/structured_data/3C7CEEF2-1DD8-B71B-0B9F3B666327E5D1.jpg,https://www.nps.gov/common/uploads/structured_data/3C7C6C47-1DD8-B71B-0BFF9108D08A7FD3.jpg,https://www.nps.gov/common/uploads/structured_data/3C7C6D8C-1DD8-B71B-0BA69E7F583E25A5.jpg,https://www.nps.gov/common/uploads/structured_data/3C7CECB5-1DD8-B71B-0B54548D95910CF4.jpg,https://www.nps.gov/common/uploads/structured_data/3C7C68E6-1DD8-B71B-0B42E9A3C7ECA52D.jpg,https://www.nps.gov/common/uploads/structured_data/3C7C6EE9-1DD8-B71B-0B62C52C6844CC70.jpg,https://www.nps.gov/common/uploads/structured_data/3C7C6A93-1DD8-B71B-0BA75B16C5FA3690.jpeg,https://www.nps.gov/common/uploads/structured_data/1FD67031-C1A8-4462-6B815FF24500A576.jpeg}	2024-03-20 13:53:59.872-06
+43	New River Gorge National Park & Preserve	A rugged, whitewater river flowing northward through deep canyons, the New River is among the oldest rivers on the continent. The park encompasses over 70,000 acres of land along the New River, is rich in cultural and natural history, and offers an abundance of scenic and recreational opportunities.	37.86878554	-80.99956002	WV	{https://www.nps.gov/common/uploads/structured_data/3C7E8C70-1DD8-B71B-0B00C7B2373E386E.jpg,https://www.nps.gov/common/uploads/structured_data/3C7E8DAE-1DD8-B71B-0B9B0DDABB90EA30.jpg,https://www.nps.gov/common/uploads/structured_data/3C7E8F1F-1DD8-B71B-0B03B737CD7AE489.jpg,https://www.nps.gov/common/uploads/structured_data/3C7E907D-1DD8-B71B-0B502C95583F514E.jpg,https://www.nps.gov/common/uploads/structured_data/3C7E91DA-1DD8-B71B-0B508B9CB06C681E.jpg,https://www.nps.gov/common/uploads/structured_data/3C7E9441-1DD8-B71B-0BED7246643E6693.jpg,https://www.nps.gov/common/uploads/structured_data/3C7E95AB-1DD8-B71B-0BB9F0FCDF99420B.jpg,https://www.nps.gov/common/uploads/structured_data/3C7E96DD-1DD8-B71B-0B515196575EBFE2.jpg}	2024-03-20 13:53:59.911-06
+44	North Cascades National Park	Less than three hours from Seattle, an alpine landscape beckons. Discover communities of life adapted to moisture in the west and recurring fire in the east. Explore jagged peaks crowned by more than 300 glaciers. Listen to cascading waters in forested valleys. Witness a landscape sensitive to the Earth's changing climate. Help steward the ecological heart of the Cascades.	48.71171756	-121.2069423	WA	{https://www.nps.gov/common/uploads/structured_data/3C7A599D-1DD8-B71B-0BBDC12BEC5107B5.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A5B0D-1DD8-B71B-0B1104A95B7A2026.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A5CC2-1DD8-B71B-0BC0F615561921EE.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A5E46-1DD8-B71B-0B63BF950D3D6FB2.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A5FF6-1DD8-B71B-0BAAFB88D0A3DC08.jpg}	2024-03-20 13:53:59.947-06
+45	Olympic National Park	With its incredible range of precipitation and elevation, diversity is the hallmark of Olympic National Park. Encompassing nearly a million acres, the park protects a vast wilderness, thousands of years of human history, and several distinctly different ecosystems, including glacier-capped mountains, old-growth temperate rain forests, and over 70 miles of wild coastline. Come explore!	47.80392754	-123.6663848	WA	{https://www.nps.gov/common/uploads/structured_data/3C7B1DB4-1DD8-B71B-0B9DFEFDD398DB71.jpg,https://www.nps.gov/common/uploads/structured_data/389CBF78-F250-CB08-78C1AFA0FEFDE68E.jpg,https://www.nps.gov/common/uploads/structured_data/3C7B1C43-1DD8-B71B-0B40240896925A49.jpg,https://www.nps.gov/common/uploads/structured_data/3C7B20CD-1DD8-B71B-0B9ACC145EFE6B99.jpg,https://www.nps.gov/common/uploads/structured_data/38E48259-E38E-825D-87A9943EEEEADDA4.jpg,https://www.nps.gov/common/uploads/structured_data/3C7B1F36-1DD8-B71B-0B367264CE3B4EE8.jpg,https://www.nps.gov/common/uploads/structured_data/3C7B1A8C-1DD8-B71B-0B15D930BD8214F5.jpg}	2024-03-20 13:53:59.971-06
+46	Petrified Forest National Park	Park Hours: 8am to 5pm, MST. Don't forget that Arizona does not observe Daylight Savings. Petrified Forest is best known for its Triassic fossils. It's like having two parks in one, an ecosystem over 200 million years old with plants and animals now represented in the surreal landscape of the Painted Desert. There is also a living park with its own denizens adapted to a demanding environment.	34.98387664	-109.7877678	AZ	{https://www.nps.gov/common/uploads/structured_data/3C7D8213-1DD8-B71B-0BE4A3B9394FD89A.jpg,https://www.nps.gov/common/uploads/structured_data/3C7D83C9-1DD8-B71B-0B294D0F9ABC4B94.jpg,https://www.nps.gov/common/uploads/structured_data/3C7D8582-1DD8-B71B-0BCCD89452609E15.jpg,https://www.nps.gov/common/uploads/structured_data/3C85AF53-1DD8-B71B-0BEF5C1DCFA2038C.jpg,https://www.nps.gov/common/uploads/structured_data/3C85B076-1DD8-B71B-0BE0B8C88713C5B1.jpg,https://www.nps.gov/common/uploads/structured_data/3C85B204-1DD8-B71B-0BC9467E64143CF7.jpg,https://www.nps.gov/common/uploads/structured_data/3C85B311-1DD8-B71B-0B66904CAD8F3429.jpg,https://www.nps.gov/common/uploads/structured_data/3C85B432-1DD8-B71B-0B6CAB3EAEB4B185.jpg,https://www.nps.gov/common/uploads/structured_data/3C85B554-1DD8-B71B-0BA79402AD7E7711.jpg,https://www.nps.gov/common/uploads/structured_data/3C85B660-1DD8-B71B-0B7B3DE8EF746997.jpg,https://www.nps.gov/common/uploads/structured_data/3C85B78F-1DD8-B71B-0B45AC003E5EADA5.jpg,https://www.nps.gov/common/uploads/structured_data/3C85BA2E-1DD8-B71B-0BCC7E46CF3A5E54.jpg,https://www.nps.gov/common/uploads/structured_data/3C85BB38-1DD8-B71B-0B42EE9151DD2175.jpg,https://www.nps.gov/common/uploads/structured_data/3C85BC99-1DD8-B71B-0B8A5ACCF9B0EC09.jpg,https://www.nps.gov/common/uploads/structured_data/3C85BE11-1DD8-B71B-0BFF717908941A06.jpg,https://www.nps.gov/common/uploads/structured_data/3C85BF65-1DD8-B71B-0BE4289889EAD5F6.jpg,https://www.nps.gov/common/uploads/structured_data/3C85C078-1DD8-B71B-0BD76F126AAEA9B3.jpg,https://www.nps.gov/common/uploads/structured_data/3C85C190-1DD8-B71B-0B5317830C7F09DE.jpg,https://www.nps.gov/common/uploads/structured_data/3C85C2AA-1DD8-B71B-0BF5792781E5B474.jpg,https://www.nps.gov/common/uploads/structured_data/3C85C3CB-1DD8-B71B-0B296F95FC7E1D8C.jpg,https://www.nps.gov/common/uploads/structured_data/3C85C4E0-1DD8-B71B-0B7C5271FF8EF1B7.jpg,https://www.nps.gov/common/uploads/structured_data/3C85C6E5-1DD8-B71B-0BC4D0A3D39A6DE2.jpg,https://www.nps.gov/common/uploads/structured_data/3C85CBE9-1DD8-B71B-0B8A5549DD3F55D1.jpg,https://www.nps.gov/common/uploads/structured_data/3C85CD2A-1DD8-B71B-0B4D05CE130B763B.jpg,https://www.nps.gov/common/uploads/structured_data/3C85CE61-1DD8-B71B-0B9F5602A4737BCA.jpg,https://www.nps.gov/common/uploads/structured_data/044BA1B8-1DD8-B71B-0BDCE568A7F4FC60.jpg,https://www.nps.gov/common/uploads/structured_data/0076C680-AA38-F8ED-1B3B94267707127E.jpg}	2024-03-20 13:54:00.015-06
+47	Pinnacles National Park	Some 23 million years ago multiple volcanoes erupted, flowed, and slid to form what would become Pinnacles National Park. What remains is a unique landscape. Travelers journey through chaparral, oak woodlands, and canyon bottoms. Hikers enter rare talus caves and emerge to towering rock spires teeming with life: prairie and peregrine falcons, golden eagles, and the inspiring California condor.	36.49029208	-121.1813607	CA	{https://www.nps.gov/common/uploads/structured_data/3C86A8CB-1DD8-B71B-0BAE8F7141CCBB1B.jpg,https://www.nps.gov/common/uploads/structured_data/3C86AAE7-1DD8-B71B-0BA8BC5E5E895E98.jpg,https://www.nps.gov/common/uploads/structured_data/3C86AE8B-1DD8-B71B-0B3ACEBC064CCC03.jpg,https://www.nps.gov/common/uploads/structured_data/9CCA8ED3-ABB9-CB69-EF4B32F2ADACEC47.jpeg}	2024-03-20 13:54:00.043-06
+48	Redwood National and State Parks	Most people know Redwood as home to the tallest trees on Earth. But the Parks also protect vast prairies, oak woodlands, wild rivers, and 40 miles of rugged coastline. People have lived in this verdant landscape since time immemorial. Together, the National Park Service and California State Parks are managing and restoring these lands for the inspiration, enjoyment, and education of all.	41.37237268	-124.0318129	CA	{https://www.nps.gov/common/uploads/structured_data/CD69DD56-E050-4F4E-DDF622317D38250E.jpg,https://www.nps.gov/common/uploads/structured_data/6B440E44-1DD8-B71B-0B6E95D9C432231F.jpg,https://www.nps.gov/common/uploads/structured_data/13FB649C-1DD8-B71B-0B50D0E826025619.jpg,https://www.nps.gov/common/uploads/structured_data/13C2D9FD-1DD8-B71B-0B3C56643E2A396D.jpg,https://www.nps.gov/common/uploads/structured_data/13E30047-1DD8-B71B-0B03D2E0CECCE8AD.jpg,https://www.nps.gov/common/uploads/structured_data/CCDEEABE-CDBA-3C8D-B3E050B3DE5B0B55.jpg,https://www.nps.gov/common/uploads/structured_data/CCF92345-B3A3-EB66-9AC0BA4298894F7F.jpg,https://www.nps.gov/common/uploads/structured_data/6B56ACA8-1DD8-B71B-0BB0C6228E534168.jpg,https://www.nps.gov/common/uploads/structured_data/1427B3E7-1DD8-B71B-0BFA87FE718FB3A6.jpg,https://www.nps.gov/common/uploads/structured_data/6B306966-1DD8-B71B-0B36E955A7B3205F.jpg,https://www.nps.gov/common/uploads/structured_data/CD559BD9-FAB5-0FA1-F544AB5BF977C571.jpg,https://www.nps.gov/common/uploads/structured_data/CD10755F-F6F1-9725-0FFF20FAACD56BF1.jpg,https://www.nps.gov/common/uploads/structured_data/CD7FF0D6-954C-5A30-38B0BB3145407CB6.jpg,https://www.nps.gov/common/uploads/structured_data/CD347CAF-9229-5308-DA48F5AC29BE8394.jpg,https://www.nps.gov/common/uploads/structured_data/CD204C62-E106-4AE6-4861DDE7AD201D82.jpg,https://www.nps.gov/common/uploads/structured_data/CD447ED8-D2A3-4EE5-DBB86CA142C99433.jpg,https://www.nps.gov/common/uploads/structured_data/CDBF1BA1-E372-7488-7E0597F0045EBC61.jpg,https://www.nps.gov/common/uploads/structured_data/98CCA5A2-D054-91C6-69AFF71998C76236.jpg,https://www.nps.gov/common/uploads/structured_data/CDDECBAE-B1F8-0227-E07DBF4CF651F05F.jpg,https://www.nps.gov/common/uploads/structured_data/CD9F0B2B-B867-7768-A3BF22B3ADF27D08.jpg,https://www.nps.gov/common/uploads/structured_data/CDF3B9A6-022B-5854-1CFBF29BF7774026.jpg,https://www.nps.gov/common/uploads/structured_data/98AB42C2-DA60-0419-1B3E6D4BBFD27027.jpg,https://www.nps.gov/common/uploads/structured_data/98E40FEC-B73D-6A30-593481BBD8E895D3.jpg,https://www.nps.gov/common/uploads/structured_data/98F4A431-0089-A2A3-FC66C1C21E28DE50.jpg,https://www.nps.gov/common/uploads/structured_data/99046EB2-C20F-FBC2-C67313E6DEB0E9CB.jpg,https://www.nps.gov/common/uploads/structured_data/991565EE-AE36-DD8D-7EB0A0569E084AAF.jpg,https://www.nps.gov/common/uploads/structured_data/992C1AD1-DEB3-71E1-8957B1239DE3DD08.jpg,https://www.nps.gov/common/uploads/structured_data/993D8B8C-0344-81FA-1E843595FB16A862.jpg,https://www.nps.gov/common/uploads/structured_data/995A228C-0A29-6E21-40A3F8CEB80F0EA4.jpg,https://www.nps.gov/common/uploads/structured_data/99760CA4-B715-CE75-C70E9631A2A4DB04.jpg}	2024-03-20 13:54:00.065-06
+49	Rocky Mountain National Park	Rocky Mountain National Park's 415 square miles (265,807 acres) encompasses a spectacular range of mountain environments. From meadows found in the montane life zone to glistening alpine lakes and up to the towering mountain peaks, there is something for everyone to discover. Along the way explore over 300 miles of hiking trails and incredible wildlife viewing.	40.3556924	-105.6972879	CO	{https://www.nps.gov/common/uploads/structured_data/DD67ADE4-E6E6-17F1-4856D2DC852BC0D0.jpg}	2024-03-20 13:54:00.096-06
+50	Saguaro National Park	Tucson, Arizona is home to the nation's largest cacti. The giant saguaro is the universal symbol of the American west. These majestic plants, found only in a small portion of the United States, are protected by Saguaro National Park, to the east and west of the modern city of Tucson. Here you have a chance to see these enormous cacti, silhouetted by the beauty of a magnificent desert sunset.	32.20909636	-110.7574974	AZ	{https://www.nps.gov/common/uploads/structured_data/5CB8B2F6-01B7-9A50-73702A355E4136B8.jpg,https://www.nps.gov/common/uploads/structured_data/3C858462-1DD8-B71B-0BB499810C61332C.jpg,https://www.nps.gov/common/uploads/structured_data/3C858613-1DD8-B71B-0BEFB533FAB3FB55.jpg,https://www.nps.gov/common/uploads/structured_data/3C85873C-1DD8-B71B-0BA5D81599611142.jpg,https://www.nps.gov/common/uploads/structured_data/3C858903-1DD8-B71B-0BE2312B40DB3D26.jpg,https://www.nps.gov/common/uploads/structured_data/3C858AB6-1DD8-B71B-0B0F6C0A56410894.jpg}	2024-03-20 13:54:00.115-06
+51	Sequoia & Kings Canyon National Parks	Huge mountains, rugged foothills, deep canyons, vast caverns, and the world’s largest trees exemplify the diversity of landscapes, life, and beauty here. Explore these pages to plan your visit or to learn about the plants and animals here and the threats they face. Ancient giant sequoias may seem invincible, but they, too are vulnerable.	36.71277299	-118.587429	CA	{https://www.nps.gov/common/uploads/structured_data/3C7A250B-1DD8-B71B-0BCF61A89A8B2970.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A2835-1DD8-B71B-0B468E834049FBE4.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A2E1B-1DD8-B71B-0B4D563CB47FA60F.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A301B-1DD8-B71B-0B8311F9B0AC4F69.jpg,https://www.nps.gov/common/uploads/structured_data/3C7A4E3C-1DD8-B71B-0B99ADC8D2689BDE.jpg}	2024-03-20 13:54:00.129-06
+52	Shenandoah National Park	Just 75 miles from the bustle of Washington, D.C., Shenandoah National Park is a land bursting with cascading waterfalls, spectacular vistas, fields of wildflowers, and quiet wooded hollows. With over 200,000 acres of protected lands that are haven to deer, songbirds, and black bear, there's so much to explore...and your journey begins right here!	38.49236644	-78.46907715	VA	{https://www.nps.gov/common/uploads/structured_data/3C80B539-1DD8-B71B-0BEAAA4AC31E7D5B.jpg,https://www.nps.gov/common/uploads/structured_data/3C80B63B-1DD8-B71B-0BAC3145E329FC99.jpg,https://www.nps.gov/common/uploads/structured_data/3C80B752-1DD8-B71B-0B0FAB718671DC3E.jpg,https://www.nps.gov/common/uploads/structured_data/3C80B867-1DD8-B71B-0B328321E4420769.jpg,https://www.nps.gov/common/uploads/structured_data/3C80B989-1DD8-B71B-0B3A418BF2F78CF0.jpg}	2024-03-20 13:54:00.162-06
+53	Theodore Roosevelt National Park	When Theodore Roosevelt came to Dakota Territory to hunt bison in 1883, he was a skinny, young, spectacled dude from New York. He could not have imagined how his adventure in this remote and unfamiliar place would forever alter the course of the nation. The rugged landscape and strenuous life that TR experienced here would help shape a conservation policy that we still benefit from today.	47.17777274	-103.4300083	ND	{https://www.nps.gov/common/uploads/structured_data/3C793AD5-1DD8-B71B-0B4A3C1BFA5B4C83.jpg,https://www.nps.gov/common/uploads/structured_data/3C7939C8-1DD8-B71B-0B048D7EC3812DE3.jpg,https://www.nps.gov/common/uploads/structured_data/3C793D1D-1DD8-B71B-0B17AA76AF7AE453.jpg,https://www.nps.gov/common/uploads/structured_data/3C794347-1DD8-B71B-0B5EB10134348DE1.jpg,https://www.nps.gov/common/uploads/structured_data/3C794A8F-1DD8-B71B-0B3C8A05CF065D02.jpg,https://www.nps.gov/common/uploads/structured_data/3C7941B3-1DD8-B71B-0B9F03744B164B38.jpg,https://www.nps.gov/common/uploads/structured_data/3C793C29-1DD8-B71B-0BD780A3A72F020B.jpg,https://www.nps.gov/common/uploads/structured_data/3C79484D-1DD8-B71B-0BD76E098C35DBFA.jpg,https://www.nps.gov/common/uploads/structured_data/3C794D85-1DD8-B71B-0BE8C67C46D0233A.jpg,https://www.nps.gov/common/uploads/structured_data/3C795014-1DD8-B71B-0B9A2115735380B0.jpg}	2024-03-20 13:54:00.187-06
+54	Virgin Islands National Park	Go beyond Virgin Islands National Park's stunning white-sand beaches. Hike to historic plantation sites to learn about a challenging past when sugar and enslaved labor dominated life on the island. Visit the Indigenous Taino's ancient petroglyphs. Snorkel coral reefs to discover hidden marine life. Two-thirds of the island of St. John is national park, making it a unique destination for visitors.	18.34279656	-64.74194451	VI	{https://www.nps.gov/common/uploads/structured_data/1F0534AF-91EB-443B-41760F790BE42778.jpg,https://www.nps.gov/common/uploads/structured_data/3C79CEF6-1DD8-B71B-0BE2B171E1C38905.jpg,https://www.nps.gov/common/uploads/structured_data/1F2D548F-E180-9786-F4EA73BBE299B47F.jpg,https://www.nps.gov/common/uploads/structured_data/3C79D033-1DD8-B71B-0B99DCE07EFF9D58.jpg,https://www.nps.gov/common/uploads/structured_data/3C79D149-1DD8-B71B-0B90F4272FF2EB3F.jpg}	2024-03-20 13:54:00.205-06
+55	Voyageurs National Park	With 218,055 acres, Voyageurs National Park is an adventure wonderland all year long full of exposed rock ridges, cliffs, wetlands, forests, streams and lakes. This is a place of transition between land and aquatic ecosystems, between southern boreal and northern hardwood forests, and between wild and developed areas. Whether you are exploring by land, water or ice there is something for everyone.	48.48370609	-92.8382913	MN	{https://www.nps.gov/common/uploads/structured_data/3C8405EF-1DD8-B71B-0B42909E4E77E144.jpg,https://www.nps.gov/common/uploads/structured_data/3C840728-1DD8-B71B-0BBDF500911CBD12.jpg,https://www.nps.gov/common/uploads/structured_data/C44E1879-9C3A-8F39-26AEBBEBB74FAD37.jpeg,https://www.nps.gov/common/uploads/structured_data/3C840875-1DD8-B71B-0B2416D8B710421E.jpg,https://www.nps.gov/common/uploads/structured_data/3C840A23-1DD8-B71B-0B19E7CC6CCDF7C7.jpg,https://www.nps.gov/common/uploads/structured_data/C46E3A91-C824-DAC5-5E137B57FC714764.jpeg}	2024-03-20 13:54:00.225-06
+56	White Sands National Park	Rising from the heart of the Tularosa Basin is one of the world's great natural wonders - the glistening white sands of New Mexico. Great wave-like dunes of gypsum sand have engulfed 275 square miles of desert, creating the world's largest gypsum dunefield. White Sands National Park preserves a major portion of this unique dunefield, along with the plants and animals that live here.	32.77907858	-106.3333461	NM	{https://www.nps.gov/common/uploads/structured_data/7CA16410-A412-1F05-2D92EB04EEB27980.jpg,https://www.nps.gov/common/uploads/structured_data/3C7FE53E-1DD8-B71B-0BE4AEBECAB602AD.jpg,https://www.nps.gov/common/uploads/structured_data/3C7FE691-1DD8-B71B-0B21F94DBD31A965.jpg,https://www.nps.gov/common/uploads/structured_data/3C819076-1DD8-B71B-0BBCE3AA4AF4D2CD.jpg,https://www.nps.gov/common/uploads/structured_data/3C8191DC-1DD8-B71B-0BCE7EF56096C614.jpg}	2024-03-20 13:54:00.258-06
+57	Wind Cave National Park	Wind Cave National Park protects two very different worlds - one deep within the earth, the other a sunlit world of many resources. Bison, elk, and other wildlife roam the rolling prairie grasslands and forested hillsides of one of America's oldest national parks. Below the remnant island of intact prairie sits Wind Cave, one of the longest and most complex caves in the world.	43.58012365	-103.4394709	SD	{https://www.nps.gov/common/uploads/structured_data/3C7ACD12-1DD8-B71B-0BEF13804E4498FF.jpg,https://www.nps.gov/common/uploads/structured_data/3C7ACE71-1DD8-B71B-0BBD14BFE8C0C468.jpg,https://www.nps.gov/common/uploads/structured_data/3C7ACFE9-1DD8-B71B-0BA11E8BB9A0EE0D.jpg,https://www.nps.gov/common/uploads/structured_data/3C7AD1AD-1DD8-B71B-0B7C9E1C79DA6F5C.jpg,https://www.nps.gov/common/uploads/structured_data/3C7AD3B1-1DD8-B71B-0BC2F74D3D134758.jpg}	2024-03-20 13:54:00.268-06
+58	Wrangell - St Elias National Park & Preserve	Wrangell-St. Elias is a vast national park that rises from the ocean all the way up to 18,008 ft. At 13.2 million acres, the park is the same size as Yellowstone National Park, Yosemite National Park, and Switzerland combined! Within this wild landscape, people continue to live off the land as they have done for centuries. This rugged, beautiful land is filled with opportunities for adventure.	61.4182147	-142.6028439	AK	{https://www.nps.gov/common/uploads/structured_data/3C7AAD63-1DD8-B71B-0BCE10FFD741A687.jpg,https://www.nps.gov/common/uploads/structured_data/3C7AAC04-1DD8-B71B-0B6534785C41D6B5.jpg,https://www.nps.gov/common/uploads/structured_data/3C7AB124-1DD8-B71B-0B224A3B96A7304E.jpg,https://www.nps.gov/common/uploads/structured_data/3C7AB2FD-1DD8-B71B-0BC380F8D220B0BA.jpg,https://www.nps.gov/common/uploads/structured_data/3C7AB5F0-1DD8-B71B-0B0A0B409DEAB3ED.jpg,https://www.nps.gov/common/uploads/structured_data/9DC3E3D5-D69E-D0CC-CB5DDBE505175B32.jpg,https://www.nps.gov/common/uploads/structured_data/9DCBE069-A954-BD79-5281A59DC8A04EDE.jpg,https://www.nps.gov/common/uploads/structured_data/9DD39775-F416-41FB-469ABEA4388BD8F2.jpg,https://www.nps.gov/common/uploads/structured_data/9DE230BE-C2B2-38C5-DF6FF368C1AB8F0B.jpg,https://www.nps.gov/common/uploads/structured_data/9DED0407-CD98-60E5-7965642A3CD2DA0D.jpg}	2024-03-20 13:54:00.287-06
+59	Yellowstone National Park	On March 1, 1872, Yellowstone became the first national park for all to enjoy the unique hydrothermal wonders. Today, millions of people come here each year to camp, hike, and enjoy the majesty of the park.	44.59824417	-110.5471695	ID,MT,WY	{https://www.nps.gov/common/uploads/structured_data/3C7D5920-1DD8-B71B-0B83F012ED802CEA.jpg,https://www.nps.gov/common/uploads/structured_data/3C7D2FBB-1DD8-B71B-0BED99731011CFCE.jpg,https://www.nps.gov/common/uploads/structured_data/3C7D383B-1DD8-B71B-0BEC4A4D6BDF7CAD.jpg,https://www.nps.gov/common/uploads/structured_data/3C7D334F-1DD8-B71B-0B108C7771F4E854.jpg,https://www.nps.gov/common/uploads/structured_data/3C7D3BD3-1DD8-B71B-0BB607F9BAAE1271.jpg,https://www.nps.gov/common/uploads/structured_data/3C7D573E-1DD8-B71B-0B5C0DF5BB91D043.jpg,https://www.nps.gov/common/uploads/structured_data/3C7D5AB4-1DD8-B71B-0BF91CF45345ED16.jpg,https://www.nps.gov/common/uploads/structured_data/3C7D610A-1DD8-B71B-0BEF676112007818.jpg,https://www.nps.gov/common/uploads/structured_data/3C7D8903-1DD8-B71B-0BA8669AEEF74379.jpg,https://www.nps.gov/common/uploads/structured_data/3C7D95DD-1DD8-B71B-0BC4FA19BD72F0EC.jpg,https://www.nps.gov/common/uploads/structured_data/8A729E5B-B263-9C49-7AD4C4B8E70064E0.jpg,https://www.nps.gov/common/uploads/structured_data/8A869F85-FB2E-5EAF-11367EB2DB75963D.jpg,https://www.nps.gov/common/uploads/structured_data/8A902498-9D11-D06D-E352C073E3E85A58.jpg,https://www.nps.gov/common/uploads/structured_data/8AB8F1A3-D1A0-A6FB-E8E5CAA8B2937264.jpeg}	2024-03-20 13:54:00.328-06
+60	Yosemite National Park	Not just a great valley, but a shrine to human foresight, the strength of granite, the power of glaciers, the persistence of life, and the tranquility of the High Sierra. First protected in 1864, Yosemite National Park is best known for its waterfalls, but within its nearly 1,200 square miles, you can find deep valleys, grand meadows, ancient giant sequoias, a vast wilderness area, and much more.	37.84883288	-119.5571873	CA	{https://www.nps.gov/common/uploads/structured_data/05383E91-AA28-2DDC-AB517507594F9FA6.jpg,https://www.nps.gov/common/uploads/structured_data/3C84CAEC-1DD8-B71B-0BA0EEA50BB40F8B.jpg,https://www.nps.gov/common/uploads/structured_data/3C84C6CF-1DD8-B71B-0B1C7CB883AA8FB1.jpg,https://www.nps.gov/common/uploads/structured_data/3C84C3C0-1DD8-B71B-0BFF90B64283C3D8.jpg,https://www.nps.gov/common/uploads/structured_data/3C84CDD0-1DD8-B71B-0B6E5868AFC75B6B.jpg,https://www.nps.gov/common/uploads/structured_data/3C84CC4C-1DD8-B71B-0BE967E5E5D93F25.jpg,https://www.nps.gov/common/uploads/structured_data/3C84C82D-1DD8-B71B-0B8D6902B62369E2.jpg,https://www.nps.gov/common/uploads/structured_data/3C8560E1-1DD8-B71B-0BD3183636F4B861.jpg,https://www.nps.gov/common/uploads/structured_data/3C84C97E-1DD8-B71B-0B5DD2112C58C175.jpg,https://www.nps.gov/common/uploads/structured_data/3C84CF74-1DD8-B71B-0B9C7FF83F7C68EB.jpg,https://www.nps.gov/common/uploads/structured_data/058C8410-D5BA-32F4-BC468014AF42CB0B.jpg,https://www.nps.gov/common/uploads/structured_data/232C02DC-BE31-0C6D-E1E2D2FB1EE7E251.jpg}	2024-03-20 13:54:00.391-06
+7	Bryce Canyon National Park	Hoodoos (irregular columns of rock) exist on every continent, but here is the largest concentration found anywhere on Earth. Situated along a high plateau at the top of the Grand Staircase, the park's high elevations include numerous life communities, fantastic dark skies, and geological wonders that defy description.	37.58399144	-112.1826689	UT	{https://www.nps.gov/common/uploads/structured_data/61F08520-E14F-18F2-BF5F3D89482631BD.jpg,https://www.nps.gov/common/uploads/structured_data/600067EF-E1B2-18B1-6120394EC23521DB.jpg,https://www.nps.gov/common/uploads/structured_data/613FFA94-B2F5-FBBF-090B96462B7CAB18.jpg,https://www.nps.gov/common/uploads/structured_data/60400EC2-B3DA-DAD5-18BF97EA3403B692.jpg,https://www.nps.gov/common/uploads/structured_data/609317A5-D0B1-4B67-C2413B5852192FB6.jpg}	2024-03-20 13:53:58.74-06
+\.
+
+
+--
+-- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: lincoln
+--
+
+COPY public.posts (post_id, body, created_at, photo_u_r_l, user_user_id, park_park_id) FROM stdin;
+1	\N	2024-03-20 13:53:54.386-06	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png	\N	\N
+2	\N	2024-03-20 13:53:54.388-06	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png	\N	\N
+3	\N	2024-03-20 13:53:54.389-06	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png	\N	\N
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: lincoln
+--
+
+COPY public.users (user_id, username, email, password, created_at, bio, photo_u_r_l) FROM stdin;
+1	link	jess90@gmail.com	use	2024-03-20 13:53:54.374-06	Update your bio	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+2	cat	fredflint@gmail.com	use	2024-03-20 13:53:54.382-06	Update your bio	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+3	david	artsyfartsy@gmail.com	use	2024-03-20 13:53:54.384-06	Update your bio	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+4	lincolniscool	lincolnbunker@gmail.com	12345	2024-03-20 15:41:09.619-06	Update your bio	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+12	test	test@gmail.com	test	2024-03-22 10:59:41.73-06	Update your bio	https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png
+\.
+
+
+--
+-- Name: activities_activity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: lincoln
+--
+
+SELECT pg_catalog.setval('public.activities_activity_id_seq', 40, true);
+
+
+--
+-- Name: comments_comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: lincoln
+--
+
+SELECT pg_catalog.setval('public.comments_comment_id_seq', 1, true);
+
+
+--
+-- Name: follows_follow_id_seq; Type: SEQUENCE SET; Schema: public; Owner: lincoln
+--
+
+SELECT pg_catalog.setval('public.follows_follow_id_seq', 1, true);
+
+
+--
+-- Name: messages_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: lincoln
+--
+
+SELECT pg_catalog.setval('public.messages_message_id_seq', 1, true);
+
+
+--
+-- Name: parks_park_id_seq; Type: SEQUENCE SET; Schema: public; Owner: lincoln
+--
+
+SELECT pg_catalog.setval('public.parks_park_id_seq', 61, true);
+
+
+--
+-- Name: posts_post_id_seq; Type: SEQUENCE SET; Schema: public; Owner: lincoln
+--
+
+SELECT pg_catalog.setval('public.posts_post_id_seq', 3, true);
+
+
+--
+-- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: lincoln
+--
+
+SELECT pg_catalog.setval('public.users_user_id_seq', 12, true);
+
+
+--
+-- Name: ParkActivity ParkActivity_pkey; Type: CONSTRAINT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public."ParkActivity"
+    ADD CONSTRAINT "ParkActivity_pkey" PRIMARY KEY (park_park_id, activity_activity_id);
+
+
+--
+-- Name: activities activities_name_key; Type: CONSTRAINT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.activities
+    ADD CONSTRAINT activities_name_key UNIQUE (name);
+
+
+--
+-- Name: activities activities_pkey; Type: CONSTRAINT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.activities
+    ADD CONSTRAINT activities_pkey PRIMARY KEY (activity_id);
+
+
+--
+-- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT comments_pkey PRIMARY KEY (comment_id);
+
+
+--
+-- Name: follows follows_pkey; Type: CONSTRAINT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.follows
+    ADD CONSTRAINT follows_pkey PRIMARY KEY (follow_id);
+
+
+--
+-- Name: messages messages_pkey; Type: CONSTRAINT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.messages
+    ADD CONSTRAINT messages_pkey PRIMARY KEY (message_id);
+
+
+--
+-- Name: parks parks_pkey; Type: CONSTRAINT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.parks
+    ADD CONSTRAINT parks_pkey PRIMARY KEY (park_id);
+
+
+--
+-- Name: posts posts_pkey; Type: CONSTRAINT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.posts
+    ADD CONSTRAINT posts_pkey PRIMARY KEY (post_id);
+
+
+--
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_key UNIQUE (email);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
+
+
+--
+-- Name: users users_username_key; Type: CONSTRAINT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_username_key UNIQUE (username);
+
+
+--
+-- Name: ParkActivity ParkActivity_activity_activity_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public."ParkActivity"
+    ADD CONSTRAINT "ParkActivity_activity_activity_id_fkey" FOREIGN KEY (activity_activity_id) REFERENCES public.activities(activity_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: ParkActivity ParkActivity_park_park_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public."ParkActivity"
+    ADD CONSTRAINT "ParkActivity_park_park_id_fkey" FOREIGN KEY (park_park_id) REFERENCES public.parks(park_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: comments comments_user_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT comments_user_user_id_fkey FOREIGN KEY (user_user_id) REFERENCES public.users(user_id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: posts posts_park_park_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.posts
+    ADD CONSTRAINT posts_park_park_id_fkey FOREIGN KEY (park_park_id) REFERENCES public.parks(park_id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: posts posts_user_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: lincoln
+--
+
+ALTER TABLE ONLY public.posts
+    ADD CONSTRAINT posts_user_user_id_fkey FOREIGN KEY (user_user_id) REFERENCES public.users(user_id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: lincoln
+--
+
+REVOKE USAGE ON SCHEMA public FROM PUBLIC;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
