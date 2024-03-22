@@ -2,20 +2,25 @@ import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux';
 
-function PostCard({postPic, postText, profileName, profileId, profilePic, activities, parkName, parkId}) {
+function PostCard({postPic, postText, profileName, profileId, profilePic, activities, parkName, parkId, comments}) {
     
-    const dispatch = useDispatch();
-    const navigateTo = useNavigate();   // This allows you to send someone to another page
-    const activityList = activities.map(activity => <a>{activity}</a>)
+  const dispatch = useDispatch();
+  const navigateTo = useNavigate();   // This allows you to send someone to another page
+  const activityList = activities.map(activity => <a>{activity}</a>)
+  const commentList = comments.map(comment => (
+    <div>
+      <p>{comment.user.username}: {comment.commentText}</p>
+    </div>
+  ))
 
-    const clickUser = () => {
-        dispatch({type: 'SET_PROFILE', payload: profileId});
-        navigateTo('/profile')
-    };
-    const clickPark = () => {
-        dispatch({type: 'SET_PARK', payload: parkId});
-        navigateTo('/parks')
-    };
+  const clickUser = () => {
+      dispatch({type: 'SET_PROFILE', payload: profileId});
+      navigateTo('/profile')
+  };
+  const clickPark = () => {
+      dispatch({type: 'SET_PARK', payload: parkId});
+      navigateTo('/parks')
+  };
 
 
 
@@ -30,6 +35,9 @@ function PostCard({postPic, postText, profileName, profileId, profilePic, activi
       <img src={postPic} />
       <p>{postText}</p>
       {activityList}
+      <div>
+        {commentList}
+      </div>
     </div>
   )
 };

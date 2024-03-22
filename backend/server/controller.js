@@ -92,17 +92,27 @@ const handlerFunctions = {
         switch (req.body.mode) {
             case 'park':        // get posts of a park
                 Park.findByPk(req.body.id, {
-                    include: [
-                      {
+                    include: [{
                         model: Post,
-                        order: [['createdAt', 'DESC']],
                         include: [{
                             model: Comment,     // Include comments associated with each post
                             order: [['createdAt', 'DESC']],
-                        }]
-                      }
-                    ]
-                  })
+                            include: [{
+                                model: User,     // Include comments associated with each post
+                                attributes: ['userId', 'username'],
+                            }]
+                            },
+                            {
+                                model: User,     // Include comments associated with each post
+                                attributes: ['userId', 'username'],
+                            },
+                            {
+                                model: Park,     // Include comments associated with each post
+                                attributes: ['parkId', 'fullName'],
+                            },
+                        ]
+                    }],
+                })
                 .then(({posts}) => {
                     res.send({
                         posts,
@@ -120,17 +130,27 @@ const handlerFunctions = {
             
             case 'user':        // get post of a user
                 User.findByPk(req.body.id, {
-                    include: [
-                      {
+                    include: [{
                         model: Post,
-                        order: [['createdAt', 'DESC']],
                         include: [{
                             model: Comment,     // Include comments associated with each post
                             order: [['createdAt', 'DESC']],
-                        }]
-                      }
-                    ]
-                  })
+                            include: [{
+                                model: User,     // Include comments associated with each post
+                                attributes: ['userId', 'username'],
+                            }]
+                            },
+                            {
+                                model: User,     // Include comments associated with each post
+                                attributes: ['userId', 'username'],
+                            },
+                            {
+                                model: Park,     // Include comments associated with each post
+                                attributes: ['parkId', 'fullName'],
+                            },
+                        ]
+                    }],
+                })
                 .then(({posts}) => {
                     res.send({
                         posts,
@@ -151,36 +171,50 @@ const handlerFunctions = {
                         followerId: req.body.id,
                     }
                 })
-                .then(userIds => {
+                .then(follows => {
                     User.findAll({
-                        where: {userId: { [Op.in]: userIds}},
+                        where: {userId: { [Op.in]: follows.map(follow => follow.followedId)}},
                         include: [{
                             model: Post,
                             include: [{
                                 model: Comment,     // Include comments associated with each post
                                 order: [['createdAt', 'DESC']],
-                            }]
+                                include: [{
+                                    model: User,     // Include comments associated with each post
+                                    attributes: ['userId', 'username'],
+                                }]
+                                },
+                                {
+                                    model: User,     // Include comments associated with each post
+                                    attributes: ['userId', 'username'],
+                                },
+                                {
+                                    model: Park,     // Include comments associated with each post
+                                    attributes: ['parkId', 'fullName'],
+                                },
+                            ]
                         }],
                     })
                     .then((users) => {
                         const posts = users.reduce((acc, user) => {
                             return acc.concat(user.posts);
-                          }, []).sort((a,b) => b.createdAt - a.createdAt);
+                        }, []).sort((a,b) => b.createdAt - a.createdAt);
                         res.send({
+                            message: 'Here are all the posts with comments',
+                            success: true,
                             posts,
-                            message: "Here are friends' posts with comments",
-                            success: true
                         })
                     }).catch((err) => {
                         console.error(err)
                         res.send({
                             message: 'Error fetching posts',
-                            success: false
+                            success: false,
                         })
                     })
                 })
         }
     },
+    
       createAccount: async (req, res) => {
         const { username, email, password } = req.body
         console.log(req.body)
