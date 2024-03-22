@@ -32,7 +32,10 @@ function Login() {
                 type: 'USER_AUTH',
                 payload: {
                     userId: res.data.userId,
-                    username: res.data.username
+                    username: res.data.username,
+                    password: res.data.password,
+                    bio: res.data.bio,
+                    userPic: res.data.userPic
                 }
             })
             navigate('/home')

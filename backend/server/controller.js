@@ -59,12 +59,18 @@ const handlerFunctions = {
     }
     req.session.userId = user.userId;
     req.session.username = user.username;
+    req.session.password = user.password;
+    req.session.bio = user.bio;
+    req.session.userPic = user.userPic
 
     res.send({
       message: "user logged in",
       success: true,
       userId: req.session.userId,
       username: req.session.username,
+      password: req.session.password,
+      bio: req.session.bio,
+      userPic: req.session.userPic
     });
   },
 
@@ -207,28 +213,59 @@ const handlerFunctions = {
 
         userInfo: async (req, res) => {
             const { userId } = req.body
-            console.log(userId)
-            const user = await User.findOne(userId, {
-                attributes: ['userId', 'password', 'bio', 'userPic' ],
-            });
-            console.log(user)
-            res.send(user)
+            console.log('Recieved userId:', userId)
+            try {
+                const user = await User.findByPk(userId.userId, {
+                    attributes: ['userId', 'username', 'password', 'bio', 'userPic'],
+                });
+                console.log('Retrieved user:', user);
+                
+                res.send(user);
+            } catch (error) {
+                console.error('Error retrieving user:', error);
+                res.status(500).send('Internal Server Error');
+            }
     },
 
 
         updateUser: async (req, res) => {
           const {
             username,
-            password
+            password,
+            bio,
+            userPic
           } = req.body
+          console.log(req.body)
 
           const user = await User.findByPk(req.params.id);
 
           await user.update({
             username: username ?? user.username,
-            password: password ?? user.password
+            password: password ?? user.password,
+            bio: bio ?? user.bio,
+            userPic: userPic ?? user.userPic
           })
 
+          res.send({
+            message: 'user updated',
+            user: user
+          })
+
+    },
+
+        deleteUser: async (req,res) => {
+            // const { userId } = req.params
+            // console.log(JSON.stringify(userId.userId))
+            console.log(req.params)
+            // console.log("this is id:", userId)
+            
+            const userToDelete = await User.findByPk(req.params.userId)
+            await userToDelete.destroy();
+
+            res.send({
+                message: "user deleted successfully",
+                status: true
+            })
     },
 
 };

@@ -28,6 +28,7 @@ app.post('/api/createaccount', handlerFunctions.createAccount);
 app.get('/api/parkMarkers', handlerFunctions.parkMarkers);
 app.post('/api/userInfo', handlerFunctions.userInfo)
 app.put('/api/user/update/:id', handlerFunctions.updateUser);
+app.delete('/api/user/delete/:userId', handlerFunctions.deleteUser)
 app.get("/allActivities", handlerFunctions.getAllActivities);
 
 // route to get posts use {mode: ['park', 'user', or 'friends'], id: id}
