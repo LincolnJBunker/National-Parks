@@ -1,4 +1,11 @@
-import { User, Park, Comment, Post, Activity, Follow } from "../database/model.js";
+import {
+  User,
+  Park,
+  Comment,
+  Post,
+  Activity,
+  Follow,
+} from "../database/model.js";
 import { Op } from "sequelize";
 
 const handlerFunctions = {
@@ -10,7 +17,19 @@ const handlerFunctions = {
     });
     res.send(allParks);
   },
-  
+
+  getOnePark: async (req, res) => {
+    // const { parkId } = req.params
+    const park = await Park.findByPk(req.params.parkId, {
+      include: {
+        model: Activity,
+        model: Post,
+      },
+    });
+
+    res.send(park);
+  },
+
   getAllActivities: async (req, res) => {
     const allActivities = await Activity.findAll();
     res.send(allActivities);
@@ -42,7 +61,7 @@ const handlerFunctions = {
         username: username,
       },
     });
-    //if no user if found
+    //if no user is found
     if (!user) {
       res.send({
         message: "no user found",
@@ -87,6 +106,7 @@ const handlerFunctions = {
       password,
     });
   },
+
 
     getPosts: (req, res) => {   // set req.body.mode to 'park', 'friends', or 'user' to get posts filtered for that use case
         console.log('getPosts', req.body)
@@ -237,21 +257,52 @@ const handlerFunctions = {
             email,
             password,
         })
-      },
+          .then(({ posts }) => {
+            res.send({
+              posts,
+              message: "Here are the park's posts with comments",
+              success: true,
+            });
+          })
+          .catch((err) => {
+            console.error(err);
+            res.send({
+              message: "Error fetching posts",
+              success: false,
+            });
+          });
+        return;
 
-      parkMarkers: async (req, res) => {
-        const allMarkers = await Park.findAll({
-            attributes: ['parkId', 'fullName', 'latitude', 'longitude', 'images'],
-            include: [{
-                model: Activity,
-                through: {
-                    attributes: ['activity_activity_id']
-                }
-            }]
+      case "user": // get post of a user
+        User.findByPk(req.body.id, {
+          include: [
+            {
+              model: Post,
+              order: [["createdAt", "DESC"]],
+              include: [
+                {
+                  model: Comment, // Include comments associated with each post
+                  order: [["createdAt", "DESC"]],
+                },
+              ],
+            },
+          ],
         })
-        res.send(allMarkers)
-        // res.send(allActivities)
-    },
+          .then(({ posts }) => {
+            res.send({
+              posts,
+              message: "Here are the user's posts with comments",
+              success: true,
+            });
+          })
+          .catch((err) => {
+            console.error(err);
+            res.send({
+              message: "Error fetching posts",
+              success: false,
+            });
+          });
+
 
         userInfo: async (req, res) => {
             const { userId } = req.body
@@ -279,7 +330,6 @@ const handlerFunctions = {
           })
 
     },
-
 };
 
 export default handlerFunctions;

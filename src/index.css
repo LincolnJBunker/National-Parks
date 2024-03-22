@@ -64,6 +64,16 @@ img.park-img {
   margin-top: 100px
 }
 
+.park-profile {
+  margin-top: 100px;
+  text-align: center
+}
+
+.park-pic {
+  max-width: 1000px;
+  border-radius: 10px;
+}
+
 /* p.park-name {
   margin-top: 5px;
   margin-bottom: 50px;
