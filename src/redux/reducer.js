@@ -2,6 +2,7 @@ const initialState = {
     userId: null,
     otherValue: 'test',
     profileId: null,
+    parkId: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -12,7 +13,7 @@ const reducer = (state = initialState, action) => {
                 userId: action.payload
             };
 
-        case "LOGIN":
+        case "LOGOUT":
             return {
                 ...state,
                 userId: null
@@ -22,6 +23,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 profileId: action.payload
+            };
+
+        case 'SET_PARK':
+            return {
+                ...state,
+                parkId: action.payload
             }
 
         default:

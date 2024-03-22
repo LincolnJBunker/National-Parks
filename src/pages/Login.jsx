@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 function Login() {
@@ -13,6 +14,7 @@ function Login() {
     const userId = useSelector((state) => state.userId);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -33,7 +35,7 @@ function Login() {
                     username: res.data.username
                 }
             })
-            location.reload();
+            navigate('/home')
         }
         alert(res.data.message)
     }
@@ -61,10 +63,8 @@ function Login() {
             password: password
         })
         .then((res) => {
-            setUsername('');
-            setEmail('')
-            setPassword('')
         })
+        navigate('/parks')
     }
 
     useEffect(() => {
@@ -97,7 +97,7 @@ function Login() {
                         />
                     </div>
                     <button>Register</button>
-                    {/* <button onClick={() => setShowCreateAccount(false)}>Login</button> */}
+                    {/* <button onClick={() => setShowCreateAccount(false)}>Return to Login</button> */}
                 </form>
             ) : (
                 <form className="login-form" onSubmit={handleLogin}>
