@@ -31,7 +31,7 @@ app.put('/api/user/update/:id', handlerFunctions.updateUser);
 app.get("/allActivities", handlerFunctions.getAllActivities);
 
 // route to get posts use {mode: ['park', 'user', or 'friends'], id: id}
-app.get('/api/posts', handlerFunctions.getPosts)
+app.post('/api/posts', handlerFunctions.getPosts)
 app.post('/api/createaccount', handlerFunctions.createAccount)
 app.get('/api/parkMarkers', handlerFunctions.parkMarkers);
 
