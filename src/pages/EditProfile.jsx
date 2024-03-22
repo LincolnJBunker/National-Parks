@@ -1,5 +1,6 @@
 import LogoutBtn from "../components/LogoutBtn";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
 function EditProfile() {
@@ -8,11 +9,13 @@ function EditProfile() {
     const [password, setPassword] = useState();
     const [info, setInfo] = useState([]);
 
+    const userId = useSelector((state) => state.userId);
+
     const getInfo = (e) => {
         e.preventDefault();
 
         axios.post('/api/userInfo', {
-            userId
+            userId: userId
         })
         .then((res) => {
             console.log(res.data)
@@ -29,6 +32,7 @@ function EditProfile() {
   return (
     <div>
         <LogoutBtn />
+        <button onClick={getInfo}></button>
     </div>
   )
 }

@@ -207,12 +207,11 @@ const handlerFunctions = {
 
         userInfo: async (req, res) => {
             const { userId } = req.body
-            const user = await User.findOne({
-                attributes: ['userId', 'password', 'bio', 'photoURL' ],
-                where: {
-                    userId: userId
-                }
+            console.log(userId)
+            const user = await User.findOne(userId, {
+                attributes: ['userId', 'password', 'bio', 'userPic' ],
             });
+            console.log(user)
             res.send(user)
     },
 
