@@ -6,7 +6,7 @@ import handlerFunctions from "./controller.js";
 
 const app = express();
 
-const port = '9001';
+const port = "9001";
 
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
@@ -21,9 +21,11 @@ app.use(
 );
 
 app.get("/allParks", handlerFunctions.getAllParks);
-app.get('/api/session-check', handlerFunctions.sessionCheck);
-app.post('/api/login', handlerFunctions.login);
-// app.get('/api/logout', handlerFunctions.logout);
+app.get("/allActivities", handlerFunctions.getAllActivities);
+app.get("/api/session-check", handlerFunctions.sessionCheck);
+app.post("/api/login", handlerFunctions.login);
+app.get('/api/logout', handlerFunctions.logout);
+app.post("/api/createaccount", handlerFunctions.createAccount);
 
 // route to get posts use {mode: ['park', 'user', or 'friends'], id: id}
 app.get('/api/posts', handlerFunctions.getPosts)
