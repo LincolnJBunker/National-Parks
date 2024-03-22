@@ -32,68 +32,6 @@ let users = [
   },
 ];
 
-for (const user of users) {
-  await User.create(user);
-}
-
-let posts = [
-  {
-    postPic: "https://www.justgotravelstudios.com/cdn/shop/articles/IMG_8596-Edit.jpg?v=1644329437&width=1100",
-    postText: "Just hiked Angel's landing! 10/10 would recommend!",
-  },
-  {
-    postPic: "https://pbs.twimg.com/media/GI0ODf3awAAuM66?format=jpg&name=large",
-    postText: "Scouts Lookout Trail\nCanyon Overlook Trail\nZion National Park",
-  },
-  {
-    postPic: "https://pbs.twimg.com/media/GIxq5gBbAAAl5vC?format=jpg&name=medium",
-    postText: "The Observation Point Trail is one of the best hikes in Zion National Park. How to reach this epic viewpoint? Read all about it in this article. https://opreismetco.nl/en/united-states/hiking-to-observation-point-zion-national-park-utah-usa/",
-  },
-];
-
-for (const post of posts) {
-  await Post.create(post);
-}
-
-let messages = [
-  {
-    senderId: 3,
-    receiverId: 2,
-    body: "Hey!",
-  },
-];
-
-for (const message of messages) {
-  await Message.create(message);
-}
-
-let comments = [
-  {
-    input: "this is fine.",
-  },
-];
-
-for (const comment of comments) {
-  await Comment.create(comment);
-}
-
-let follows = [
-  {
-    followerId: 1,
-    followedId: 2,
-  },
-];
-
-for (const follow of follows) {
-  await Follow.create(follow);
-}
-
-// await Comment.create({
-//   input: "this is fine.",
-//   userId: 1,
-//   postId: 1,
-// });
-
 const actRes = await axios.get(
   "https://developer.nps.gov/api/v1/activities?api_key=3Jbh4dsnub0nqzpYLYJuN5FtCeEPbNbwN2ZB4Rt4"
 );
@@ -141,5 +79,96 @@ for (const park of nationals) {
     // })
   }
 }
+
+for (const user of users) {
+  await User.create(user);
+}
+
+let posts = [
+  {
+    postPic: "https://www.justgotravelstudios.com/cdn/shop/articles/IMG_8596-Edit.jpg?v=1644329437&width=1100",
+    postText: "Just hiked Angel's landing! 10/10 would recommend!",
+    userId: 1,
+    parkId: 1,
+  },
+  {
+    postPic: "https://pbs.twimg.com/media/GI0ODf3awAAuM66?format=jpg&name=large",
+    postText: "Scouts Lookout Trail\nCanyon Overlook Trail\nZion National Park",
+    userId: 2,
+    parkId: 2,
+  },
+  {
+    postPic: "https://pbs.twimg.com/media/GIxq5gBbAAAl5vC?format=jpg&name=medium",
+    postText: "The Observation Point Trail is one of the best hikes in Zion National Park. How to reach this epic viewpoint? Read all about it in this article. https://opreismetco.nl/en/united-states/hiking-to-observation-point-zion-national-park-utah-usa/",
+    userId: 3,
+    parkId: 3,
+  },
+];
+
+for (const post of posts) {
+  await Post.create(post);
+}
+
+let messages = [
+  {
+    senderId: 3,
+    receiverId: 2,
+    body: "Hey!",
+  },
+];
+
+for (const message of messages) {
+  await Message.create(message);
+}
+
+let comments = [
+  {
+    commentText: "this is fine comment1.",
+    userId: 1,
+    postId: 1,
+  },
+  {
+    commentText: "this is fine comment2.",
+    userId: 1,
+    postId: 2,
+  },
+  {
+    commentText: "this is fine comment3.",
+    userId: 2,
+    postId: 3,
+  },
+  {
+    commentText: "this is fine comment4.",
+    userId: 2,
+    postId: 1,
+  },
+  {
+    commentText: "this is fine comment5.",
+    userId: 3,
+    postId: 2,
+  },
+  {
+    commentText: "this is fine comment6.",
+    userId: 3,
+    postId: 3,
+  },
+];
+
+for (const comment of comments) {
+  await Comment.create(comment);
+}
+
+let follows = [
+  {
+    followerId: 1,
+    followedId: 2,
+  },
+];
+
+for (const follow of follows) {
+  await Follow.create(follow);
+}
+
+
 
 await db.close();
