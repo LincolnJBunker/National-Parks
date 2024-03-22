@@ -163,6 +163,22 @@ let follows = [
     followerId: 1,
     followedId: 2,
   },
+  {
+    followerId: 2,
+    followedId: 3,
+  },
+  {
+    followerId: 3,
+    followedId: 1,
+  },
+  {
+    followerId: 1,
+    followedId: 3,
+  },
+  {
+    followerId: 3,
+    followedId: 2,
+  },
 ];
 
 for (const follow of follows) {
