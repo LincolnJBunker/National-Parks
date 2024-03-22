@@ -254,10 +254,7 @@ const handlerFunctions = {
     },
 
         deleteUser: async (req,res) => {
-            // const { userId } = req.params
-            // console.log(JSON.stringify(userId.userId))
             console.log(req.params)
-            // console.log("this is id:", userId)
             
             const userToDelete = await User.findByPk(req.params.userId)
             await userToDelete.destroy();

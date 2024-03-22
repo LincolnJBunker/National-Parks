@@ -54,20 +54,30 @@ function Login() {
         };
     };
 
-    const handleCreateAccount = (e) => {
+    const handleCreateAccount = async (e) => {
         e.preventDefault();
         if (!username || !email || !password) {
             alert('Please fill out all of the fields')
             return
         }
-        axios.post('/api/createaccount', {
+        const res = await axios.post('/api/createaccount', {
             username: username,
             email: email,
             password: password
         })
-        .then((res) => {
-        })
-        navigate('/parks')
+            if (res.data.success) {
+                dispatch({
+                    type: 'USER_AUTH',
+                    payload: {
+                        userId: res.data.userId,
+                        username: res.data.username,
+                        password: res.data.password,
+                        bio: res.data.bio,
+                        userPic: res.data.userPic
+                    }
+                })
+                navigate('/parks')
+            }
     }
 
     useEffect(() => {

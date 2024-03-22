@@ -53,43 +53,38 @@ function EditProfile() {
     }
 
   return isEditing ? (
-    <tr>
-        <td>
+        <div >
+            <p>Username:</p>
             <input 
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter new username"
+             type="text"
+             value={username}
+             onChange={(e) => setUsername(e.target.value)}
+             placeholder="Enter new username"
             />
-        </td>
-        <td>
+            <p>Password:</p>
             <input 
             type="text"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter new password"
             />
-        </td>
-        <td>
+            <p>Bio:</p>
             <input 
             type="text"
             value={bio}
             onChange={(e) => setBio(e.target.value)}
             placeholder="Enter new bio"
             />
-        </td>
-        <td>
+            <p>Profile Pic:</p>            
             <input 
-            type="img"
+            type="text"
             value={userPic}
             onChange={(e) => setUserPic(e.target.value)}
-            placeholder="Insert new profile pic"
+            placeholder="Insert new pic"
             />
-        </td>
-        <td>
+
             <button onClick={handleSave}>Save</button>
-        </td>
-    </tr>
+        </div>
   ) : (
     <div>
         <LogoutBtn />
