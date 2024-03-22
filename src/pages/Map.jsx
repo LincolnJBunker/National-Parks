@@ -3,7 +3,7 @@ import { APIProvider, Map, AdvancedMarker, Pin, InfoWindow } from '@vis.gl/react
 import googleAPIKey from "../hidden.js";
 import axios from 'axios';
 import { Carousel } from 'react-bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Maps() {
   const [isMapInitialized, setMapInitialized] = useState(false);

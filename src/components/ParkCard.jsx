@@ -1,31 +1,25 @@
 import { useSelector, useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
 function ParkCard({ park }) {
-  const parkId = useSelector((state) => state.parkId)
+  // const parkId = useSelector((state) => state.parkId)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
 const handleClick = async () => {
-const dispatch = useDispatch()
-const navigate = useNavigate()
-
-  if (parkId) {
-    dispatch({
-      type: "SET_PARK",
-      payload: parkId
-    })
-    navigate(`/park-profile/${parkId}`)
-  } else {
-    navigate("/home")
-  }
+    // dispatch({
+    //   type: "SET_PARK",
+    //   payload: park.parkId
+    // })
+    navigate(`/park/${park.parkId}`)
 }
 
 return (
   <>
     <div className="park-card" onClick={handleClick}>
-    <img className="park-img" src={park.images[0]} />
-            <p className="park-name">{park.fullName}</p>
-        
-    </div>
+        <img className="park-img" src={park.images[0]} alt={park.fullName} />
+        <p className="park-name">{park.fullName}</p>
+      </div>
     </>
   )
   

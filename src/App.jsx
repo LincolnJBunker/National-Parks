@@ -5,10 +5,11 @@ import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } 
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Map from "./pages/Map";
-import Parks from "./pages/Parks";
+import Parks, { parksLoader } from "./pages/Parks";
 import Profile from "./pages/Profile";
 import Contact from "./pages/Contact";
 import FAQs from "./pages/FAQs";
+import ParkProfile, { parkProfileLoader } from "./pages/ParkProfile";
 
 //Layouts
 import RootLayout from "./layouts/RootLayout";
@@ -25,7 +26,16 @@ const router = createBrowserRouter(
       <Route index element={<Login />} />
       <Route path="home" element={<Home />} />
       <Route path="map" element={<Map />} />
-      <Route path="parks" element={<Parks />} />
+      <Route 
+        path="parks" 
+        element={<Parks />} 
+        loader={parksLoader} 
+        />
+      <Route 
+        path="park/:parkId" 
+        element={<ParkProfile />} 
+        loader={parkProfileLoader}
+        />
       <Route path="profile" element={<Profile />} />
       <Route path="contact" element={<Contact />} />
       <Route path="faqs" element={<FAQs />} />

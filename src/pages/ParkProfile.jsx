@@ -1,15 +1,32 @@
-function ParkProfile({ park }) {
+import axios from "axios"
+import { useEffect } from "react"
+import { useLoaderData } from "react-router-dom"
 
-//needs all the park data rendered and then styled. Then the posts underneath
+function ParkProfile() {
+
+    // const { parkId } = useParams()
+    const park = useLoaderData()
+    console.log(park)
+
+
+//map through the actvities and then pass in under the description. Then map over posts
 
   return (
-    <div className="park-card">
+    <div className="park-profile">
             <h2 className="park-name">{park.fullName}</h2>
-    <img className="park-img" src={park.images[1]} />
+    <img className="park-pic" src={park.images[2]} />
     <p>{park.description}</p>
-        
+    {/* <p>{park.activities}</p> */}
+    <h3>Posts down here</h3>
     </div>
   )
 }
 
 export default ParkProfile
+
+
+export const parkProfileLoader = async ({ params }) => {
+    const res = await axios.get(`/api/park/${params.parkId}`)
+    
+    return res.data
+}
