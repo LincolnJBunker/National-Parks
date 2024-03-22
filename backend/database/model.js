@@ -273,3 +273,7 @@ User.hasMany(Post, {foreignKey: 'userId'});
 Post.belongsTo(User, {foreignKey: 'userId'});
 Post.belongsTo(Park, {foreignKey: 'parkId'});
 Park.hasMany(Post, {foreignKey: 'parkId'});
+
+Post.belongsToMany(Activity, {through: "PostActivity"})
+Activity.belongsToMany(Post, {through: "PostActivity"})
+

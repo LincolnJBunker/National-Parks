@@ -109,9 +109,14 @@ const handlerFunctions = {
 
 
     getPosts: (req, res) => {   // set req.body.mode to 'park', 'friends', or 'user' to get posts filtered for that use case
+        console.log('getPosts', req.body)
+        if (typeof req.body.myId!=='number') {
+            res.send({message: 'No id provided', success: false})
+            return
+        }
         switch (req.body.mode) {
             case 'park':        // get posts of a park
-                Park.findByPk(req.body.id, {
+                Park.findByPk(req.body.myId, {
                     include: [{
                         model: Post,
                         include: [{
@@ -123,12 +128,15 @@ const handlerFunctions = {
                             }]
                             },
                             {
-                                model: User,     // Include comments associated with each post
+                                model: User,
                                 attributes: ['userId', 'username'],
                             },
                             {
-                                model: Park,     // Include comments associated with each post
+                                model: Park,
                                 attributes: ['parkId', 'fullName'],
+                            },
+                            {
+                                model: Activity,
                             },
                         ]
                     }],
@@ -149,24 +157,27 @@ const handlerFunctions = {
                 return
             
             case 'user':        // get post of a user
-                User.findByPk(req.body.id, {
+                User.findByPk(req.body.myId, {
                     include: [{
                         model: Post,
                         include: [{
                             model: Comment,     // Include comments associated with each post
                             order: [['createdAt', 'DESC']],
                             include: [{
-                                model: User,     // Include comments associated with each post
+                                model: User,
                                 attributes: ['userId', 'username'],
                             }]
                             },
                             {
-                                model: User,     // Include comments associated with each post
+                                model: User,
                                 attributes: ['userId', 'username'],
                             },
                             {
-                                model: Park,     // Include comments associated with each post
+                                model: Park,
                                 attributes: ['parkId', 'fullName'],
+                            },
+                            {
+                                model: Activity,
                             },
                         ]
                     }],
@@ -184,11 +195,11 @@ const handlerFunctions = {
                         success: false
                     })
                 })
-                
             case 'friends':     // get posts of friends
+                console.log('friends')
                 Follow.findAll({
                     where: {
-                        followerId: req.body.id,
+                        followerId: req.body.myId,
                     }
                 })
                 .then(follows => {
@@ -200,17 +211,20 @@ const handlerFunctions = {
                                 model: Comment,     // Include comments associated with each post
                                 order: [['createdAt', 'DESC']],
                                 include: [{
-                                    model: User,     // Include comments associated with each post
+                                    model: User,
                                     attributes: ['userId', 'username'],
                                 }]
                                 },
                                 {
-                                    model: User,     // Include comments associated with each post
+                                    model: User,
                                     attributes: ['userId', 'username'],
                                 },
                                 {
-                                    model: Park,     // Include comments associated with each post
+                                    model: Park,
                                     attributes: ['parkId', 'fullName'],
+                                },
+                                {
+                                    model: Activity,
                                 },
                             ]
                         }],

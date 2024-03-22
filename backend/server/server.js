@@ -34,6 +34,13 @@ app.get("/api/parkMarkers", handlerFunctions.parkMarkers);      //
 // app.get('/api/activityMarkers', handlerFunctions.activityMarkers)
 app.post('/api/userInfo', handlerFunctions.userInfo)
 app.put('/api/user/update/:id', handlerFunctions.updateUser);
+app.get("/allActivities", handlerFunctions.getAllActivities);
+
+// route to get posts use {mode: ['park', 'user', or 'friends'], id: id}
+app.post('/api/posts', handlerFunctions.getPosts)
+app.post('/api/createaccount', handlerFunctions.createAccount)
+app.get('/api/parkMarkers', handlerFunctions.parkMarkers);
+
 
 ViteExpress.listen(app, port, () =>
   console.log(`Server is listening on http://localhost:${port}`)
