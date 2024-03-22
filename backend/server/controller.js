@@ -1,4 +1,4 @@
-import { User, Park, Comment, Post } from "../database/model.js";
+import { User, Park, Comment, Post, Activity } from "../database/model.js";
 
 
 const handlerFunctions = {
@@ -76,7 +76,33 @@ const handlerFunctions = {
             email,
             password,
         })
-      }
+      },
+
+      parkMarkers: async (req, res) => {
+        const allMarkers = await Park.findAll({
+            attributes: ['parkId', 'fullName', 'latitude', 'longitude', 'images'],
+            include: [{
+                model: Activity,
+                through: {
+                    attributes: ['activity_activity_id']
+                }
+            }]
+        })
+        res.send(allMarkers)
+        // res.send(allActivities)
+    },
+    
+    // activityMarkers: async (req, res) => {
+    //       const allActivities = await Park.findAll({
+    //           include: [{
+    //               model: Activity,
+    //               through: {
+    //                   attributes: ['activity_activity_id']
+    //               }
+    //           }]
+    //       })
+    //     res.send(allActivities)
+    //   }
 };
 
 export default handlerFunctions;
