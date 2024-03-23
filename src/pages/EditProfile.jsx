@@ -88,19 +88,18 @@ function EditProfile() {
   ) : (
     <div>
         <LogoutBtn />
-        <button onClick={getInfo}></button>
         {info && (
             <div >
-                <p>Username: {info.username}</p>
-                <p>Password: {info.password}</p>
-                <p>Bio: {info.bio}</p>
-                Profile Pic:<img src={info.userPic} alt="profile pic" />
+                <p>Username: {username}</p>
+                <p>Password: {password}</p>
+                <p>Bio: {bio}</p>
+                Profile Pic:<img src={userPic} alt="profile pic" />
             </div>
         )}
-        <td>
+
             <button onClick={() => setIsEditing(true)}>edit</button>
             <button onClick={deleteUser}>delete account</button>
-        </td>
+
     </div>
   )
 }

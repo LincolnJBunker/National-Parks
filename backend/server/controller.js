@@ -92,6 +92,21 @@ const handlerFunctions = {
       email,
       password,
     });
+    req.session.userId = newUser.userId;
+    req.session.username = newUser.username;
+    req.session.password = newUser.password;
+    req.session.bio = newUser.bio;
+    req.session.userPic = newUser.userPic
+
+    res.send({
+      message: "user logged in",
+      success: true,
+      userId: req.session.userId,
+      username: req.session.username,
+      password: req.session.password,
+      bio: req.session.bio,
+      userPic: req.session.userPic
+    });
   },
 
     getPosts: (req, res) => {   // set req.body.mode to 'park', 'friends', or 'user' to get posts filtered for that use case

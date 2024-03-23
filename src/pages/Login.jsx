@@ -65,7 +65,9 @@ function Login() {
             email: email,
             password: password
         })
+        console.log(res.data)
             if (res.data.success) {
+                console.log(res.data)
                 dispatch({
                     type: 'USER_AUTH',
                     payload: {
@@ -78,6 +80,7 @@ function Login() {
                 })
                 navigate('/parks')
             }
+            alert(res.data.message)
     }
 
     useEffect(() => {
