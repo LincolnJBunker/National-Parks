@@ -43,17 +43,6 @@ function Login() {
         alert(res.data.message)
     }
 
-    const sessionCheck = async () => {
-        const res = await axios.get('/api/session-check')
-        console.log(res)
-        if (res.data.success) {
-            dispatch({
-                type: 'USER_AUTH',
-                payload: res.data.userId,
-            });
-        };
-    };
-
     const handleCreateAccount = async (e) => {
         e.preventDefault();
         if (!username || !email || !password) {
@@ -82,6 +71,17 @@ function Login() {
             }
             alert(res.data.message)
     }
+
+    const sessionCheck = async () => {
+        const res = await axios.get('/api/session-check')
+        console.log(res)
+        if (res.data.success) {
+            dispatch({
+                type: 'USER_AUTH',
+                payload: res.data.userId,
+            });
+        };
+    };
 
     useEffect(() => {
         sessionCheck()
