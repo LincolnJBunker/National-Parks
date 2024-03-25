@@ -14,12 +14,12 @@ function RootLayout() {
             dispatch({
                 type: 'USER_AUTH',
                 payload: {
-                    userId: res.data.userId,
-                    username: res.data.username,
-                    password: res.data.password,
-                    bio: res.data.bio,
-                    userPic: res.data.userPic
-                }
+                        userId: res.data.userId,
+                        username: res.data.username,
+                        password: res.data.password,
+                        bio: res.data.bio,
+                        userPic: res.data.userPic
+                    }
             });
         };
     };
@@ -54,10 +54,6 @@ function RootLayout() {
                 {userId &&
                 <NavLink to='profile'>Profile</NavLink> 
                 }
-
-                {userId && 
-                <NavLink to='edit'>Edit Profile</NavLink>
-                } 
             </nav>
         </header>
 

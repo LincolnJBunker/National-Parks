@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Maps() {
+function Maps({ park }) {
   const [isMapInitialized, setMapInitialized] = useState(false);
   const [parkMarkers, setParkMarkers] = useState([]);
   const [selectedPark, setSelectedPark] = useState(null)
