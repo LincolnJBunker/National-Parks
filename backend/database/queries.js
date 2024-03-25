@@ -19,9 +19,15 @@ import { Op } from "sequelize";
 //     }
 // })
 
-const park = await Park.findByPk(3, {
-  include: [{ model: Activity }, { model: Post }],
+// const park = await Park.findByPk(61, {
+//   include: [{ model: Activity }, { model: Post, include: { model: Activity } }],
+// });
+
+const post1 = await Post.findOne({
+  include: Activity,
 });
+
+console.log(post1);
 
 // await User.findByPk(1, {
 //     include: Post // Include the associated posts

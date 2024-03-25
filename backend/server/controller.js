@@ -21,7 +21,17 @@ const handlerFunctions = {
   getOnePark: async (req, res) => {
     // const { parkId } = req.params
     const park = await Park.findByPk(req.params.parkId, {
-      include: [{ model: Activity }, { model: Post }],
+      include: [
+        { model: Activity },
+        {
+          model: Post,
+          include: [
+            { model: User },
+            { model: Comment, include: { model: User } },
+            { model: Activity },
+          ],
+        },
+      ],
     });
 
     res.send(park);
@@ -40,7 +50,7 @@ const handlerFunctions = {
 
   sessionCheck: async (req, res) => {
     if (req.session.userId) {
-      console.log('Session check truer')
+      console.log("Session check truer");
       res.send({
         message: "user is still logged in",
         success: true,
@@ -48,16 +58,16 @@ const handlerFunctions = {
         username: req.session.username,
         password: req.session.password,
         bio: req.session.bio,
-        userPic: req.session.userPic
-      })
-      return
+        userPic: req.session.userPic,
+      });
+      return;
     } else {
-      console.log('Session check false')
+      console.log("Session check false");
       res.send({
         message: "no user logged in",
         success: false,
-      })
-      return
+      });
+      return;
     }
   },
 
@@ -69,27 +79,27 @@ const handlerFunctions = {
       where: {
         username: username,
       },
-    })
+    });
     //if no user is found
     if (!user) {
       res.send({
         message: "no user found",
         success: false,
-      })
-      return
+      });
+      return;
     }
     if (user.password !== password) {
       res.send({
         message: "password does not match",
         success: false,
-      })
-      return
+      });
+      return;
     }
     req.session.userId = user.userId;
     req.session.username = user.username;
     req.session.password = user.password;
     req.session.bio = user.bio;
-    req.session.userPic = user.userPic
+    req.session.userPic = user.userPic;
 
     res.send({
       message: "user logged in",
@@ -98,7 +108,7 @@ const handlerFunctions = {
       username: req.session.username,
       password: req.session.password,
       bio: req.session.bio,
-      userPic: req.session.userPic
+      userPic: req.session.userPic,
     });
   },
 
@@ -124,7 +134,7 @@ const handlerFunctions = {
     req.session.username = newUser.username;
     req.session.password = newUser.password;
     req.session.bio = newUser.bio;
-    req.session.userPic = newUser.userPic
+    req.session.userPic = newUser.userPic;
 
     res.send({
       message: "user logged in",
@@ -133,10 +143,64 @@ const handlerFunctions = {
       username: req.session.username,
       password: req.session.password,
       bio: req.session.bio,
-      userPic: req.session.userPic
+      userPic: req.session.userPic,
     });
   },
 
+  getPosts: (req, res) => {
+    // set req.body.mode to 'park', 'friends', or 'user' to get posts filtered for that use case
+    console.log("getPosts", req.body);
+    if (typeof req.body.myId !== "number") {
+      res.send({ message: "No id provided", success: false });
+      return;
+    }
+    switch (req.body.mode) {
+      case "park": // get posts of a park
+        Park.findByPk(req.body.myId, {
+          include: [
+            {
+              model: Post,
+              include: [
+                {
+                  model: Comment, // Include comments associated with each post
+                  order: [["createdAt", "DESC"]],
+                  include: [
+                    {
+                      model: User, // Include comments associated with each post
+                      attributes: ["userId", "username"],
+                    },
+                  ],
+                },
+                {
+                  model: User,
+                  attributes: ["userId", "username"],
+                },
+                {
+                  model: Park,
+                  attributes: ["parkId", "fullName"],
+                },
+                {
+                  model: Activity,
+                },
+              ],
+            },
+          ],
+        })
+          .then(({ posts }) => {
+            res.send({
+              posts,
+              message: "Here are the park's posts with comments",
+              success: true,
+            });
+          })
+          .catch((err) => {
+            console.error(err);
+            res.send({
+              message: "Error fetching posts",
+              success: false,
+            });
+          });
+        return;
 
   //Hey there
     getPosts: (req, res) => {   // set req.body.mode to 'park', 'friends', or 'user' to get posts filtered for that use case
@@ -317,48 +381,68 @@ const handlerFunctions = {
           } = req.body
           console.log(req.body)
 
-          const user = await User.findByPk(req.params.id);
+  userInfo: async (req, res) => {
+    const { userId } = req.body;
+    console.log("Recieved userId:", userId);
+    try {
+      const user = await User.findByPk(userId.userId, {
+        attributes: ["userId", "username", "password", "bio", "userPic"],
+      });
+      console.log("Retrieved user:", user);
 
-          await user.update({
-            username: username ?? user.username,
-            password: password ?? user.password,
-            bio: bio ?? user.bio,
-            userPic: userPic ?? user.userPic
-          })
+      res.send(user);
+    } catch (error) {
+      console.error("Error retrieving user:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  },
+  updateUser: async (req, res) => {
+    const { username, password, bio, userPic } = req.body;
+    console.log(req.body);
 
-          res.send({
-            message: 'user updated',
-            user: user
-          })
+    const user = await User.findByPk(req.params.id);
 
-    },
+    await user.update({
+      username: username ?? user.username,
+      password: password ?? user.password,
+      bio: bio ?? user.bio,
+      userPic: userPic ?? user.userPic,
+    });
 
-        deleteUser: async (req,res) => {
-            console.log(req.params)
-            
-            const userToDelete = await User.findByPk(req.params.userId)
-            await userToDelete.destroy();
+    res.send({
+      message: "user updated",
+      user: user,
+    });
+  },
 
-            res.send({
-                message: "user deleted successfully",
-                status: true
-            })
-    },
+  deleteUser: async (req, res) => {
+    console.log(req.params);
 
-    parkMarkers: async (req, res) => {
-      const allMarkers = await Park.findAll({
-          attributes: ['parkId', 'fullName', 'latitude', 'longitude'],
-          attributes: ['parkId', 'fullName', 'latitude', 'longitude', 'images'],
-          include: [{
-              model: Activity,
-              through: {
-                  attributes: ['activity_activity_id']
-              }
-          }]
-      })
-      res.send(allMarkers)
-      // res.send(allActivities)
-  }
+    const userToDelete = await User.findByPk(req.params.userId);
+    await userToDelete.destroy();
+
+    res.send({
+      message: "user deleted successfully",
+      status: true,
+    });
+  },
+
+  parkMarkers: async (req, res) => {
+    const allMarkers = await Park.findAll({
+      attributes: ["parkId", "fullName", "latitude", "longitude"],
+      attributes: ["parkId", "fullName", "latitude", "longitude", "images"],
+      include: [
+        {
+          model: Activity,
+          through: {
+            attributes: ["activity_activity_id"],
+          },
+        },
+      ],
+    });
+    res.send(allMarkers);
+    // res.send(allActivities)
+  },
 };
 
 export default handlerFunctions;
