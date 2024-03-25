@@ -32,12 +32,44 @@ function Login() {
                 type: 'USER_AUTH',
                 payload: {
                     userId: res.data.userId,
-                    username: res.data.username
+                    username: res.data.username,
+                    password: res.data.password,
+                    bio: res.data.bio,
+                    userPic: res.data.userPic
                 }
             })
             navigate('/home')
         }
         alert(res.data.message)
+    }
+
+    const handleCreateAccount = async (e) => {
+        e.preventDefault();
+        if (!username || !email || !password) {
+            alert('Please fill out all of the fields')
+            return
+        }
+        const res = await axios.post('/api/createaccount', {
+            username: username,
+            email: email,
+            password: password
+        })
+        console.log(res.data)
+            if (res.data.success) {
+                console.log(res.data)
+                dispatch({
+                    type: 'USER_AUTH',
+                    payload: {
+                        userId: res.data.userId,
+                        username: res.data.username,
+                        password: res.data.password,
+                        bio: res.data.bio,
+                        userPic: res.data.userPic
+                    }
+                })
+                navigate('/parks')
+            }
+            alert(res.data.message)
     }
 
     const sessionCheck = async () => {
@@ -50,22 +82,6 @@ function Login() {
             });
         };
     };
-
-    const handleCreateAccount = (e) => {
-        e.preventDefault();
-        if (!username || !email || !password) {
-            alert('Please fill out all of the fields')
-            return
-        }
-        axios.post('/api/createaccount', {
-            username: username,
-            email: email,
-            password: password
-        })
-        .then((res) => {
-        })
-        navigate('/parks')
-    }
 
     useEffect(() => {
         sessionCheck()
