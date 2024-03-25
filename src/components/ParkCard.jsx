@@ -1,16 +1,9 @@
-import { useSelector, useDispatch } from "react-redux"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 function ParkCard({ park }) {
-  // const parkId = useSelector((state) => state.parkId)
-  const dispatch = useDispatch()
   const navigate = useNavigate()
 
 const handleClick = async () => {
-    // dispatch({
-    //   type: "SET_PARK",
-    //   payload: park.parkId
-    // })
     navigate(`/park/${park.parkId}`)
 }
 

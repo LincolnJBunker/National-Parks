@@ -74,6 +74,11 @@ img.park-img {
   border-radius: 10px;
 }
 
+p.description {
+  padding-top: 50px;
+}
+
+
 /* p.park-name {
   margin-top: 5px;
   margin-bottom: 50px;
@@ -114,6 +119,10 @@ header nav a.active {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+h2.park-name {
+  padding-bottom: 20px
 }
 
 button {

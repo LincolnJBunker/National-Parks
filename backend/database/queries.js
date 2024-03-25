@@ -1,7 +1,14 @@
-import { User, Park, Comment, Post, Follow, Activity } from "../database/model.js";
+
+import {
+  User,
+  Park,
+  Comment,
+  Post,
+  Follow,
+  Activity,
+  db,
+} from "../database/model.js";
 import { Op } from "sequelize";
-
-
 
 // await User.findByPk(1, {
 //     include: Post // Include the associated posts
@@ -12,7 +19,18 @@ import { Op } from "sequelize";
 //     }
 // })
 
+const park = await Park.findByPk(3, {
+  include: [{ model: Activity }, { model: Post }],
+});
 
+// await User.findByPk(1, {
+//     include: Post // Include the associated posts
+// }).then(user => {
+//     console.log(user)
+//     for (let post of user.posts) {
+//         console.log(post)
+//     }
+// })
 
 // Follow.findAll({
 //     where: {
@@ -52,3 +70,4 @@ import { Op } from "sequelize";
 
 
 Park.findOne({include: [{model: Activity}, {model: Post}]}).then(activity => console.log(activity))
+
