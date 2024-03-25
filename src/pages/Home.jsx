@@ -16,7 +16,7 @@ function Home() {
   return (
     <div className="home-page">
       <h4>Home</h4>
-      <PostContainer mode='friends' myId={userId}/>
+      <PostContainer mode='user' myId={1}/>
     </div>
   )
 }

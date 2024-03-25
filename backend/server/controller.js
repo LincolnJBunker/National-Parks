@@ -138,6 +138,7 @@ const handlerFunctions = {
   },
 
 
+  //Hey there
     getPosts: (req, res) => {   // set req.body.mode to 'park', 'friends', or 'user' to get posts filtered for that use case
         console.log('getPosts', req.body)
         if (typeof req.body.myId!=='number') {
@@ -149,25 +150,26 @@ const handlerFunctions = {
                 Park.findByPk(req.body.myId, {
                     include: [{
                         model: Post,
-                        include: [{
+                        include: [
+                          {
                             model: Comment,     // Include comments associated with each post
                             order: [['createdAt', 'DESC']],
                             include: [{
-                                model: User,     // Include comments associated with each post
-                                attributes: ['userId', 'username'],
-                            }]
-                            },
-                            {
                                 model: User,
                                 attributes: ['userId', 'username'],
-                            },
-                            {
-                                model: Park,
-                                attributes: ['parkId', 'fullName'],
-                            },
-                            {
-                                model: Activity,
-                            },
+                          }]
+                          },
+                          {
+                            model: User,
+                            attributes: ['userId', 'username'],
+                          },
+                          {
+                            model: Park,
+                            attributes: ['parkId', 'fullName'],
+                          },
+                          {
+                            model: Activity,
+                          },
                         ]
                     }],
                 })
