@@ -21,10 +21,7 @@ const handlerFunctions = {
   getOnePark: async (req, res) => {
     // const { parkId } = req.params
     const park = await Park.findByPk(req.params.parkId, {
-      include: {
-        model: Activity,
-        model: Post,
-      },
+      include: [{ model: Activity }, { model: Post }],
     });
 
     res.send(park);
@@ -34,6 +31,12 @@ const handlerFunctions = {
     const allActivities = await Activity.findAll();
     res.send(allActivities);
   },
+
+  //   getParkActivity: async (req, res) => {
+  //     const parkActivity = await Activity.findAll({
+  //       where: {},
+  //     });
+  //   },
 
   sessionCheck: async (req, res) => {
     if (req.session.userId) {
