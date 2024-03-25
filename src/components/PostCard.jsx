@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux';
 
 function PostCard({postPic, postText, username, profileId, profilePic, activities, parkName, parkId, comments}) {
+
+  console.log()
     
   const dispatch = useDispatch();
   const navigateTo = useNavigate();   // This allows you to send someone to another page

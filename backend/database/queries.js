@@ -18,9 +18,15 @@ import { Op } from "sequelize";
 //     }
 // })
 
-const park = await Park.findByPk(3, {
-  include: [{ model: Activity }, { model: Post }],
+// const park = await Park.findByPk(61, {
+//   include: [{ model: Activity }, { model: Post, include: { model: Activity } }],
+// });
+
+const post1 = await Post.findOne({
+  include: Activity,
 });
+
+console.log(post1);
 
 // await User.findByPk(1, {
 //     include: Post // Include the associated posts
@@ -31,45 +37,47 @@ const park = await Park.findByPk(3, {
 //     }
 // })
 
-Follow.findAll({
-  where: {
-    followerId: 1,
-  },
-}).then((follows) => {
-  User.findAll({
-    where: { userId: { [Op.in]: follows.map((follow) => follow.followedId) } },
-    include: [
-      {
-        model: Post,
-        include: [
-          {
-            model: Comment, // Include comments associated with each post
-            order: [["createdAt", "DESC"]],
-            include: [
-              {
-                model: User, // Include comments associated with each post
-                attributes: ["userId", "username"],
-              },
-            ],
-          },
-          {
-            model: User, // Include comments associated with each post
-            attributes: ["userId", "username"],
-          },
-        ],
-      },
-    ],
-  })
-    .then((users) => {
-      // console.log('users', users)
-      const posts = users
-        .reduce((acc, user) => {
-          return acc.concat(user.posts);
-        }, [])
-        .sort((a, b) => b.createdAt - a.createdAt);
-      console.log(posts);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-});
+// Follow.findAll({
+//   where: {
+//     followerId: 1,
+//   },
+// }).then((follows) => {
+//   User.findAll({
+//     where: { userId: { [Op.in]: follows.map((follow) => follow.followedId) } },
+//     include: [
+//       {
+//         model: Post,
+//         include: [
+//           {
+//             model: Comment, // Include comments associated with each post
+//             order: [["createdAt", "DESC"]],
+//             include: [
+//               {
+//                 model: User, // Include comments associated with each post
+//                 attributes: ["userId", "username"],
+//               },
+//             ],
+//           },
+//           {
+//             model: User, // Include comments associated with each post
+//             attributes: ["userId", "username"],
+//           },
+//         ],
+//       },
+//     ],
+//   })
+//     .then((users) => {
+//       // console.log('users', users)
+//       const posts = users
+//         .reduce((acc, user) => {
+//           return acc.concat(user.posts);
+//         }, [])
+//         .sort((a, b) => b.createdAt - a.createdAt);
+//       console.log(posts);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//     });
+// });
+
+await db.close();

@@ -50,6 +50,15 @@ nav {
   padding: 20px;
 }
 
+div.prof-activity {
+  display: grid;
+  grid-row: 3;
+}
+
+p.activity {
+  margin-bottom: 0;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

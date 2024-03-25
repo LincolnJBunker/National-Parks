@@ -90,7 +90,7 @@ let posts = [
       "https://www.justgotravelstudios.com/cdn/shop/articles/IMG_8596-Edit.jpg?v=1644329437&width=1100",
     postText: "Just hiked Angel's landing! 10/10 would recommend!",
     userId: 1,
-    parkId: 1,
+    parkId: 61,
     activities: [18],
   },
   {
@@ -98,7 +98,7 @@ let posts = [
       "https://pbs.twimg.com/media/GI0ODf3awAAuM66?format=jpg&name=large",
     postText: "Scouts Lookout Trail\nCanyon Overlook Trail\nZion National Park",
     userId: 2,
-    parkId: 2,
+    parkId: 61,
     activities: [25, 17],
   },
   {
@@ -107,7 +107,7 @@ let posts = [
     postText:
       "The Observation Point Trail is one of the best hikes in Zion National Park. How to reach this epic viewpoint? Read all about it in this article. https://opreismetco.nl/en/united-states/hiking-to-observation-point-zion-national-park-utah-usa/",
     userId: 3,
-    parkId: 3,
+    parkId: 61,
     activities: [18, 40],
   },
 ];
