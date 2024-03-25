@@ -2,15 +2,18 @@ import { useState, useEffect } from "react";
 import { APIProvider, Map, AdvancedMarker, Pin, InfoWindow } from '@vis.gl/react-google-maps';
 import googleAPIKey from "../hidden.js";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 import { Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Maps({ park }) {
+function Maps() {
   const [isMapInitialized, setMapInitialized] = useState(false);
   const [parkMarkers, setParkMarkers] = useState([]);
   const [selectedPark, setSelectedPark] = useState(null)
 
   const startingPosition = { lat: 37.29 , lng: -112.99 };
+
+  const navigate = useNavigate();
   
   useEffect(() => {
     //get the park markers
@@ -22,6 +25,10 @@ function Maps({ park }) {
       })
   }, [])
 console.log(selectedPark)
+
+const handleClick = async () => {
+  navigate(`/park/${selectedPark.parkId}`)
+}
   
   return (
     <APIProvider apiKey={googleAPIKey} >
@@ -45,7 +52,7 @@ console.log(selectedPark)
               position={{lat: selectedPark.latitude, lng: selectedPark.longitude }} 
               onCloseClick={() => setSelectedPark(null)}>
                 <div>
-                  <h3 style={{color: 'black'}}>{selectedPark.fullName}</h3>
+                  <h3 onClick={handleClick} style={{color: 'black'}}>{selectedPark.fullName}</h3>
                   <p style={{ color: 'black' }}>Popular Actvities in {selectedPark.fullName}</p>
                   <div className="marker-activities">
                     <ul>
