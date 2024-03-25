@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { APIProvider, Map, AdvancedMarker, Pin, InfoWindow } from '@vis.gl/react-google-maps';
 import googleAPIKey from "../hidden.js";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 import { Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -10,7 +11,9 @@ function Maps() {
   const [parkMarkers, setParkMarkers] = useState([]);
   const [selectedPark, setSelectedPark] = useState(null)
 
-  const startingPosition = { lat: 37.29 , lng: -112.99 };
+  const startingPosition = { lat: 39.76 , lng: -101.61 };
+
+  const navigate = useNavigate();
   
   useEffect(() => {
     //get the park markers
@@ -22,12 +25,16 @@ function Maps() {
       })
   }, [])
 console.log(selectedPark)
+
+const handleClick = async () => {
+  navigate(`/park/${selectedPark.parkId}`)
+}
   
   return (
     <APIProvider apiKey={googleAPIKey} >
       <div className="google-map" style={ {height: '100vh', width: '175vh'} }>
         <Map
-          zoom={isMapInitialized ? undefined : 5}
+          zoom={isMapInitialized ? undefined : 4}
           center={isMapInitialized ? undefined : startingPosition} 
           onIdle={() => setMapInitialized(true)}
           mapId="5d89cad2f935803d"
@@ -50,9 +57,13 @@ console.log(selectedPark)
                   <div className="marker-activities">
                     <ul>
                       {selectedPark.activities.map(activity => (
-                        <li style={{ color: 'black' }}>{activity.name}</li>
+                        <li key={activity.activity_id} style={{ color: 'black' }}>{activity.name}</li>
                       ))}
                     </ul>
+                  </div>
+                  <div className="visit-park">
+                    <h4>Interested in more information?</h4>
+                    <button className='visit' onClick={handleClick}>Visit {selectedPark.fullName}</button>
                   </div>
                   <div className="marker-images">
                         <Carousel controls indicators>

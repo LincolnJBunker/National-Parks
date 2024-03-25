@@ -22,25 +22,22 @@ app.use(
 
 app.get("/allParks", handlerFunctions.getAllParks);
 app.get("/api/park/:parkId", handlerFunctions.getOnePark);
-app.get("/allActivities", handlerFunctions.getAllActivities); //
-app.get("/api/session-check", handlerFunctions.sessionCheck); //
-app.post("/api/login", handlerFunctions.login);               //
-app.get("/api/logout", handlerFunctions.logout);              //
+app.get("/allActivities", handlerFunctions.getAllActivities);
+app.get("/api/session-check", handlerFunctions.sessionCheck);
+app.post("/api/login", handlerFunctions.login);
+app.get("/api/logout", handlerFunctions.logout);
 app.post("/api/createaccount", handlerFunctions.createAccount);
 // route to get posts use {mode: ['park', 'user', or 'friends'], id: id}
-app.get("/api/posts", handlerFunctions.getPosts);               //
-app.post("/api/createaccount", handlerFunctions.createAccount); //
-app.get("/api/parkMarkers", handlerFunctions.parkMarkers);      //
+app.post("/api/posts", handlerFunctions.getPosts);
+// app.get("/api/parkMarkers", handlerFunctions.parkMarkers);
 // app.get('/api/activityMarkers', handlerFunctions.activityMarkers)
 app.post('/api/userInfo', handlerFunctions.userInfo)
 app.put('/api/user/update/:id', handlerFunctions.updateUser);
-app.delete('/api/user/delete/:userId', handlerFunctions.deleteUser)
-app.get("/allActivities", handlerFunctions.getAllActivities);
+app.post('/api/comment', handlerFunctions.postComment)
 
-// route to get posts use {mode: ['park', 'user', or 'friends'], id: id}
-app.post('/api/posts', handlerFunctions.getPosts)
-app.post('/api/createaccount', handlerFunctions.createAccount)
-app.get('/api/parkMarkers', handlerFunctions.parkMarkers);
+app.delete('/api/user/delete/:userId', handlerFunctions.deleteUser)
+
+
 
 
 ViteExpress.listen(app, port, () =>

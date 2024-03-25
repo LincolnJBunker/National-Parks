@@ -29,7 +29,7 @@ const router = createBrowserRouter(
 
       <Route index element={<Login />} />
       <Route path="home" element={<Home />} />
-      <Route path="map" element={<Map />} />
+      <Route path="map" element={<Map/>} />
       <Route 
         path="parks" 
         element={<Parks />} 

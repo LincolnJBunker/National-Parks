@@ -1,3 +1,4 @@
+
 import {
   User,
   Park,
@@ -38,46 +39,69 @@ console.log(post1);
 // })
 
 // Follow.findAll({
-//   where: {
-//     followerId: 1,
-//   },
-// }).then((follows) => {
-//   User.findAll({
-//     where: { userId: { [Op.in]: follows.map((follow) => follow.followedId) } },
-//     include: [
-//       {
-//         model: Post,
-//         include: [
-//           {
-//             model: Comment, // Include comments associated with each post
-//             order: [["createdAt", "DESC"]],
-//             include: [
-//               {
-//                 model: User, // Include comments associated with each post
-//                 attributes: ["userId", "username"],
-//               },
-//             ],
-//           },
-//           {
-//             model: User, // Include comments associated with each post
-//             attributes: ["userId", "username"],
-//           },
-//         ],
-//       },
-//     ],
-//   })
-//     .then((users) => {
-//       // console.log('users', users)
-//       const posts = users
-//         .reduce((acc, user) => {
-//           return acc.concat(user.posts);
-//         }, [])
-//         .sort((a, b) => b.createdAt - a.createdAt);
-//       console.log(posts);
+//     where: {
+//         followerId: 1,
+//     }
+// })
+// .then(follows => {
+//     User.findAll({
+//         where: {userId: { [Op.in]: follows.map(follow => follow.followedId)}},
+//         include: [{
+//             model: Post,
+//             include: [{
+//                 model: Comment,     // Include comments associated with each post
+//                 order: [['createdAt', 'DESC']],
+//                 include: [{
+//                     model: User,     // Include comments associated with each post
+//                     attributes: ['userId', 'username'],
+//                 }]
+//             },
+//             {
+//                 model: User,     // Include comments associated with each post
+//                 attributes: ['userId', 'username'],
+//             },
+//         ]
+//         }],
 //     })
-//     .catch((err) => {
-//       console.error(err);
-//     });
-// });
+//     .then((users) => {
+//         // console.log('users', users)
+//         const posts = users.reduce((acc, user) => {
+//             return acc.concat(user.posts);
+//           }, []).sort((a,b) => b.createdAt - a.createdAt);
+//         console.log(posts)
+//     }).catch((err) => {
+//         console.error(err)
+//     })
+// })
 
-await db.close();
+
+// Park.findOne({include: [{model: Activity}, {model: Post}]}).then(activity => console.log(activity))
+
+Park.findByPk(61, {
+  include: [{
+      model: Post,
+      include: [{
+            model: Comment,     // Include comments associated with each post
+            order: [['createdAt', 'DESC']],
+            include: [{
+                model: User,
+                attributes: ['userId', 'username'],
+            }]
+          },
+          {
+              model: User,
+              attributes: ['userId', 'username'],
+          },
+          {
+              model: Park,
+              attributes: ['parkId', 'fullName'],
+          },
+          {
+              model: Activity,
+          },
+      ]
+  }],
+})
+.then(({posts}) => {
+  console.log(posts)
+  })
