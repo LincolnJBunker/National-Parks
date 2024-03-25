@@ -207,13 +207,13 @@ const handlerFunctions = {
                         where: {userId: { [Op.in]: follows.map(follow => follow.followedId)}},
                         include: [{
                             model: Post,
-                            include: [{
-                                model: Comment,     // Include comments associated with each post
-                                order: [['createdAt', 'DESC']],
-                                include: [{
-                                    model: User,
-                                    attributes: ['userId', 'username'],
-                                }]
+                            include: [
+                                {
+                                    model: Comment,     // Include comments associated with each post
+                                    order: [['createdAt', 'DESC']],
+                                    include: [{
+                                        model: User,
+                                        attributes: ['userId', 'username'],}]
                                 },
                                 {
                                     model: User,
@@ -228,82 +228,28 @@ const handlerFunctions = {
                                 },
                             ]
                         }],
+                    }
+                )
+                .then((users) => {
+                    const posts = users.reduce((acc, user) => {
+                        return acc.concat(user.posts);
+                    }, []).sort((a,b) => b.createdAt - a.createdAt);
+                    res.send({
+                        message: 'Here are all the posts with comments',
+                        success: true,
+                        posts,
                     })
-                    .then((users) => {
-                        const posts = users.reduce((acc, user) => {
-                            return acc.concat(user.posts);
-                        }, []).sort((a,b) => b.createdAt - a.createdAt);
-                        res.send({
-                            message: 'Here are all the posts with comments',
-                            success: true,
-                            posts,
-                        })
-                    }).catch((err) => {
-                        console.error(err)
-                        res.send({
-                            message: 'Error fetching posts',
-                            success: false,
-                        })
+                }).catch((err) => {
+                    console.error(err)
+                    res.send({
+                        message: 'Error fetching posts',
+                        success: false,
                     })
                 })
+            })
         }
-    },
-    
-      createAccount: async (req, res) => {
-        const { username, email, password } = req.body
-        console.log(req.body)
-        const newUser = await User.create({
-            username,
-            email,
-            password,
-        })
-          .then(({ posts }) => {
-            res.send({
-              posts,
-              message: "Here are the park's posts with comments",
-              success: true,
-            });
-          })
-          .catch((err) => {
-            console.error(err);
-            res.send({
-              message: "Error fetching posts",
-              success: false,
-            });
-          });
-        return;
-
-      case "user": // get post of a user
-        User.findByPk(req.body.id, {
-          include: [
-            {
-              model: Post,
-              order: [["createdAt", "DESC"]],
-              include: [
-                {
-                  model: Comment, // Include comments associated with each post
-                  order: [["createdAt", "DESC"]],
-                },
-              ],
-            },
-          ],
-        })
-          .then(({ posts }) => {
-            res.send({
-              posts,
-              message: "Here are the user's posts with comments",
-              success: true,
-            });
-          })
-          .catch((err) => {
-            console.error(err);
-            res.send({
-              message: "Error fetching posts",
-              success: false,
-            });
-          });
-
-
+    },      
+     
         userInfo: async (req, res) => {
             const { userId } = req.body
             const user = await User.findOne({
@@ -314,8 +260,6 @@ const handlerFunctions = {
             });
             res.send(user)
     },
-
-
         updateUser: async (req, res) => {
           const {
             username,
