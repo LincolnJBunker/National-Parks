@@ -37,18 +37,24 @@ const handlerFunctions = {
 
   sessionCheck: async (req, res) => {
     if (req.session.userId) {
+      console.log('Session check truer')
       res.send({
         message: "user is still logged in",
         success: true,
         userId: req.session.userId,
-      });
-      return;
+        username: req.session.username,
+        password: req.session.password,
+        bio: req.session.bio,
+        userPic: req.session.userPic
+      })
+      return
     } else {
+      console.log('Session check false')
       res.send({
         message: "no user logged in",
         success: false,
-      });
-      return;
+      })
+      return
     }
   },
 
@@ -60,21 +66,21 @@ const handlerFunctions = {
       where: {
         username: username,
       },
-    });
+    })
     //if no user is found
     if (!user) {
       res.send({
         message: "no user found",
         success: false,
-      });
-      return;
+      })
+      return
     }
     if (user.password !== password) {
       res.send({
         message: "password does not match",
         success: false,
-      });
-      return;
+      })
+      return
     }
     req.session.userId = user.userId;
     req.session.username = user.username;
@@ -322,6 +328,21 @@ const handlerFunctions = {
                 status: true
             })
     },
+
+    parkMarkers: async (req, res) => {
+      const allMarkers = await Park.findAll({
+          attributes: ['parkId', 'fullName', 'latitude', 'longitude'],
+          attributes: ['parkId', 'fullName', 'latitude', 'longitude', 'images'],
+          include: [{
+              model: Activity,
+              through: {
+                  attributes: ['activity_activity_id']
+              }
+          }]
+      })
+      res.send(allMarkers)
+      // res.send(allActivities)
+  }
 };
 
 export default handlerFunctions;

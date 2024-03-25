@@ -7,8 +7,6 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [newUsername, setNewUsername] = useState('');
-    const [newPassword, setNewPassword] = useState('');
     const [showCreateAccount, setShowCreateAccount] = useState(false);
 
     const userId = useSelector((state) => state.userId);

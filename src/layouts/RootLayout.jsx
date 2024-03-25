@@ -1,8 +1,32 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import axios from "axios";
 function RootLayout() {
     const userId = useSelector((state) => state.userId);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const sessionCheck = async () => {
+        const res = await axios.get('/api/session-check')
+        console.log(res)
+        if (res.data.success) {
+            dispatch({
+                type: 'USER_AUTH',
+                payload: {
+                    userId: res.data.userId,
+                    username: res.data.username,
+                    password: res.data.password,
+                    bio: res.data.bio,
+                    userPic: res.data.userPic
+                }
+            });
+        };
+    };
+
+    useEffect(() => {
+        sessionCheck()
+    }, [])
 
   return (
     <div className="root-layout">
@@ -30,6 +54,10 @@ function RootLayout() {
                 {userId &&
                 <NavLink to='profile'>Profile</NavLink> 
                 }
+
+                {userId && 
+                <NavLink to='edit'>Edit Profile</NavLink>
+                } 
             </nav>
         </header>
 
