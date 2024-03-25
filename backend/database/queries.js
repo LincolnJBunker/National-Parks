@@ -69,5 +69,33 @@ const park = await Park.findByPk(3, {
 // })
 
 
-Park.findOne({include: [{model: Activity}, {model: Post}]}).then(activity => console.log(activity))
+// Park.findOne({include: [{model: Activity}, {model: Post}]}).then(activity => console.log(activity))
 
+Park.findByPk(61, {
+  include: [{
+      model: Post,
+      include: [{
+            model: Comment,     // Include comments associated with each post
+            order: [['createdAt', 'DESC']],
+            include: [{
+                model: User,
+                attributes: ['userId', 'username'],
+            }]
+          },
+          {
+              model: User,
+              attributes: ['userId', 'username'],
+          },
+          {
+              model: Park,
+              attributes: ['parkId', 'fullName'],
+          },
+          {
+              model: Activity,
+          },
+      ]
+  }],
+})
+.then(({posts}) => {
+  console.log(posts)
+  })
