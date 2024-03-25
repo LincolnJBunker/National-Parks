@@ -36,12 +36,14 @@ function PostContainer({mode, myId}) {    // mode is either park, friends, or us
   }, [])
 
   const postList = posts.map((post, idx) => <PostCard
+    postId={post.postId}
     postPic={post.postPic}
     postText={post.postText}
     username={post.user.username}
     profileId={post.user.userId}
     comments={post.comments}
     activities={post.activities}
+    showUser={mode!=='user'}
     key={idx}
   />)
 
@@ -51,7 +53,7 @@ function PostContainer({mode, myId}) {    // mode is either park, friends, or us
     <>
     <div>{myId}</div>
       {posts.length > 0 ? 
-        <div>
+        <div className='postAreaWrapper'>
           <h4>Latest Posts</h4>
           {postList}
         </div>
