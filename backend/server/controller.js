@@ -248,7 +248,18 @@ const handlerFunctions = {
                 })
             })
         }
-    },      
+    },
+
+  postComment: (req, res) => {
+      Comment.create({commentText: req.body.commentText}).then(comment => {
+        comment.addPost(req.body.postId)
+        comment.addUswer(req.body.userId)
+        res.send({message: 'Comment successfully created', success: true})
+      }).catch(err => {
+        res.send({message: 'There was an error posting your comment', success: false})
+        console.error(err)
+      })
+  },
      
         userInfo: async (req, res) => {
             const { userId } = req.body

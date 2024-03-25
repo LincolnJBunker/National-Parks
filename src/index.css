@@ -157,3 +157,75 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+.postAreaWrapper {
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  width: 100%; /* Make sure the container spans the full width */
+  max-width: 100%; /* Ensure the container doesn't exceed the viewport width */
+  padding: 0 10px; /* Add padding if necessary */
+  box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+.postBox {
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: #dddddd;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.postPic {
+  border-radius: 10px;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.postPicBox {
+  width: 300px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.postBoxMiddle {
+  display: flex;
+  flex-direction: row;
+}
+
+.postBox div {
+  margin: 5px;
+}
+
+.userDiv {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-weight: bold;
+  background-color: burlywood;
+  align-items: center;
+}
+
+.postBoxRightSide {
+  background-color: white;
+  padding: 8px;
+}
+
+.commentButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}

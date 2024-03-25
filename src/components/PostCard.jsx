@@ -1,15 +1,17 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux';
+import Comment from './Comment';
 
-function PostCard({postPic, postText, username, profileId, profilePic, activities, parkName, parkId, comments}) {
-    
+function PostCard({postId, postPic, postText, username, profileId, profilePic, activities, parkName, parkId, comments, showUser}) {
+
+  const [isCommenting, setIsCommenting] = useState(false)
   const dispatch = useDispatch();
   const navigateTo = useNavigate();   // This allows you to send someone to another page
   const activityList = activities.map((activity, idx) => <a key={idx}>{activity.name}</a>)
   const commentList = comments.map((comment, idx) => (
     <div key={idx}>
-      <p >{comment.user.username}: {comment.commentText}</p>
+      <p style={{borderTop: '1px solid #888888'}}>{comment.user.username}: {comment.commentText}</p>
     </div>
   ))
 
@@ -26,16 +28,23 @@ function PostCard({postPic, postText, username, profileId, profilePic, activitie
 
 
   return (
-    <div>
-      <div key={1} className='userDiv'>
+    <div key={1} className='postBox'>
+      {showUser && <div className='userDiv'>
         {/* <img src={profilePic} alt="post creator" /> */}
         <p onClick={clickUser}>{username}</p>
-        <p onClick={clickPark}>{parkName}</p>
+      </div>}
+      <div className='postBoxMiddle'>
+        <div className='postBoxLeftSide'>
+          <div className='postPicBox'>
+            <img className='postPic' src={postPic} />
+          </div>
+          <div onClick={clickPark}>{parkName}</div>
+          {activityList}
+        </div>
+        <div className='postBoxRightSide'><p>{postText}</p></div>
       </div>
-      <div key={2}>{parkName}</div>
-      <img src={postPic} />
-      <p>{postText}</p>
-      {activityList}
+      
+      <Comment postId={postId} isCommenting={isCommenting} setIsCommenting={setIsCommenting}/>
       <div key={3}>
         {commentList}
       </div>
