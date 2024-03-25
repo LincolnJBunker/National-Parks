@@ -1,5 +1,8 @@
 import React from "react";
 import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import axios from "axios";
 
 //Pages
 import Login from "./pages/Login";
@@ -47,6 +50,27 @@ const router = createBrowserRouter(
 )
 
 function App() {
+  const dispatch = useDispatch();
+  const sessionCheck = async () => {
+    const res = await axios.get('/api/session-check')
+    console.log(res)
+    if (res.data.success) {
+        dispatch({
+            type: 'USER_AUTH',
+            payload: {
+                userId: res.data.userId,
+                username: res.data.username,
+                password: res.data.password,
+                bio: res.data.bio,
+                userPic: res.data.userPic
+            }
+        });
+    };
+};
+
+useEffect(() => {
+    sessionCheck()
+}, [])
 
   return (
     <>
