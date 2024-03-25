@@ -122,7 +122,7 @@ function EditProfile() {
                 <p>Username: {username}</p>
                 <p>Password: {password}</p>
                 <p>Bio: {bio}</p>
-                Profile Pic:<img src={userPic} alt="profile pic" />
+                Profile Pic:<img src={userPic} alt="profile pic" className="profile-pic" />
             </div>
         )}
 

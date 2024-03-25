@@ -11,7 +11,7 @@ function Maps() {
   const [parkMarkers, setParkMarkers] = useState([]);
   const [selectedPark, setSelectedPark] = useState(null)
 
-  const startingPosition = { lat: 37.29 , lng: -112.99 };
+  const startingPosition = { lat: 39.76 , lng: -101.61 };
 
   const navigate = useNavigate();
   
@@ -34,7 +34,7 @@ const handleClick = async () => {
     <APIProvider apiKey={googleAPIKey} >
       <div className="google-map" style={ {height: '100vh', width: '175vh'} }>
         <Map
-          zoom={isMapInitialized ? undefined : 5}
+          zoom={isMapInitialized ? undefined : 4}
           center={isMapInitialized ? undefined : startingPosition} 
           onIdle={() => setMapInitialized(true)}
           mapId="5d89cad2f935803d"
@@ -52,14 +52,18 @@ const handleClick = async () => {
               position={{lat: selectedPark.latitude, lng: selectedPark.longitude }} 
               onCloseClick={() => setSelectedPark(null)}>
                 <div>
-                  <h3 onClick={handleClick} style={{color: 'black'}}>{selectedPark.fullName}</h3>
+                  <h3 style={{color: 'black'}}>{selectedPark.fullName}</h3>
                   <p style={{ color: 'black' }}>Popular Actvities in {selectedPark.fullName}</p>
                   <div className="marker-activities">
                     <ul>
                       {selectedPark.activities.map(activity => (
-                        <li style={{ color: 'black' }}>{activity.name}</li>
+                        <li key={activity.activity_id} style={{ color: 'black' }}>{activity.name}</li>
                       ))}
                     </ul>
+                  </div>
+                  <div className="visit-park">
+                    <h4>Interested in more information?</h4>
+                    <button className='visit' onClick={handleClick}>Visit {selectedPark.fullName}</button>
                   </div>
                   <div className="marker-images">
                         <Carousel controls indicators>
