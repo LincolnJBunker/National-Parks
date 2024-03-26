@@ -13,9 +13,6 @@ function Parks() {
 
   const { parks, activities } = useLoaderData()
 
-  const parkId = useSelector((state) => state.parkId)
-  console.log(parkId)
-
   // let cards = async () => {axios.get("/allParks")
   //   .then((res) => {
   //       setParks(res.data)
@@ -46,9 +43,6 @@ function Parks() {
   //   fetchData()
   // }, [])
 
-  const onePark = parks.filter((park) => park.parkId === parkId)[0]
-  console.log(onePark)
-
   // useEffect(() => {cards()}, [])
 
   const myContent = filteredParks.map((park) => {
@@ -56,7 +50,7 @@ function Parks() {
   })
   // console.log(filteredParks, activityVal)
 
-  return (!parkId ? (
+  return  (
     <>
         <label htmlFor="where-to">Where to?</label>
         <input  
@@ -78,9 +72,7 @@ function Parks() {
         {myContent}
       </div>
       </>
-  ) : (
-    <ParkProfile park={onePark} />
-  ))
+  ) 
   }
 
 export default Parks
