@@ -293,10 +293,13 @@ const handlerFunctions = {
 },
 
   postComment: (req, res) => {
-      Comment.create({commentText: req.body.commentText}).then(comment => {
-        comment.addPost(req.body.postId)
-        comment.addUswer(req.body.userId)
-        res.send({message: 'Comment successfully created', success: true})
+      console.log(req.body)
+      Comment.create({
+        commentText: req.body.commentText,
+        postId: req.body.postId,
+        userId: req.body.userId
+      }).then(comment => {
+        res.send({message: 'Comment successfully created', success: true, comment: comment})
       }).catch(err => {
         res.send({message: 'There was an error posting your comment', success: false})
         console.error(err)
