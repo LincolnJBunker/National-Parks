@@ -392,6 +392,21 @@ const handlerFunctions = {
     res.send(allMarkers);
     // res.send(allActivities)
   },
+
+  getFollows: async (req, res) => {
+    try {
+      const followingPromise = Follow.findAll({where: {followerId: req.params.id}})
+      const followersPromise = Follow.findAll({where: {followedId: req.params.id}})
+      const [following, followers] = await Promise.all([followingPromise, followersPromise])
+      res.send({message: 'Here are the follows', success: true, following, followers})
+    } catch (err) {
+      console.error(err)
+      res.send({message: 'Error fetching follows', success: false})
+    } finally {
+      return
+    }
+
+  }
 };
 
 export default handlerFunctions;
