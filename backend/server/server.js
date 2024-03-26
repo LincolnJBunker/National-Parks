@@ -28,8 +28,8 @@ app.post("/api/login", handlerFunctions.login);
 app.get("/api/logout", handlerFunctions.logout);
 app.post("/api/createaccount", handlerFunctions.createAccount);
 // route to get posts use {mode: ['park', 'user', or 'friends'], id: id}
-app.post("/api/posts", handlerFunctions.getPosts);
-// app.get("/api/parkMarkers", handlerFunctions.parkMarkers);
+// app.post("/api/posts", handlerFunctions.getPosts);
+app.get("/api/parkMarkers", handlerFunctions.parkMarkers);
 // app.get('/api/activityMarkers', handlerFunctions.activityMarkers)
 app.post('/api/userInfo', handlerFunctions.userInfo)
 app.put('/api/user/update/:id', handlerFunctions.updateUser);
