@@ -78,6 +78,16 @@ p.description {
   padding-top: 50px;
 }
 
+div.prof-activity {
+  display: grid;
+  grid-gap: 5px;
+  justify-content: center;
+  grid-template-columns: repeat(3, calc(33.33% - 20px))
+}
+
+p.activity {
+  margin-bottom: 0;
+}
 
 /* p.park-name {
   margin-top: 5px;

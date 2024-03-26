@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux';
 import Comment from './Comment';  //  Hey
 
+
 function PostCard({postId, postPic, postText, username, profileId, profilePic, activities, parkName, parkId, comments, showUser}) {
 
   const [isCommenting, setIsCommenting] = useState(false)
