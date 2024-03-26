@@ -43,7 +43,6 @@ const parkPosts = park.posts.map((post) => <PostCard
 
 export default ParkProfile
 
-
 export const parkProfileLoader = async ({ params }) => {
     const res = await axios.get(`/api/park/${params.parkId}`)
     
