@@ -10,7 +10,7 @@ function PostCard({postId, postPic, postText, username, profileId, profilePic, a
   const dispatch = useDispatch();
   const navigateTo = useNavigate();   // This allows you to send someone to another page
   const activityList = activities.map((activity, idx) => <a key={idx}>{activity.name}</a>)
-  const userId = useSelector(state => state.userId.userId)
+  // const userId = useSelector(state => state.userId.userId)
   const [commentArr, setCommentArr] = useState(comments)
   console.log(commentArr)
   const commentList = commentArr.map((comment, idx) => (

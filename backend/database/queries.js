@@ -23,11 +23,6 @@ import { Op } from "sequelize";
 //   include: [{ model: Activity }, { model: Post, include: { model: Activity } }],
 // });
 
-const post1 = await Post.findOne({
-  include: Activity,
-});
-
-console.log(post1);
 
 // await User.findByPk(1, {
 //     include: Post // Include the associated posts
@@ -77,31 +72,37 @@ console.log(post1);
 
 // Park.findOne({include: [{model: Activity}, {model: Post}]}).then(activity => console.log(activity))
 
-Park.findByPk(61, {
-  include: [{
-      model: Post,
-      include: [{
-            model: Comment,     // Include comments associated with each post
-            order: [['createdAt', 'DESC']],
-            include: [{
-                model: User,
-                attributes: ['userId', 'username'],
-            }]
-          },
-          {
-              model: User,
-              attributes: ['userId', 'username'],
-          },
-          {
-              model: Park,
-              attributes: ['parkId', 'fullName'],
-          },
-          {
-              model: Activity,
-          },
-      ]
-  }],
-})
-.then(({posts}) => {
-  console.log(posts)
-  })
+// Park.findByPk(61, {
+//   include: [{
+//       model: Post,
+//       include: [{
+//             model: Comment,     // Include comments associated with each post
+//             order: [['createdAt', 'DESC']],
+//             include: [{
+//                 model: User,
+//                 attributes: ['userId', 'username'],
+//             }]
+//           },
+//           {
+//               model: User,
+//               attributes: ['userId', 'username'],
+//           },
+//           {
+//               model: Park,
+//               attributes: ['parkId', 'fullName'],
+//           },
+//           {
+//               model: Activity,
+//           },
+//       ]
+//   }],
+// })
+// .then(({posts}) => {
+//   console.log(posts)
+//   })
+
+
+const user = await User.findByPk(1, {
+  attributes: ['userId', 'username', 'password', 'bio', 'userPic'],
+});
+console.log(user)

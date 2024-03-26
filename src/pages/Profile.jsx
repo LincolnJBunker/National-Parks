@@ -38,26 +38,51 @@ function Profile() {
   }, [])
 
   const userId = useSelector((state) => state.userId);
-  console.log('userId', userId)
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [bio, setBio] = useState('');
-  const [userPic, setUserPic] = useState('');
+  const profileId = useSelector((state) => state.profileId);
+  // console.log('userId', userId)
+  // const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [bio, setBio] = useState('');
+  // const [userPic, setUserPic] = useState('');
 
   ///\\\///\\\///\\\///\\\///\\\///\\\///\\\///\\\///\\\
+
+  const [userData, setUserData] = useState({
+    username: null,
+    bio: null,
+    userPic: null,
+    followers: null,
+    following: null,
+
+  })
+
   // David wrote the following block of code
-  const [followers, setFollowers] = useState([])
-  const [following, setFollowing] = useState([])
-  const getFollows = (id=userId) => {
-    axios.get(`/api/follows/${id}`).then(res =>{
-      setFollowers(res.data.followers)
-      setFollowing(res.data.following)
-    })
+  // const [followers, setFollowers] = useState([])
+  // const [following, setFollowing] = useState([])
+  
+  const getUserData = async (id) => {
+      console.log('getUserData', id)
+      // get and set userData for given id
+      let followRes = await axios.get(`/api/follows/${id}`)
+      console.log('followRes', followRes)
+      setUserData({...userData, followers: followRes.data.followers, following: followRes.data.following})
+      let infoRes = await axios.post(`/api/userInfo`, {id})
+      console.log('infoRes', infoRes)
+      setUserData({...userData, username: infoRes.data.username, password: infoRes.data.password, bio: infoRes.data.bio, userPic: infoRes.data.userPic})
+
   }
+
+  // const getFollows = (id=userId) => {
+  //   axios.get(`/api/follows/${id}`).then(res =>{
+  //     setFollowers(res.data.followers)
+  //     setFollowing(res.data.following)
+  //   })
+  // }
   useEffect(() => {
-    if (userId)
-    getFollows(userId.userId)
-  }, [userId])
+    if (profileId || userId) {
+      getUserData(profileId ? profileId : userId.userId)
+    }
+  }, [userId, profileId])
   // End of Code Block David wrote
   ///\\\///\\\///\\\///\\\///\\\///\\\///\\\///\\\///\\\
 
@@ -65,14 +90,16 @@ function Profile() {
   return (
     <div className="profile-page">
       <h2>Profile</h2>
-      <img className="profile-pic" src={userPic} alt="profile-pic" />
-      <h3>Following: {following?.length}</h3>
-      <h3>Followers: {followers?.length}</h3>
-      <h3>{username}</h3>
-      <p>{bio}</p>
-      <EditProfileBtn />
+      <p>{JSON.stringify(userData)}</p>
+      <p>profileId: {profileId} userId: {userId?.userId}</p>
+      <img className="profile-pic" src={userData.userPic} alt="profile-pic" />
+      <h3>Following: {userData.following?.length}</h3>
+      <h3>Followers: {userData.followers?.length}</h3>
+      <h3>{userData.username}</h3>
+      <p>{userData.bio}</p>
+      {(userId && !profileId || (userId===profileId)) && <EditProfileBtn />}
 
-      <PostContainer mode='user' myId={userId.userId} />
+      <PostContainer mode='user' myId={profileId?profileId:userId?.userId} />
     </div>
   )
 }
