@@ -389,6 +389,11 @@ const handlerFunctions = {
     res.send(allMarkers);
     // res.send(allActivities)
   },
+
+  getOneUser: async (req, res) => {
+    const profile = User.findByPk(req.params.userId)
+    res.send(profile)
+  },
 };
 
 export default handlerFunctions;

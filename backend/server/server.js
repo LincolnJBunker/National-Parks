@@ -34,8 +34,8 @@ app.get("/api/parkMarkers", handlerFunctions.parkMarkers);
 app.post('/api/userInfo', handlerFunctions.userInfo)
 app.put('/api/user/update/:id', handlerFunctions.updateUser);
 app.post('/api/comment', handlerFunctions.postComment)
-
 app.delete('/api/user/delete/:userId', handlerFunctions.deleteUser)
+app.get("/api/profile/:profileId", handlerFunctions.getOneUser)
 
 
 

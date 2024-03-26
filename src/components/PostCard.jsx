@@ -22,11 +22,11 @@ function PostCard({postId, postPic, postText, username, profileId, profilePic, a
   };
   const clickPark = () => {
       dispatch({type: 'SET_PARK', payload: parkId});
-      navigateTo('/parks')
+      navigateTo(`/park/${parkId}`)
   };
 
 
-
+  console.log(parkName)
 
   return (
     <div key={1} className='postBox'>
