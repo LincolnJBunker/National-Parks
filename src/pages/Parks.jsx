@@ -13,12 +13,6 @@ function Parks() {
 
   const { parks, activities } = useLoaderData()
 
-  // let cards = async () => {axios.get("/allParks")
-  //   .then((res) => {
-  //       setParks(res.data)
-  //   })
-  // }
-
   // function to take the current 'parks' array and filter it based on the 'searchVal'
   const filteredParks = parks.filter((park) => {
 
@@ -27,23 +21,6 @@ function Parks() {
     const activityMatch = activityVal !== "" ? park.activities.some(activity => activity.name.toLowerCase().includes(activityVal.trim().toLowerCase())) : true;
     return parkNameMatch && activityMatch; // Add condition to check if park.activities exists
   });
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const parksResponse = await axios.get("/allParks")
-  //       setParks(parksResponse.data)
-        
-  //       const activitiesResponse = await axios.get("/allActivities")
-  //       setActivities(activitiesResponse.data)
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error)
-  //     }
-  //   }
-  //   fetchData()
-  // }, [])
-
-  // useEffect(() => {cards()}, [])
 
   const myContent = filteredParks.map((park) => {
     return <ParkCard park={park} key={park.parkId} />
@@ -76,7 +53,6 @@ function Parks() {
   }
 
 export default Parks
-
 
 
 export const parksLoader = async () => {
