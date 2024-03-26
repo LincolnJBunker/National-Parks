@@ -147,122 +147,114 @@ const handlerFunctions = {
     });
   },
 
-  getPosts: (req, res) => {
-    // set req.body.mode to 'park', 'friends', or 'user' to get posts filtered for that use case
-    console.log("getPosts", req.body);
-    if (typeof req.body.myId !== "number") {
-      res.send({ message: "No id provided", success: false });
-      return;
+
+  getPosts: (req, res) => {   // set req.body.mode to 'park', 'friends', or 'user' to get posts filtered for that use case
+    console.log('getPosts', req.body)
+    if (typeof req.body.myId!=='number') {
+        res.send({message: 'No id provided', success: false})
+        return
     }
     switch (req.body.mode) {
-      case "park": // get posts of a park
-        Park.findByPk(req.body.myId, {
-          include: [
-            {
-              model: Post,
-              include: [
-                {
-                  model: Comment, // Include comments associated with each post
-                  order: [["createdAt", "DESC"]],
-                  include: [
-                    {
-                      model: User, // Include comments associated with each post
-                      attributes: ["userId", "username"],
-                    },
-                  ],
-                },
-                {
-                  model: User,
-                  attributes: ["userId", "username"],
-                },
-                {
-                  model: Park,
-                  attributes: ["parkId", "fullName"],
-                },
-                {
-                  model: Activity,
-                },
-              ],
-            },
-          ],
-        })
-          .then(({ posts }) => {
-            res.send({
-              posts,
-              message: "Here are the park's posts with comments",
-              success: true,
-            });
-          })
-          .catch((err) => {
-            console.error(err);
-            res.send({
-              message: "Error fetching posts",
-              success: false,
-            });
-          });
-        return;
-
-  //Hey there
-    getPosts: (req, res) => {   // set req.body.mode to 'park', 'friends', or 'user' to get posts filtered for that use case
-        console.log('getPosts', req.body)
-        if (typeof req.body.myId!=='number') {
-            res.send({message: 'No id provided', success: false})
+        case 'park':        // get posts of a park
+            Park.findByPk(req.body.myId, {
+                include: [{
+                    model: Post,
+                    include: [
+                      {
+                        model: Comment,     // Include comments associated with each post
+                        order: [['createdAt', 'DESC']],
+                        include: [{
+                            model: User,
+                            attributes: ['userId', 'username'],
+                      }]
+                      },
+                      {
+                        model: User,
+                        attributes: ['userId', 'username'],
+                      },
+                      {
+                        model: Park,
+                        attributes: ['parkId', 'fullName'],
+                      },
+                      {
+                        model: Activity,
+                      },
+                    ]
+                }],
+            })
+            .then(({posts}) => {
+                res.send({
+                    posts,
+                    message: "Here are the park's posts with comments",
+                    success: true
+                })
+            }).catch((err) => {
+                console.error(err)
+                res.send({
+                    message: 'Error fetching posts',
+                    success: false
+                })
+            })
             return
-        }
-        switch (req.body.mode) {
-            case 'park':        // get posts of a park
-                Park.findByPk(req.body.myId, {
+        case 'user':        // get post of a user
+            User.findByPk(req.body.myId, {
+                include: [{
+                    model: Post,
+                    include: [{
+                        model: Comment,     // Include comments associated with each post
+                        order: [['createdAt', 'DESC']],
+                        include: [{
+                            model: User,
+                            attributes: ['userId', 'username'],
+                        }]
+                        },
+                        {
+                            model: User,
+                            attributes: ['userId', 'username'],
+                        },
+                        {
+                            model: Park,
+                            attributes: ['parkId', 'fullName'],
+                        },
+                        {
+                            model: Activity,
+                        },
+                    ]
+                }],
+            })
+            .then(({posts}) => {
+                res.send({
+                    posts,
+                    message: "Here are the user's posts with comments",
+                    success: true
+                })
+            }).catch((err) => {
+                console.error(err)
+                res.send({
+                    message: 'Error fetching posts',
+                    success: false
+                })
+            })
+            return
+        case 'friends':     // get posts of friends
+            console.log('friends')
+            Follow.findAll({
+                where: {
+                    followerId: req.body.myId,
+                }
+            })
+            .then(follows => {
+                User.findAll({
+                    where: {userId: { [Op.in]: follows.map(follow => follow.followedId)}},
                     include: [{
                         model: Post,
                         include: [
-                          {
-                            model: Comment,     // Include comments associated with each post
-                            order: [['createdAt', 'DESC']],
-                            include: [{
-                                model: User,
-                                attributes: ['userId', 'username'],
-                          }]
-                          },
-                          {
-                            model: User,
-                            attributes: ['userId', 'username'],
-                          },
-                          {
-                            model: Park,
-                            attributes: ['parkId', 'fullName'],
-                          },
-                          {
-                            model: Activity,
-                          },
-                        ]
-                    }],
-                })
-                .then(({posts}) => {
-                    res.send({
-                        posts,
-                        message: "Here are the park's posts with comments",
-                        success: true
-                    })
-                }).catch((err) => {
-                    console.error(err)
-                    res.send({
-                        message: 'Error fetching posts',
-                        success: false
-                    })
-                })
-                return
-            
-            case 'user':        // get post of a user
-                User.findByPk(req.body.myId, {
-                    include: [{
-                        model: Post,
-                        include: [{
-                            model: Comment,     // Include comments associated with each post
-                            order: [['createdAt', 'DESC']],
-                            include: [{
-                                model: User,
-                                attributes: ['userId', 'username'],
-                            }]
+                            {
+                                model: Comment,     // Include comments associated with each post
+                                order: [['createdAt', 'DESC']],
+                                include: [{
+                                    model: User,
+                                    attributes: ['userId', 'username'],}]
                             },
                             {
                                 model: User,
@@ -277,74 +269,28 @@ const handlerFunctions = {
                             },
                         ]
                     }],
-                })
-                .then(({posts}) => {
-                    res.send({
-                        posts,
-                        message: "Here are the user's posts with comments",
-                        success: true
-                    })
-                }).catch((err) => {
-                    console.error(err)
-                    res.send({
-                        message: 'Error fetching posts',
-                        success: false
-                    })
-                })
-            case 'friends':     // get posts of friends
-                console.log('friends')
-                Follow.findAll({
-                    where: {
-                        followerId: req.body.myId,
-                    }
-                })
-                .then(follows => {
-                    User.findAll({
-                        where: {userId: { [Op.in]: follows.map(follow => follow.followedId)}},
-                        include: [{
-                            model: Post,
-                            include: [
-                                {
-                                    model: Comment,     // Include comments associated with each post
-                                    order: [['createdAt', 'DESC']],
-                                    include: [{
-                                        model: User,
-                                        attributes: ['userId', 'username'],}]
-                                },
-                                {
-                                    model: User,
-                                    attributes: ['userId', 'username'],
-                                },
-                                {
-                                    model: Park,
-                                    attributes: ['parkId', 'fullName'],
-                                },
-                                {
-                                    model: Activity,
-                                },
-                            ]
-                        }],
-                    }
-                )
-                .then((users) => {
-                    const posts = users.reduce((acc, user) => {
-                        return acc.concat(user.posts);
-                    }, []).sort((a,b) => b.createdAt - a.createdAt);
-                    res.send({
-                        message: 'Here are all the posts with comments',
-                        success: true,
-                        posts,
-                    })
-                }).catch((err) => {
-                    console.error(err)
-                    res.send({
-                        message: 'Error fetching posts',
-                        success: false,
-                    })
+                }
+            )
+            .then((users) => {
+                const posts = users.reduce((acc, user) => {
+                    return acc.concat(user.posts);
+                }, []).sort((a,b) => b.createdAt - a.createdAt);
+                res.send({
+                    message: 'Here are all the posts with comments',
+                    success: true,
+                    posts,
                 })
             })
-        }
-    },
+        }).catch((err) => {
+          console.error(err)
+          res.send({
+              message: 'Error fetching posts',
+              success: false,
+          })
+      })
+    }
+    return
+},
 
   postComment: (req, res) => {
       Comment.create({commentText: req.body.commentText}).then(comment => {
@@ -380,7 +326,7 @@ const handlerFunctions = {
             userPic
           } = req.body
           console.log(req.body)
-
+        },
   userInfo: async (req, res) => {
     const { userId } = req.body;
     console.log("Recieved userId:", userId);
