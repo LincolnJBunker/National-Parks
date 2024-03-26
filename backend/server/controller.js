@@ -293,10 +293,13 @@ const handlerFunctions = {
 },
 
   postComment: (req, res) => {
-      Comment.create({commentText: req.body.commentText}).then(comment => {
-        comment.addPost(req.body.postId)
-        comment.addUswer(req.body.userId)
-        res.send({message: 'Comment successfully created', success: true})
+      console.log(req.body)
+      Comment.create({
+        commentText: req.body.commentText,
+        postId: req.body.postId,
+        userId: req.body.userId
+      }).then(comment => {
+        res.send({message: 'Comment successfully created', success: true, comment: comment})
       }).catch(err => {
         res.send({message: 'There was an error posting your comment', success: false})
         console.error(err)
@@ -394,6 +397,21 @@ const handlerFunctions = {
     const profile = User.findByPk(req.params.userId)
     res.send(profile)
   },
+
+  getFollows: async (req, res) => {
+    try {
+      const followingPromise = Follow.findAll({where: {followerId: req.params.id}})
+      const followersPromise = Follow.findAll({where: {followedId: req.params.id}})
+      const [following, followers] = await Promise.all([followingPromise, followersPromise])
+      res.send({message: 'Here are the follows', success: true, following, followers})
+    } catch (err) {
+      console.error(err)
+      res.send({message: 'Error fetching follows', success: false})
+    } finally {
+      return
+    }
+
+  }
 };
 
 export default handlerFunctions;

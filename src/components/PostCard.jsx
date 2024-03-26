@@ -4,13 +4,16 @@ import { useDispatch,useSelector } from 'react-redux';
 import Comment from './Comment';  //  Hey
 
 
-function PostCard({postId, postPic, postText, username, profileId, profilePic, activities, parkName, parkId, comments, showUser}) {
+function PostCard({postId, postPic, postText, username, profileId, profilePic, activities, parkName, parkId, comments, showUser, fetchPosts}) {
 
   const [isCommenting, setIsCommenting] = useState(false)
   const dispatch = useDispatch();
   const navigateTo = useNavigate();   // This allows you to send someone to another page
   const activityList = activities.map((activity, idx) => <a key={idx}>{activity.name}</a>)
-  const commentList = comments.map((comment, idx) => (
+  const userId = useSelector(state => state.userId.userId)
+  const [commentArr, setCommentArr] = useState(comments)
+  console.log(commentArr)
+  const commentList = commentArr.map((comment, idx) => (
     <div key={idx}>
       <p style={{borderTop: '1px solid #888888'}}>{comment.user.username}: {comment.commentText}</p>
     </div>
@@ -44,7 +47,7 @@ function PostCard({postId, postPic, postText, username, profileId, profilePic, a
         <div className='postBoxRightSide'><p>{postText}</p></div>
       </div>
       
-      <Comment postId={postId} isCommenting={isCommenting} setIsCommenting={setIsCommenting}/>
+      <Comment postId={postId} isCommenting={isCommenting} setIsCommenting={setIsCommenting} commentArr={commentArr} setCommentArr={setCommentArr}/>
       <div key={3}>
         {commentList}
       </div>
