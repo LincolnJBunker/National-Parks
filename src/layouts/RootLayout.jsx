@@ -9,7 +9,6 @@ function RootLayout() {
 
     const sessionCheck = async () => {
         const res = await axios.get('/api/session-check')
-        console.log(res)
         if (res.data.success) {
             dispatch({
                 type: 'USER_AUTH',
@@ -52,7 +51,7 @@ function RootLayout() {
                 }
 
                 {userId &&
-                <NavLink to='profile'>Profile</NavLink> 
+                <NavLink to='profile/:profileId'>Profile</NavLink> 
                 }
             </nav>
         </header>

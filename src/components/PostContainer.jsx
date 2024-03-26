@@ -33,7 +33,7 @@ function PostContainer({mode, myId}) {    // mode is either park, friends, or us
 
   useEffect(() => {
     fetchPosts()
-  }, [])
+  }, [myId, mode])
 
   const postList = posts.map((post, idx) => <PostCard
     postId={post.postId}
@@ -43,9 +43,13 @@ function PostContainer({mode, myId}) {    // mode is either park, friends, or us
     profileId={post.user.userId}
     comments={post.comments}
     activities={post.activities}
+    parkName={post.park.fullName}
+    parkId={post.park.parkId}
     showUser={mode!=='user'}
     key={idx}
   />)
+
+  console.log(posts)
 
 
 
@@ -58,7 +62,7 @@ function PostContainer({mode, myId}) {    // mode is either park, friends, or us
           {postList}
         </div>
       : 
-        <h4>Loading posts...</h4>
+        <h4>Loading posts... (i.e. PostContainer doesn't have the posts)</h4>
       }
     </>
   )

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
+import PostContainer from "../components/PostContainer";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -29,26 +30,49 @@ function Profile() {
       };
   };
 
+
+  
+
   useEffect(() => {
       sessionCheck()
   }, [])
 
   const userId = useSelector((state) => state.userId);
-  console.log(userId)
+  console.log('userId', userId)
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [bio, setBio] = useState('');
   const [userPic, setUserPic] = useState('');
 
+  ///\\\///\\\///\\\///\\\///\\\///\\\///\\\///\\\///\\\
+  // David wrote the following block of code
+  const [followers, setFollowers] = useState([])
+  const [following, setFollowing] = useState([])
+  const getFollows = (id=userId) => {
+    axios.get(`/api/follows/${id}`).then(res =>{
+      setFollowers(res.data.followers)
+      setFollowing(res.data.following)
+    })
+  }
+  useEffect(() => {
+    if (userId)
+    getFollows(userId.userId)
+  }, [userId])
+  // End of Code Block David wrote
+  ///\\\///\\\///\\\///\\\///\\\///\\\///\\\///\\\///\\\
+
+
   return (
     <div className="profile-page">
       <h2>Profile</h2>
       <img className="profile-pic" src={userPic} alt="profile-pic" />
-      <h3>Following: {}</h3>
-      <h3>Followers: {}</h3>
+      <h3>Following: {following?.length}</h3>
+      <h3>Followers: {followers?.length}</h3>
       <h3>{username}</h3>
       <p>{bio}</p>
       <EditProfileBtn />
+
+      <PostContainer mode='user' myId={userId.userId} />
     </div>
   )
 }
