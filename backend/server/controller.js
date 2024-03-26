@@ -393,6 +393,11 @@ const handlerFunctions = {
     // res.send(allActivities)
   },
 
+  getOneUser: async (req, res) => {
+    const profile = User.findByPk(req.params.userId)
+    res.send(profile)
+  },
+
   getFollows: async (req, res) => {
     try {
       const followingPromise = Follow.findAll({where: {followerId: req.params.id}})

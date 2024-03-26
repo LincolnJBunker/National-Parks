@@ -19,23 +19,22 @@ function PostCard({postId, postPic, postText, username, profileId, profilePic, a
     </div>
   ))
 
+  console.log(profileId)
+
   const clickUser = () => {
       dispatch({type: 'SET_PROFILE', payload: profileId});
-      navigateTo('/profile')
+      navigateTo(`/profile/${profileId}`)
   };
   const clickPark = () => {
       dispatch({type: 'SET_PARK', payload: parkId});
-      navigateTo('/parks')
+      navigateTo(`/park/${parkId}`)
   };
-
-
-
 
   return (
     <div key={1} className='postBox'>
       {showUser && <div className='userDiv'>
         {/* <img src={profilePic} alt="post creator" /> */}
-        <p onClick={clickUser}>{username}</p>
+        <p onClick={() => clickUser(profileId)}>{username}</p>
       </div>}
       <div className='postBoxMiddle'>
         <div className='postBoxLeftSide'>

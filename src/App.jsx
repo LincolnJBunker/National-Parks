@@ -6,7 +6,7 @@ import axios from "axios";
 
 //Pages
 import Login from "./pages/Login";
-import Home from "./pages/Home";
+import Home, { profileLoader } from "./pages/Home";
 import Map from "./pages/Map";
 import Parks, { parksLoader } from "./pages/Parks";
 import Profile from "./pages/Profile";
@@ -28,7 +28,11 @@ const router = createBrowserRouter(
     <Route path="/" element={ <RootLayout />}>
 
       <Route index element={<Login />} />
-      <Route path="home" element={<Home />} />
+      <Route 
+        path="home" 
+        element={<Home />} 
+        loader={profileLoader}
+        />
       <Route path="map" element={<Map/>} />
       <Route 
         path="parks" 
@@ -40,7 +44,7 @@ const router = createBrowserRouter(
         element={<ParkProfile />} 
         loader={parkProfileLoader}
         />
-      <Route path="profile" element={<Profile />} />
+      <Route path="profile/:profileId" element={<Profile />} />
       <Route path="edit" element={<EditProfile />} />
       <Route path="contact" element={<Contact />} />
       <Route path="faqs" element={<FAQs />} />
@@ -53,7 +57,6 @@ function App() {
   const dispatch = useDispatch();
   const sessionCheck = async () => {
     const res = await axios.get('/api/session-check')
-    console.log(res)
     if (res.data.success) {
         dispatch({
             type: 'USER_AUTH',

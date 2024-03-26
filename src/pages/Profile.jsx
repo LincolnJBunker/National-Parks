@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
+import PostContainer from "../components/PostContainer";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -70,6 +71,8 @@ function Profile() {
       <h3>{username}</h3>
       <p>{bio}</p>
       <EditProfileBtn />
+
+      <PostContainer mode='user' myId={userId.userId} />
     </div>
   )
 }
