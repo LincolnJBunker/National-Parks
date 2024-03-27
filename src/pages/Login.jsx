@@ -38,7 +38,7 @@ function Login() {
             })
             navigate('/home')
         }
-        alert(res.data.message)
+        // alert(res.data.message)
     }
 
     const handleCreateAccount = async (e) => {
@@ -67,7 +67,7 @@ function Login() {
                 })
                 navigate('/parks')
             }
-            alert(res.data.message)
+            // alert(res.data.message)
     }
 
     const sessionCheck = async () => {
