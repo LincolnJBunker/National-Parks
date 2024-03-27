@@ -102,7 +102,9 @@ import { Op } from "sequelize";
 //   })
 
 
-const user = await User.findByPk(1, {
-  attributes: ['userId', 'username', 'password', 'bio', 'userPic'],
-});
-console.log(user)
+// const user = await User.findByPk(1, {
+//   attributes: ['userId', 'username', 'password', 'bio', 'userPic'],
+// });
+// console.log(user)
+
+Follow.findAll({where: {followerId: '3'}}).then(follow => console.log(follow))

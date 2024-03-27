@@ -30,6 +30,26 @@ let users = [
     email: "artsyfartsy@gmail.com",
     password: "use",
   },
+  {
+    username: "josh",
+    email: "joshywoshy@gmail.com",
+    password: "use",
+  },
+  {
+    username: "jesse",
+    email: "tigerwoodsfan89@gmail.com",
+    password: "use",
+  },
+  {
+    username: "michael",
+    email: "hiimmichael@gmail.com",
+    password: "use",
+  },
+  {
+    username: "ty",
+    email: "tyguyhighfly@gmail.com",
+    password: "use",
+  },
 ];
 
 const actRes = await axios.get(
@@ -110,6 +130,15 @@ let posts = [
     parkId: 61,
     activities: [18, 40],
   },
+  {
+    postPic:
+      "https://pbs.twimg.com/media/GJBIvEqXAAE1th9?format=jpg&name=large",
+    postText:
+      "Acadia National Park, Maine 🇺🇸",
+    userId: 4,
+    parkId: 1,
+    activities: [18],
+  },
 ];
 
 for (const post of posts) {
@@ -157,7 +186,7 @@ let comments = [
     postId: 2,
   },
   {
-    commentText: "this is fine comment6.",
+    commentText: "Sick bro! (comment6).",
     userId: 3,
     postId: 3,
   },
@@ -187,6 +216,18 @@ let follows = [
   {
     followerId: 3,
     followedId: 2,
+  },
+  {
+    followerId: 3,
+    followedId: 4,
+  },
+  {
+    followerId: 3,
+    followedId: 5,
+  },
+  {
+    followerId: 3,
+    followedId: 6,
   },
 ];
 

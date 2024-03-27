@@ -20,6 +20,7 @@ const parkPosts = park.posts.map((post) => <PostCard
   profileId={post.user.userId}
   comments={post.comments}
   activities={post.activities}
+  showUser={true}
   key={post.postId} 
   />
   )
