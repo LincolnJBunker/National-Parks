@@ -126,6 +126,9 @@ function Profile() {
 
   return (
     <div className="profile-page">
+
+      
+=======
       <div className="data-container">
         <div className="pic-container">
           <img className="profile-pic" src={userData.userPic} alt="profile-pic" />
