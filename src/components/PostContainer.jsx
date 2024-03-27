@@ -20,6 +20,7 @@ function PostContainer({mode, myId}) {    // mode is either park, friends, or us
 
   console.log('PostContainer', mode, myId)
   const [posts, setPosts] = useState([])
+  const showUser = mode!=='user'
 
   const fetchPosts = () => {
       axios.post('/api/posts', {mode, myId})
@@ -45,7 +46,7 @@ function PostContainer({mode, myId}) {    // mode is either park, friends, or us
     activities={post.activities}
     parkName={post.park.fullName}
     parkId={post.park.parkId}
-    showUser={mode!=='user'}
+    showUser={showUser}
     key={idx}
   />)
 
