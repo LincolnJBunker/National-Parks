@@ -60,7 +60,7 @@ function RootLayout() {
         </header>
 
         <main>
-            <Outlet/>
+            {<Outlet/>}
         </main>
 
         <div className="footer">

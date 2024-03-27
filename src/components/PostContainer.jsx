@@ -41,8 +41,8 @@ function PostContainer({mode, myId}) {    // mode is either park, friends, or us
     profileId={post.user.userId}
     comments={post.comments}
     activities={post.activities}
-    // parkName={post.park.fullName}
-    // parkId={post.park.parkId}
+    parkName={post.park.fullName}
+    parkId={post.park.parkId}
     showUser={mode!=='user'}
     key={idx}
   />)

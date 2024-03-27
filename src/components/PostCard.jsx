@@ -18,8 +18,9 @@ function PostCard({postId, postPic, postText, username, profileId, profilePic, a
       <p style={{borderTop: '1px solid #888888'}}>{comment.user.username}: {comment.commentText}</p>
     </div>
   ))
-
+  
   console.log(profileId)
+  console.log(parkName)
 
   const clickUser = () => {
       dispatch({type: 'SET_PROFILE', payload: profileId});
