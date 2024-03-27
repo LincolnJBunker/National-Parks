@@ -39,8 +39,7 @@ app.post("/api/comment", handlerFunctions.postComment);
 app.get("/api/follows/:id", handlerFunctions.getFollows);
 app.delete("/api/user/delete/:userId", handlerFunctions.deleteUser);
 app.get("/api/profile/:profileId", handlerFunctions.getOneUser);
-
-app.delete("/api/user/delete/:userId", handlerFunctions.deleteUser);
+app.delete("/api/post/delete/:postId", handlerFunctions.deletePost);
 
 ViteExpress.listen(app, port, () =>
   console.log(`Server is listening on http://localhost:${port}`)
