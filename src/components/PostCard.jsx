@@ -21,7 +21,7 @@ function PostCard({ postId, postPic, postText, username, profileId, profilePic, 
       <p style={{borderTop: '1px solid #888888'}}>{comment.user.username}: {comment.commentText}</p>
     </div>
   ))
-
+  
   console.log(profileId)
   console.log('postId', postId)
 

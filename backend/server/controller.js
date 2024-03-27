@@ -257,7 +257,7 @@ const handlerFunctions = {
           .then((follows) => {
             User.findAll({
               where: {
-                userId: { [Op.in]: follows.map((follow) => follow.followedId) },
+                userId: { [Op.in]: [...follows.map((follow) => follow.followedId), req.body.myId] },
               },
               include: [
                 {
@@ -340,11 +340,12 @@ const handlerFunctions = {
         console.error(err);
       });
   },
+
   userInfo: async (req, res) => {
-    // const { userId } = req.body
-    console.log("Recieved userId:", req.body.id);
+    const { userId } = req.body;
+    console.log("Recieved userId:", userId);
     try {
-      const user = await User.findByPk(req.body.id, {
+      const user = await User.findByPk(userId.userId, {
         attributes: ["userId", "username", "password", "bio", "userPic"],
       });
       console.log("Retrieved user:", user);
@@ -355,7 +356,59 @@ const handlerFunctions = {
       res.status(500).send("Internal Server Error");
     }
   },
-
+  
+        userInfo: async (req, res) => {
+            // const { userId } = req.body
+            console.log('Recieved userId:', req.body.id)
+            try {
+                const user = await User.findByPk(req.body.id, {
+                    attributes: ['userId', 'username', 'password', 'bio', 'userPic'],
+                });
+                console.log('Retrieved user:', user);
+                
+                res.send(user);
+            } catch (error) {
+                console.error('Error retrieving user:', error);
+                res.status(500).send('Internal Server Error');
+            }
+    },
+        // updateUser: async (req, res) => {
+        //   const {
+        //     username,
+        //     password,
+        //     bio,
+        //     userPic
+        //   } = req.body
+        //   console.log(req.body)
+        // },
+  // userInfo: async (req, res) => {
+  //   const { userId } = req.body;
+  //   console.log("Recieved userId:", userId);
+  //   try {
+  //     const user = await User.findByPk(userId.userId, {
+  //       attributes: ["userId", "username", "password", "bio", "userPic"],
+  //     });
+  //     console.log("Retrieved user:", user);
+  //     res.send(user);
+  //   } catch (error) {
+  //     console.error("Error retrieving user:", error);
+  //     res.status(500).send("Internal Server Error");
+  //   }
+  // },
+  // userInfo: async (req, res) => {
+  //   const { userId } = req.body;
+  //   console.log("Recieved userId:", userId);
+  //   try {
+  //     const user = await User.findByPk(userId.userId, {
+  //       attributes: ["userId", "username", "password", "bio", "userPic"],
+  //     });
+  //     console.log("Retrieved user:", user);
+  //     res.send(user);
+  //   } catch (error) {
+  //     console.error("Error retrieving user:", error);
+  //     res.status(500).send("Internal Server Error");
+  //   }
+  // },
   updateUser: async (req, res) => {
     const { username, password, bio, userPic } = req.body;
     console.log(req.body);
@@ -434,6 +487,11 @@ const handlerFunctions = {
       message: "Here's a new post!",
       newPost: addedPost,
     });
+  },
+
+  getOneUser: async (req, res) => {
+    const profile = User.findByPk(req.params.userId);
+    res.send(profile);
   },
 
   getFollows: async (req, res) => {

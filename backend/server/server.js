@@ -43,6 +43,7 @@ app.get("/api/profile/:profileId", handlerFunctions.getOneUser);
 app.post("/api/followUser", handlerFunctions.followUser);
 app.put("/api/unfollowUser", handlerFunctions.unfollowUser);
 
+
 ViteExpress.listen(app, port, () =>
   console.log(`Server is listening on http://localhost:${port}`)
 );
