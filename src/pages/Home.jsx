@@ -64,10 +64,10 @@ function Home() {
             <>
             <input value={postPic} placeholder="Name" onChange={(e) => setPostPic(e.target.value)} /> 
             <textarea value={postText} placeholder="Speak your thoughts!" onChange={(e) => setPostText(e.target.value)} />
-            <select className="select" id="park-opt" onChange={(e) => setParkValue}>
+            <select className="select" id="park-opt" onChange={(e) => setParkValue(e.target.value)}>
             <option>Pick a Park</option>
             {parks.map((park) => (
-              <option key={park.parkId} value={park.fullName}>{park.fullName}</option>
+              <option key={park.parkId} value={park.parkId}>{park.fullName}</option>
               ))}
             </select>
               <button className="img-btn" onClick={handleSave}>Save</button>
