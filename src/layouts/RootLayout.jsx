@@ -54,7 +54,7 @@ function RootLayout() {
                 }
 
                 {userId &&
-                <NavLink to='profile/:profileId'>Profile</NavLink> 
+                <NavLink to='profile/:profileId' onClick={()=>dispatch({type: 'SET_PROFILE', payload: null})}>Profile</NavLink> 
                 }
             </nav>
         </header>

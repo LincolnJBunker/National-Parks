@@ -497,10 +497,10 @@ const handlerFunctions = {
   getFollows: async (req, res) => {
     try {
       const followingPromise = Follow.findAll({
-        where: { followerId: req.params.id },
+        where: { followerId: req.params.id, isFollowing: true },
       });
       const followersPromise = Follow.findAll({
-        where: { followedId: req.params.id },
+        where: { followedId: req.params.id, isFollowing: true },
       });
       const [following, followers] = await Promise.all([
         followingPromise,
