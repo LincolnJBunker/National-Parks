@@ -181,13 +181,21 @@ button:focus-visible {
 .profile-pic {
   display: inline-block;
   width: 150px;
-  height: 150px;
+  max-width: 150px;
+  height: auto;
   border-radius: 50%;
+  margin-bottom: 10px;
 
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
 }
+@media only screen and (max-width: 600px) {
+  .profile-pic {
+    max-width: 100px; /* Adjust size for smaller screens */
+  }
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -272,3 +280,33 @@ button:focus-visible {
   flex-direction: row;
   justify-content: right;
 }
+
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center aligns horizontally */
+}
+
+.data-container {
+  display: flex;
+  align-items: flex-start; /* Aligns items at the top */
+}
+
+.pic-container {
+  margin-right: 20px; /* Adjust spacing between image and following/followers */
+}
+
+.profile-pic {
+  max-width: 100%; /* Ensure image doesn't exceed its container */
+}
+
+.follower-following-container {
+  display: flex;
+  margin-top: 20px;
+}
+
+.following,
+.followers {
+  margin-right: 20px; /* Adjust spacing between following and followers */
+}
+
