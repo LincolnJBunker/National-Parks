@@ -1,18 +1,22 @@
 import axios from "axios"
-import React from "react"
+import {useState} from "react"
 import { useLoaderData } from "react-router-dom"
 import PostCard from "../components/PostCard"
 import { Carousel } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {useSelector} from 'react-redux'
 
 
 function ParkProfile() {
 
     // const { parkId } = useParams()
     const park = useLoaderData()
+    const userId = useSelector((state) => state.userId);
+    const [posts, setPosts] = useState(park.posts)
+    console.log('park', park)
 
     const fetchPosts = () => {
-      axios.post('/api/posts', {mode:'park', myId})
+      axios.post('/api/posts', {mode:'park', myId: park.parkId})
       .then(res => {
         console.log(res.data)
         if (res.data.success) {

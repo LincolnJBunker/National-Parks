@@ -21,14 +21,14 @@ function PostContainer({mode, myId}) {    // mode is either park, friends, or us
   const showUser = mode!=='user'
 
   const fetchPosts = () => {
-      axios.post('/api/posts', {mode, myId})
-      .then(res => {
-        console.log(res.data)
-        if (res.data.success) {
-          setPosts(res.data.posts)
-        }
-      }).catch(err=>console.log(err))
-  }
+    axios.post('/api/posts', {mode:'park', myId})
+    .then(res => {
+      console.log(res.data)
+      if (res.data.success) {
+        setPosts(res.data.posts)
+      }
+    }).catch(err=>console.log(err))
+}
 
   useEffect(() => {
     fetchPosts()
@@ -42,8 +42,8 @@ function PostContainer({mode, myId}) {    // mode is either park, friends, or us
     profileId={post.user.userId}
     comments={post.comments}
     activities={post.activities}
-    parkName={post.park.fullName}
-    parkId={post.park.parkId}
+    // parkName={post.park.fullName}
+    // parkId={post.park.parkId}
     showUser={mode!=='user'}
     fetchPosts={fetchPosts}
     key={idx}

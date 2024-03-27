@@ -37,6 +37,7 @@ function PostCard({ postId, postPic, postText, username, profileId, profilePic, 
   const handleDelete = async () => {axios.delete(`/api/post/delete/${postId}`)
   .then((res) => {
     fetchPosts(res.data.allPosts)
+    window.location.reload()
   })
 }
 
