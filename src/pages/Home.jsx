@@ -18,18 +18,18 @@ function Home() {
   // console.log('startUser', userId, 'endUser')
   
   const [postPic, setPostPic] = useState("")
-    const [postText, setPostText] = useState("")
+  const [postText, setPostText] = useState("")
   const [isEditing, setIsEditing] = useState(false)
   const [posts, setPosts] = useState([])
   const [parkValue, setParkValue] = useState("")
 
   const editMode = () => setIsEditing(true)
 
-  let userPosts = async () => {axios.post("/api/posts", {myId: userId, mode: 'friends'})
+  let userPosts = () => {axios.post("/api/posts", {myId: userId, mode: 'friends'})
   .then((res) => {
     console.log('data', res.data)
       setPosts(res.data.posts)
-  })
+    })
   }
 
   const handleSave = async () => {
