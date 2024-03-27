@@ -4,8 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
 import PostContainer from "../components/PostContainer";
+import LogoutBtn from "../components/LogoutBtn";
 
 function Profile() {
+  const [info, setInfo] = useState([])
   const dispatch = useDispatch();
   const sessionCheck = async () => {
       const res = await axios.get('/api/session-check')
@@ -13,10 +15,10 @@ function Profile() {
       if (res.data.success) {
           console.log(res.data)
           console.log('res success')
-          setUsername(res.data.username)
-          setPassword(res.data.password)
-          setBio(res.data.bio)
-          setUserPic(res.data.userPic)
+          // setUsername(res.data.username)
+          // setPassword(res.data.password)
+          // setBio(res.data.bio)
+          // setUserPic(res.data.userPic)
           dispatch({
               type: 'USER_AUTH',
               payload: {
@@ -30,16 +32,29 @@ function Profile() {
       };
   };
 
-
+  let userInfoGet = async () => {
+    axios.get('/api/userInfo')
+      .then((res) => {
+        setInfo(res.data)
+      })
+  }
   
 
   useEffect(() => {
       sessionCheck()
+      userInfoGet()
   }, [])
 
   const userId = useSelector((state) => state.userId);
   const profileId = useSelector((state) => state.profileId);
-  console.log('userId', userId)
+
+  // console.log('userId', userId)
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [bio, setBio] = useState('');
+  const [userPic, setUserPic] = useState('');
+
+  ///\\\///\\\///\\\///\\\///\\\///\\\///\\\///\\\///\\\
 
   const [isFollowing, setIsFollowing] = useState(false)
   const [showFollowing, setShowFollowing] = useState(false)
@@ -111,18 +126,31 @@ function Profile() {
 
   return (
     <div className="profile-page">
-      <h2>Profile</h2>
-      <p>following? {String(isFollowing)}</p>
-      <p>{JSON.stringify(userData)}</p>
-      <p>map {JSON.stringify(userData.followers?.map(f => f.followerId))}</p>
-      <p>profileId: {profileId} userId: {userId?.userId}</p>
-      <img className="profile-pic" src={userData.userPic} alt="profile-pic" />
-      <h3>Following: {userData.following?.length}</h3>
-      <h3>Followers: {userData.followers?.length}</h3>
-      <h3>{userData.username}</h3>
-      <p>{userData.bio}</p>
-      {(userId && !profileId || (userId===profileId)) && <EditProfileBtn />}
-      {followingRender}
+
+      
+=======
+      <div className="data-container">
+        <div className="pic-container">
+          <img className="profile-pic" src={userData.userPic} alt="profile-pic" />
+        </div>
+      <div className="name-bio">
+        <h3>{userData.username}</h3>
+        <p>{userData.bio}</p>
+      </div>
+        <div className="follower-following-container">
+          <div className="following">
+            <h3>Following: {userData.following?.length}</h3> 
+          </div>
+          <div className="followers">
+            <h3>Followers: {userData.followers?.length}</h3>
+          </div>
+          <div className="profile-buttons">
+            {(userId && !profileId || (userId===profileId)) && <EditProfileBtn />}
+            {(userId && !profileId || (userId===profileId)) && <LogoutBtn />}
+          </div>
+        </div>
+      </div>
+       {followingRender}
       <PostContainer mode='user' myId={profileId?profileId:userId?.userId} />
     </div>
   )

@@ -2,13 +2,14 @@ import axios from "axios"
 import React from "react"
 import { useLoaderData } from "react-router-dom"
 import PostCard from "../components/PostCard"
-// import { Carousel } from "react-bootstrap"
+import { Carousel } from "react-bootstrap"
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function ParkProfile() {
 
     // const { parkId } = useParams()
     const park = useLoaderData()
-    console.log(park.posts)
 
 //map through the actvities and then pass in under the description. Then map over posts
 const parkActivity = park.activities.map((activity) => <p key={activity.activityId} className="activity">{activity.name}</p>)
@@ -27,7 +28,15 @@ const parkPosts = park.posts.map((post) => <PostCard
   return (
     <div className="park-profile">
             <h2 className="park-name">{park.fullName}</h2>
-    <img className="park-pic" src={park.images[2]} />
+            <div>
+              <Carousel controls indicators>
+                {park.images.map((image, idx) => (
+                  <Carousel.Item key={idx}>
+                    <img className="carousel-image" src={image} alt={`Image ${idx}`} />
+                  </Carousel.Item>
+                ))}
+              </Carousel>
+            </div>
     <p className="description">{park.description}</p>
     <div>
         <p>Located in: {park.states}</p>

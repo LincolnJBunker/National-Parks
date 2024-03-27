@@ -13,8 +13,6 @@ import React, {useState, useEffect} from 'react'
 import PostCard from './PostCard'
 import axios from 'axios'
 
-
-
 function PostContainer({mode, myId}) {    // mode is either park, friends, or user
 
 
@@ -50,7 +48,7 @@ function PostContainer({mode, myId}) {    // mode is either park, friends, or us
     key={idx}
   />)
 
-  console.log(posts)
+  console.log('my posts', posts)
 
 
 
