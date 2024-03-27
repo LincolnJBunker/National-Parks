@@ -1,4 +1,4 @@
-import LogoutBtn from "../components/LogoutBtn";
+import ConfirmDelete from "../components/ConfirmDelete.jsx";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -6,7 +6,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function EditProfile() {
+    const [showModal, setShowModal] = useState(false)
     const [isEditing, setIsEditing] = useState(false);
+    const [deleteProfile, setDeleteProfile] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [bio, setBio] = useState('');
@@ -91,6 +93,15 @@ function EditProfile() {
         navigate('/')
     }
 
+    const handleClose = () => {
+        setShowModal(false);
+    }
+
+    const handleConfirm = () => {
+        deleteUser()
+        setShowModal(false)
+    }
+
   return isEditing ? (
         <div >
             <p>Username:</p>
@@ -134,9 +145,33 @@ function EditProfile() {
                 Profile Pic:<img src={userPic} alt="profile pic" className="profile-pic" />
             </div>
         )}
-
+            {/* <div className="confirmation-container">
+                <div className="confirmation-text">
+                    Do you really want to delete your account?
+                </div>
+                <div className="button-container">
+                    <button className="cancel-button" onClick={() => handleConfirmationBox()}>
+                        Cancel
+                    </button>
+                    <button className="confirmation-button" onClick={deleteUser}>
+                        Delete
+                    </button>
+                </div>
+            </div>
+            <div className="confirm-bg" onClick={() => handleConfirmationBox()}>
+                <button>Delete</button>
+            </div> */}
+            <button onClick={() => {
+                const confirmBox = window.confirm(
+                    "Do you really want to delete your profile?"
+                )
+                if (confirmBox === true) {
+                    deleteUser()
+                }
+            }}>Delete Profile</button>
+            {/* <button className="delete-button" onClick={() => setShowModal(true)}>Delete</button>
+            <ConfirmDelete show={showModal} handleClose={handleClose} handleConfirm={handleConfirm} /> */}
             <button onClick={() => setIsEditing(true)}>edit</button>
-            <button onClick={deleteUser}>delete account</button>
 
     </div>
   )
