@@ -312,17 +312,25 @@ const handlerFunctions = {
   },
 
   postComment: (req, res) => {
-      console.log(req.body)
-      Comment.create({
-        commentText: req.body.commentText,
-        postId: req.body.postId,
-        userId: req.body.userId
-      }).then(comment => {
-        res.send({message: 'Comment successfully created', success: true, comment: comment})
-      }).catch(err => {
-        res.send({message: 'There was an error posting your comment', success: false})
-        console.error(err)
-
+    console.log(req.body);
+    Comment.create({
+      commentText: req.body.commentText,
+      postId: req.body.postId,
+      userId: req.body.userId,
+    })
+      .then((comment) => {
+        res.send({
+          message: "Comment successfully created",
+          success: true,
+          comment: comment,
+        });
+      })
+      .catch((err) => {
+        res.send({
+          message: "There was an error posting your comment",
+          success: false,
+        });
+        console.error(err);
       })
       .catch((err) => {
         res.send({
@@ -348,10 +356,6 @@ const handlerFunctions = {
       res.status(500).send("Internal Server Error");
     }
   },
-  // updateUser: async (req, res) => {
-  //   const { username, password, bio, userPic } = req.body;
-  //   console.log(req.body);
-  // },
   
         userInfo: async (req, res) => {
             // const { userId } = req.body
@@ -377,6 +381,20 @@ const handlerFunctions = {
         //   } = req.body
         //   console.log(req.body)
         // },
+  // userInfo: async (req, res) => {
+  //   const { userId } = req.body;
+  //   console.log("Recieved userId:", userId);
+  //   try {
+  //     const user = await User.findByPk(userId.userId, {
+  //       attributes: ["userId", "username", "password", "bio", "userPic"],
+  //     });
+  //     console.log("Retrieved user:", user);
+  //     res.send(user);
+  //   } catch (error) {
+  //     console.error("Error retrieving user:", error);
+  //     res.status(500).send("Internal Server Error");
+  //   }
+  // },
   // userInfo: async (req, res) => {
   //   const { userId } = req.body;
   //   console.log("Recieved userId:", userId);
@@ -439,43 +457,56 @@ const handlerFunctions = {
     // res.send(allActivities)
   },
 
-
-  addPost: (req, res) => {
+  addPost: async (req, res) => {
     const pPic = req.body.postPic;
     const pText = req.body.postText;
+    const pPark = req.body.parkId;
 
     const newPost = {
       postPic: pPic,
       postText: pText,
+      parkId: pPark,
     };
 
-    Post.create(newPost);
+    let foundUser = await User.findByPk(req.session.userId);
+    let addedPost = await foundUser.createPost(newPost);
+
     res.send({
       message: "Here's a new post!",
-      newPost: newPost,
+      newPost: addedPost,
     });
   },
 
   getOneUser: async (req, res) => {
-    const profile = User.findByPk(req.params.userId)
-    res.send(profile)
+    const profile = User.findByPk(req.params.userId);
+    res.send(profile);
   },
 
   getFollows: async (req, res) => {
     try {
-      const followingPromise = Follow.findAll({where: {followerId: req.params.id}})
-      const followersPromise = Follow.findAll({where: {followedId: req.params.id}})
-      const [following, followers] = await Promise.all([followingPromise, followersPromise])
-      res.send({message: 'Here are the follows', success: true, following, followers})
+      const followingPromise = Follow.findAll({
+        where: { followerId: req.params.id },
+      });
+      const followersPromise = Follow.findAll({
+        where: { followedId: req.params.id },
+      });
+      const [following, followers] = await Promise.all([
+        followingPromise,
+        followersPromise,
+      ]);
+      res.send({
+        message: "Here are the follows",
+        success: true,
+        following,
+        followers,
+      });
     } catch (err) {
-      console.error(err)
-      res.send({message: 'Error fetching follows', success: false})
+      console.error(err);
+      res.send({ message: "Error fetching follows", success: false });
     } finally {
-      return
+      return;
     }
-
-  }
-
+  },
 };
 
 export default handlerFunctions;

@@ -48,10 +48,10 @@ function Profile() {
   const userId = useSelector((state) => state.userId);
   const profileId = useSelector((state) => state.profileId);
   // console.log('userId', userId)
-  // const [username, setUsername] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [bio, setBio] = useState('');
-  // const [userPic, setUserPic] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [bio, setBio] = useState('');
+  const [userPic, setUserPic] = useState('');
 
   ///\\\///\\\///\\\///\\\///\\\///\\\///\\\///\\\///\\\
 
