@@ -257,7 +257,7 @@ const handlerFunctions = {
           .then((follows) => {
             User.findAll({
               where: {
-                userId: { [Op.in]: follows.map((follow) => follow.followedId) },
+                userId: { [Op.in]: [...follows.map((follow) => follow.followedId), req.body.myId] },
               },
               include: [
                 {
@@ -506,7 +506,46 @@ const handlerFunctions = {
     } finally {
       return;
     }
+
+
   },
+
+  followUser: (req, res) => {
+    Follow.findOne({where: {followerId: req.body.userId, followedId: req.body.profileId}}).then(follow => {
+      if (!follow) {
+        Follow.create({followerId: req.body.userId, followedId: req.body.profileId}).then(()=> {
+          res.send({message: 'Successfully followed', success: true})
+          return
+        })
+      } else {
+        follow.isFollowing = true
+        follow.save().then(() => {
+          res.send({message: 'Successfully followed', success: true})
+        })
+      }
+    }).catch(err=> {
+      console.error(err)
+      res.send({message: 'Error following user', success: false})
+    })
+  },
+
+  unfollowUser: (req, res) => {
+    Follow.findOne({where: {followerId: req.body.userId, followedId: req.body.profileId}}).then(follow => {
+      if (!follow) {
+        res.send({message: 'Error: no follow was found', success: false})
+        return
+      } else {
+        follow.isFollowing = false
+        follow.save().then(() => {
+          res.send({message: 'Unfollow was successful', success: true})
+        })
+      }
+    }).catch(err => {
+      console.log(err)
+      res.send({message: 'Error while attempting to unfollow', success: false})
+    })
+    return
+  }
 };
 
 export default handlerFunctions;
