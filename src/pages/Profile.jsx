@@ -6,6 +6,7 @@ import axios from "axios";
 import PostContainer from "../components/PostContainer";
 
 function Profile() {
+  const [info, setInfo] = useState([])
   const dispatch = useDispatch();
   const sessionCheck = async () => {
       const res = await axios.get('/api/session-check')
@@ -30,11 +31,17 @@ function Profile() {
       };
   };
 
-
+  let userInfoGet = async () => {
+    axios.get('/api/userInfo')
+      .then((res) => {
+        setInfo(res.data)
+      })
+  }
   
 
   useEffect(() => {
       sessionCheck()
+      userInfoGet()
   }, [])
 
   const userId = useSelector((state) => state.userId);
