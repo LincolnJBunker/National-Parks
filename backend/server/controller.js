@@ -252,7 +252,6 @@ const handlerFunctions = {
         Follow.findAll({
           where: {
             followerId: req.body.myId,
-            isFollowing: true,
           },
         })
           .then((follows) => {
@@ -486,10 +485,10 @@ const handlerFunctions = {
   getFollows: async (req, res) => {
     try {
       const followingPromise = Follow.findAll({
-        where: { followerId: req.params.id, isFollowing: true },
+        where: { followerId: req.params.id },
       });
       const followersPromise = Follow.findAll({
-        where: { followedId: req.params.id, isFollowing: true },
+        where: { followedId: req.params.id },
       });
       const [following, followers] = await Promise.all([
         followingPromise,
