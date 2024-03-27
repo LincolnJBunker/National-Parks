@@ -403,7 +403,19 @@ const handlerFunctions = {
     res.send(allMarkers);
     // res.send(allActivities)
   },
+  deletePost: async (req, res) => {
+    const postId = req.params.postId;
+    console.log(req.params);
+    await Post.destroy({ where: { postId: postId } });
 
+    let posts = await Post.findAll();
+    res.send({ message: "Post deleted", allPosts: posts });
+  },
+
+  getOneUser: async (req, res) => {
+    const profile = User.findByPk(req.params.userId);
+    res.send(profile);
+  },
   addPost: async (req, res) => {
     const pPic = req.body.postPic;
     const pText = req.body.postText;
@@ -422,20 +434,6 @@ const handlerFunctions = {
       message: "Here's a new post!",
       newPost: addedPost,
     });
-  },
-
-  deletePost: async (req, res) => {
-    const postId = req.params.postId;
-    console.log(req.params);
-    await Post.destroy({ where: { postId: postId } });
-
-    let posts = await Post.findAll();
-    res.send({ message: "Post deleted", allPosts: posts });
-  },
-
-  getOneUser: async (req, res) => {
-    const profile = User.findByPk(req.params.userId);
-    res.send(profile);
   },
 
   getFollows: async (req, res) => {
