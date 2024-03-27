@@ -6,6 +6,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function EditProfile() {
+    const [isEditing, setIsEditing] = useState(false);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [bio, setBio] = useState('');
+    const [userPic, setUserPic] = useState('');
+    const [info, setInfo] = useState([]);
     const dispatch = useDispatch();
     const sessionCheck = async () => {
         const res = await axios.get('/api/session-check')
@@ -30,18 +36,22 @@ function EditProfile() {
         };
     };
 
+    let userInfoGet = async () => {
+        axios.get('/api/userInfo')
+          .then((res) => {
+            setInfo(res.data)
+            console.log(res.data)
+          })
+      }
+
     useEffect(() => {
         sessionCheck()
+        userInfoGet()
     }, [])
 
     const userId = useSelector((state) => state.userId);
     console.log(userId)
-    const [isEditing, setIsEditing] = useState(false);
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [bio, setBio] = useState('');
-    const [userPic, setUserPic] = useState('');
-    const [info, setInfo] = useState([]);
+
 
     const navigate = useNavigate();
 
@@ -116,7 +126,6 @@ function EditProfile() {
         </div>
   ) : (
     <div>
-        <LogoutBtn />
         {info && (
             <div >
                 <p>Username: {username}</p>

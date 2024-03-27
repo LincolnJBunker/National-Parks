@@ -10,6 +10,7 @@ function Maps() {
   const [isMapInitialized, setMapInitialized] = useState(false);
   const [parkMarkers, setParkMarkers] = useState([]);
   const [selectedPark, setSelectedPark] = useState(null)
+  console.log(selectedPark)
 
   const startingPosition = { lat: 39.76 , lng: -101.61 };
 

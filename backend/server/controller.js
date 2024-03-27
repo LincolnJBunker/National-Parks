@@ -356,11 +356,6 @@ const handlerFunctions = {
       res.status(500).send("Internal Server Error");
     }
   },
-  updateUser: async (req, res) => {
-    const { username, password, bio, userPic } = req.body;
-    console.log(req.body);
-  },
-
   
         userInfo: async (req, res) => {
             // const { userId } = req.body
@@ -377,15 +372,15 @@ const handlerFunctions = {
                 res.status(500).send('Internal Server Error');
             }
     },
-        updateUser: async (req, res) => {
-          const {
-            username,
-            password,
-            bio,
-            userPic
-          } = req.body
-          console.log(req.body)
-        },
+        // updateUser: async (req, res) => {
+        //   const {
+        //     username,
+        //     password,
+        //     bio,
+        //     userPic
+        //   } = req.body
+        //   console.log(req.body)
+        // },
   // userInfo: async (req, res) => {
   //   const { userId } = req.body;
   //   console.log("Recieved userId:", userId);
@@ -400,10 +395,6 @@ const handlerFunctions = {
   //     res.status(500).send("Internal Server Error");
   //   }
   // },
-  updateUser: async (req, res) => {
-    const { username, password, bio, userPic } = req.body;
-    console.log(req.body);
-  },
   // userInfo: async (req, res) => {
   //   const { userId } = req.body;
   //   console.log("Recieved userId:", userId);
