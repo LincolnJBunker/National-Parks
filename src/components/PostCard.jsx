@@ -1,10 +1,13 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux';
-import Comment from './Comment';  //  Hey
+import Comment from './Comment'; 
+import axios from "axios"
 
 
-function PostCard({postId, postPic, postText, username, profileId, profilePic, activities, parkName, parkId, comments, showUser}) {
+
+function PostCard({ postId, postPic, postText, username, profileId, profilePic, activities, parkName, parkId, comments, showUser, fetchPosts}) {
+
 
   const [isCommenting, setIsCommenting] = useState(false)
   const dispatch = useDispatch();
@@ -20,6 +23,7 @@ function PostCard({postId, postPic, postText, username, profileId, profilePic, a
   ))
 
   console.log(profileId)
+  console.log('postId', postId)
 
   const clickUser = () => {
       dispatch({type: 'SET_PROFILE', payload: profileId});
@@ -29,6 +33,12 @@ function PostCard({postId, postPic, postText, username, profileId, profilePic, a
       dispatch({type: 'SET_PARK', payload: parkId});
       navigateTo(`/park/${parkId}`)
   };
+
+  const handleDelete = async () => {axios.delete(`/api/post/delete/${postId}`)
+  .then((res) => {
+    fetchPosts(res.data.allPosts)
+  })
+}
 
   return (
     <div key={1} className='postBox'>
@@ -46,6 +56,7 @@ function PostCard({postId, postPic, postText, username, profileId, profilePic, a
         </div>
         <div className='postBoxRightSide'><p>{postText}</p></div>
       </div>
+      <button onClick={handleDelete} className="delete-btn">Delete</button>
       
       <Comment postId={postId} isCommenting={isCommenting} setIsCommenting={setIsCommenting} commentArr={commentArr} setCommentArr={setCommentArr}/>
       <div key={3}>

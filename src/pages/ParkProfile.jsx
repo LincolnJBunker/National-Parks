@@ -11,6 +11,16 @@ function ParkProfile() {
     // const { parkId } = useParams()
     const park = useLoaderData()
 
+    const fetchPosts = () => {
+      axios.post('/api/posts', {mode:'park', myId})
+      .then(res => {
+        console.log(res.data)
+        if (res.data.success) {
+          setPosts(res.data.posts)
+        }
+      }).catch(err=>console.log(err))
+  }
+
 //map through the actvities and then pass in under the description. Then map over posts
 const parkActivity = park.activities.map((activity) => <p key={activity.activityId} className="activity">{activity.name}</p>)
 const parkPosts = park.posts.map((post) => <PostCard 
@@ -22,6 +32,8 @@ const parkPosts = park.posts.map((post) => <PostCard
   activities={post.activities}
   showUser={true}
   key={post.postId} 
+  fetchPosts={fetchPosts}
+  postId={post.postId}
   />
   )
 

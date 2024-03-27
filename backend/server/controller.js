@@ -340,12 +340,11 @@ const handlerFunctions = {
         console.error(err);
       });
   },
-
   userInfo: async (req, res) => {
-    const { userId } = req.body;
-    console.log("Recieved userId:", userId);
+    // const { userId } = req.body
+    console.log("Recieved userId:", req.body.id);
     try {
-      const user = await User.findByPk(userId.userId, {
+      const user = await User.findByPk(req.body.id, {
         attributes: ["userId", "username", "password", "bio", "userPic"],
       });
       console.log("Retrieved user:", user);
@@ -356,59 +355,7 @@ const handlerFunctions = {
       res.status(500).send("Internal Server Error");
     }
   },
-  
-        userInfo: async (req, res) => {
-            // const { userId } = req.body
-            console.log('Recieved userId:', req.body.id)
-            try {
-                const user = await User.findByPk(req.body.id, {
-                    attributes: ['userId', 'username', 'password', 'bio', 'userPic'],
-                });
-                console.log('Retrieved user:', user);
-                
-                res.send(user);
-            } catch (error) {
-                console.error('Error retrieving user:', error);
-                res.status(500).send('Internal Server Error');
-            }
-    },
-        // updateUser: async (req, res) => {
-        //   const {
-        //     username,
-        //     password,
-        //     bio,
-        //     userPic
-        //   } = req.body
-        //   console.log(req.body)
-        // },
-  // userInfo: async (req, res) => {
-  //   const { userId } = req.body;
-  //   console.log("Recieved userId:", userId);
-  //   try {
-  //     const user = await User.findByPk(userId.userId, {
-  //       attributes: ["userId", "username", "password", "bio", "userPic"],
-  //     });
-  //     console.log("Retrieved user:", user);
-  //     res.send(user);
-  //   } catch (error) {
-  //     console.error("Error retrieving user:", error);
-  //     res.status(500).send("Internal Server Error");
-  //   }
-  // },
-  // userInfo: async (req, res) => {
-  //   const { userId } = req.body;
-  //   console.log("Recieved userId:", userId);
-  //   try {
-  //     const user = await User.findByPk(userId.userId, {
-  //       attributes: ["userId", "username", "password", "bio", "userPic"],
-  //     });
-  //     console.log("Retrieved user:", user);
-  //     res.send(user);
-  //   } catch (error) {
-  //     console.error("Error retrieving user:", error);
-  //     res.status(500).send("Internal Server Error");
-  //   }
-  // },
+
   updateUser: async (req, res) => {
     const { username, password, bio, userPic } = req.body;
     console.log(req.body);
@@ -475,6 +422,15 @@ const handlerFunctions = {
       message: "Here's a new post!",
       newPost: addedPost,
     });
+  },
+
+  deletePost: async (req, res) => {
+    const postId = req.params.postId;
+    console.log(req.params);
+    await Post.destroy({ where: { postId: postId } });
+
+    let posts = await Post.findAll();
+    res.send({ message: "Post deleted", allPosts: posts });
   },
 
   getOneUser: async (req, res) => {
