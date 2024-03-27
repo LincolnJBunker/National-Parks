@@ -84,7 +84,7 @@ function Profile() {
         following: followRes.data.following,
       })
 
-      setIsFollowing(followRes.data.followers.find(f=>f.followerId===userId.userId && f.isFollowing)?true:false)
+      setIsFollowing(followRes.data.followers.find(f=>f.followerId===userId.userId)?true:false)
       console.log('userData', userData)
   }
 
@@ -109,20 +109,17 @@ function Profile() {
     if (profileId || userId) {
       getUserData(profileId ? profileId : userId.userId)
     }
-    setShowFollowing(userId?.userId && profileId && userId?.userId!==profileId)
+    setShowFollowing(userId?.userId && profileId && userId?.userId !== profileId)
   }, [userId, profileId])
 
-  useEffect(() => {
-
-  })
-  const followingRender = showFollowing && isFollowing ? (
+  const followingRender = (showFollowing && (isFollowing ? (
     <>
       <h4>Following</h4>
-      <button onClick={handleUnfollow}>unFollow</button>
+      <button onClick={handleUnfollow}>Unfollow</button>
     </>
   ) : (
     <button onClick={handleFollow}>Follow</button>
-  )
+  )))
 
   return (
     <div className="profile-page">
@@ -142,8 +139,8 @@ function Profile() {
             <h3>Followers: {userData.followers?.length}</h3>
           </div>
           <div className="profile-buttons">
-            {(userId && !profileId || (userId===profileId)) && <EditProfileBtn />}
-            {(userId && !profileId || (userId===profileId)) && <LogoutBtn />}
+            {!showFollowing && <EditProfileBtn />}
+            {!showFollowing && <LogoutBtn />}
           </div>
         </div>
       </div>
