@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 import React from "react"
 import PostContainer from "../components/PostContainer"
 
@@ -9,11 +9,11 @@ import { useLoaderData } from "react-router-dom"
 
 function Home() {
 
-  const profile = useLoaderData()
+  const { parks, profile } = useLoaderData()
   console.log(profile)
 
-  const dispatch = useDispatch()
-  const profileId = useSelector(state => state.profileId)
+  // const dispatch = useDispatch()
+  // const profileId = useSelector(state => state.profileId)
   const userId = useSelector(state => state.userId?.userId)
   // console.log('startUser', userId, 'endUser')
   
@@ -21,8 +21,7 @@ function Home() {
     const [postText, setPostText] = useState("")
   const [isEditing, setIsEditing] = useState(false)
   const [posts, setPosts] = useState([])
-
-  console.log(posts)
+  const [parkValue, setParkValue] = useState("")
 
   const editMode = () => setIsEditing(true)
 
@@ -37,6 +36,7 @@ function Home() {
     const bodyObj = {
       postPic,
       postText,
+      parkId: parkValue
     }
     
     axios.post("/api/addPost", bodyObj)
@@ -53,7 +53,7 @@ function Home() {
     setIsEditing(false)
   }
 
-  useEffect(() => {userPosts()}, [])
+  useEffect(() => {userPosts()}, [userId])
 
   return (
     <div className="home-page">
@@ -64,8 +64,14 @@ function Home() {
             <>
             <input value={postPic} placeholder="Name" onChange={(e) => setPostPic(e.target.value)} /> 
             <textarea value={postText} placeholder="Speak your thoughts!" onChange={(e) => setPostText(e.target.value)} />
-            <button className="img-btn" onClick={handleSave}>Save</button>
-            <button className="img-btn" onClick={handleCancel}>Cancel</button>
+            <select className="select" id="park-opt" onChange={(e) => setParkValue}>
+            <option>Pick a Park</option>
+            {parks.map((park) => (
+              <option key={park.parkId} value={park.fullName}>{park.fullName}</option>
+              ))}
+            </select>
+              <button className="img-btn" onClick={handleSave}>Save</button>
+              <button className="img-btn" onClick={handleCancel}>Cancel</button>
             </>
             }
       <PostContainer mode='friends' myId={userId}/>
@@ -77,5 +83,7 @@ export default Home
 
 export const profileLoader = async ({ params }) => {
   const res = await axios.get(`/api/profile/${params.profileId}`)
-  return res.data
+  const parks = await axios.get("/allParks")
+
+  return { parks: parks.data, res: res.data }
 }
