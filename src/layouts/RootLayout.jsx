@@ -2,6 +2,7 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
+import PleaseLogin from "../components/PleaseLogin";
 function RootLayout() {
     const userId = useSelector((state) => state.userId);
     const navigate = useNavigate();
@@ -20,12 +21,14 @@ function RootLayout() {
                         userPic: res.data.userPic
                     }
             });
-        };
+        } else {
+                navigate('/');
+            };
     };
 
     useEffect(() => {
-        sessionCheck()
-    }, [])
+        sessionCheck();
+    }, []);
 
   return (
     <div className="root-layout">

@@ -8,8 +8,6 @@ function ParkProfile() {
 
     // const { parkId } = useParams()
     const park = useLoaderData()
-    console.log(park.images)
-    console.log(park.posts)
 
 //map through the actvities and then pass in under the description. Then map over posts
 const parkActivity = park.activities.map((activity) => <p key={activity.activityId} className="activity">{activity.name}</p>)
