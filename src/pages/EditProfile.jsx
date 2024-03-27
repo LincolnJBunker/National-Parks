@@ -1,12 +1,12 @@
-import ConfirmDelete from "../components/ConfirmDelete.jsx";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "react-bootstrap";
 
 function EditProfile() {
-    const [showModal, setShowModal] = useState(false)
+    const [show, setShow] = useState(false)
     const [isEditing, setIsEditing] = useState(false);
     const [deleteProfile, setDeleteProfile] = useState(false);
     const [username, setUsername] = useState('');
@@ -94,12 +94,11 @@ function EditProfile() {
     }
 
     const handleClose = () => {
-        setShowModal(false);
+        setShow(false);
     }
 
-    const handleConfirm = () => {
-        deleteUser()
-        setShowModal(false)
+    const handleShow = () => {
+        setShow(true)
     }
 
   return isEditing ? (
@@ -161,16 +160,24 @@ function EditProfile() {
             <div className="confirm-bg" onClick={() => handleConfirmationBox()}>
                 <button>Delete</button>
             </div> */}
-            <button onClick={() => {
+            {/* <button onClick={() => {
                 const confirmBox = window.confirm(
                     "Do you really want to delete your profile?"
                 )
                 if (confirmBox === true) {
                     deleteUser()
                 }
-            }}>Delete Profile</button>
-            {/* <button className="delete-button" onClick={() => setShowModal(true)}>Delete</button>
-            <ConfirmDelete show={showModal} handleClose={handleClose} handleConfirm={handleConfirm} /> */}
+            }}>Delete Profile</button> */}
+            <button style={{color: 'red'}} className="delete-button" onClick={handleShow}>Delete Profile</button>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Body>
+                    You sure you tryna delete yo account ??
+                </Modal.Body>
+                <Modal.Footer>
+                    <button onClick={handleClose}>Close</button>
+                    <button onClick={deleteUser}>Yes, Delete</button>
+                </Modal.Footer>
+            </Modal>
             <button onClick={() => setIsEditing(true)}>edit</button>
 
     </div>
