@@ -126,7 +126,6 @@ function EditProfile() {
         </div>
   ) : (
     <div>
-        <LogoutBtn />
         {info && (
             <div >
                 <p>Username: {username}</p>

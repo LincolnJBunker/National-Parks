@@ -284,20 +284,22 @@ button:focus-visible {
 .profile-page {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center aligns horizontally */
+  align-items: center; 
+  padding-top: 1%;
 }
 
 .data-container {
   display: flex;
-  align-items: flex-start; /* Aligns items at the top */
+  align-items: flex-start;
+  margin-right: 20px;
 }
 
 .pic-container {
-  margin-right: 20px; /* Adjust spacing between image and following/followers */
+  margin-right: 20px;
 }
 
 .profile-pic {
-  max-width: 100%; /* Ensure image doesn't exceed its container */
+  max-width: 100%; 
 }
 
 .follower-following-container {
@@ -308,5 +310,17 @@ button:focus-visible {
 .following,
 .followers {
   margin-right: 20px; /* Adjust spacing between following and followers */
+}
+
+.profile-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-buttons button {
+  margin-right: 10px;
+}
+.name-bio {
+  margin-top: 25px;
 }
 

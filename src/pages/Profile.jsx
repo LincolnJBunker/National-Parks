@@ -97,11 +97,14 @@ function Profile() {
 
   return (
     <div className="profile-page">
-      <h2>Profile</h2>
       <div className="data-container">
         <div className="pic-container">
           <img className="profile-pic" src={userData.userPic} alt="profile-pic" />
         </div>
+      <div className="name-bio">
+        <h3>{userData.username}</h3>
+        <p>{userData.bio}</p>
+      </div>
         <div className="follower-following-container">
           <div className="following">
             <h3>Following: {userData.following?.length}</h3> 
@@ -110,16 +113,11 @@ function Profile() {
             <h3>Followers: {userData.followers?.length}</h3>
           </div>
           <div className="profile-buttons">
-            <LogoutBtn />
             {(userId && !profileId || (userId===profileId)) && <EditProfileBtn />}
+            {(userId && !profileId || (userId===profileId)) && <LogoutBtn />}
           </div>
         </div>
       </div>
-      
-      <h3>{userData.username}</h3>
-      <p>{userData.bio}</p>
-      <p>{JSON.stringify(userData)}</p>
-      <p>profileId: {profileId} userId: {userId?.userId}</p>
 
       <PostContainer mode='user' myId={profileId?profileId:userId?.userId} />
     </div>
