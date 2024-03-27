@@ -5,7 +5,9 @@ import Comment from './Comment';
 import axios from "axios"
 
 
+
 function PostCard({ postId, postPic, postText, username, profileId, profilePic, activities, parkName, parkId, comments, showUser, fetchPosts}) {
+
 
   const [isCommenting, setIsCommenting] = useState(false)
   const dispatch = useDispatch();

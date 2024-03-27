@@ -10,8 +10,6 @@ function ParkProfile() {
 
     // const { parkId } = useParams()
     const park = useLoaderData()
-    console.log(park.posts)
-    console.log(park.images)
 
     const fetchPosts = () => {
       axios.post('/api/posts', {mode:'park', myId})
@@ -32,6 +30,7 @@ const parkPosts = park.posts.map((post) => <PostCard
   profileId={post.user.userId}
   comments={post.comments}
   activities={post.activities}
+  showUser={true}
   key={post.postId} 
   fetchPosts={fetchPosts}
   postId={post.postId}
