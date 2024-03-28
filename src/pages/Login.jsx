@@ -8,6 +8,7 @@ function Login() {
     const [show, setShow] = useState(false);
     const [showError, setShowError] = useState(false)
     const [showNewAccount, setShowNewAccount] = useState(false)
+    const [showEmailError, setShowEmailError] = useState(false)
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -60,21 +61,29 @@ function Login() {
 
     const handleClose = () => {
         setShow(false);
-        setShowError(false)
-        navigate('/home')
+        setShowError(false);
+        navigate('/home');
     };
 
     const handleCloseCreateAccount = () => {
-        setShowNewAccount(false)
-        navigate('/parks')
-    }
+        setShowNewAccount(false);
+        setShowError(false);
+        setShowEmailError(false);
+        navigate('/parks');
+    };
 
     const handleNewAccount = async (e) => {
         e.preventDefault();
         if (!username || !email || !password) {
-            alert('Please fill out all of the fields')
+            setShowError(true)
             return
         }
+         
+        if (!email.includes('@')) {
+            setShowEmailError(true)
+            return
+        }
+
         const res = await axios.post('/api/createaccount', {
             username: username,
             email: email,
@@ -94,6 +103,8 @@ function Login() {
                     }
                 })
                 setShowNewAccount(true)
+            } else {
+                setShowError(true)
             }
     }
 
@@ -157,6 +168,22 @@ function Login() {
                         />
                     </div>
                     <button onClick={handleNewAccount}>Register</button>
+                    <Modal show={showEmailError} onHide={() => setShowEmailError(false)}>
+                            <Modal.Body>
+                                <p>Please Insert a Valid Email</p>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <button onClick={() => setShowEmailError(false)}>Try Again</button>
+                            </Modal.Footer>
+                        </Modal>
+                    <Modal show={showError} onHide={() => setShowError(false)}>
+                            <Modal.Body>
+                                <p>Please Insert all of the fields</p>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <button onClick={() => setShowError(false)}>Try Again</button>
+                            </Modal.Footer>
+                        </Modal>
                     <Modal show={showNewAccount} onHide={handleCloseCreateAccount}>
                         <Modal.Body>
                             <p>Account successfully created!</p>
