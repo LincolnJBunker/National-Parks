@@ -16,14 +16,14 @@ import axios from 'axios'
 function PostContainer({mode, myId}) {    // mode is either park, friends, or user
 
 
-  console.log('PostContainer', mode, myId)
   const [posts, setPosts] = useState([])
   const showUser = mode!=='user'
 
   const fetchPosts = () => {
-    axios.post('/api/posts', {mode:'park', myId})
+    console.log('fetch posts sent', myId)
+    axios.post('/api/posts', {mode, myId})
     .then(res => {
-      console.log(res.data)
+      console.log('fetchPosts received: ', res.data)
       if (res.data.success) {
         setPosts(res.data.posts)
       }
