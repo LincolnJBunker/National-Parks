@@ -264,6 +264,38 @@ Follow.init(
   }
 );
 
+export class Inbox extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON();
+  }
+}
+
+  Inbox.init(
+    {
+      inboxId: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      message: {
+        type: DataTypes.STRING,
+        allowNull: false
+      }
+    },
+    {
+      modelName: 'inbox',
+      sequelize: db,
+    }
+  );
+
 Park.belongsToMany(Activity, { through: "ParkActivity" });
 Activity.belongsToMany(Park, { through: "ParkActivity" });
 
