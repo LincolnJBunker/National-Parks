@@ -16,16 +16,18 @@ import axios from 'axios'
 function PostContainer({mode, myId}) {    // mode is either park, friends, or user
 
 
-  console.log('PostContainer', mode, myId)
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState(null)
+  const [postsLoaded, setPostsLoaded] = useState(false)
   const showUser = mode!=='user'
 
   const fetchPosts = () => {
-    axios.post('/api/posts', {mode:'park', myId})
+    console.log('fetch posts sent', myId)
+    axios.post('/api/posts', {mode, myId})
     .then(res => {
-      console.log(res.data)
+      console.log('fetchPosts received: ', res.data)
       if (res.data.success) {
         setPosts(res.data.posts)
+        setPostsLoaded(true)
       }
     }).catch(err=>console.log(err))
 }
@@ -34,7 +36,7 @@ function PostContainer({mode, myId}) {    // mode is either park, friends, or us
     fetchPosts()
   }, [myId, mode])
 
-  const postList = posts.map((post, idx) => <PostCard
+  const postList = posts ? posts.map((post, idx) => <PostCard
     postId={post.postId}
     postPic={post.postPic}
     secondPic={post.secondPic}
@@ -49,7 +51,7 @@ function PostContainer({mode, myId}) {    // mode is either park, friends, or us
     showUser={mode!=='user'}
     fetchPosts={fetchPosts}
     key={idx}
-  />)
+  />) : null
 
   console.log('my posts', posts)
 
@@ -58,13 +60,13 @@ function PostContainer({mode, myId}) {    // mode is either park, friends, or us
   return (
     <>
     <div>{myId}</div>
-      {posts.length > 0 ? 
+      {posts?.length > 0 ? 
         <div className='postAreaWrapper'>
           <h4>Latest Posts</h4>
           {postList}
         </div>
       : 
-        <h4>Loading posts... (i.e. PostContainer doesn't have the posts)</h4>
+        !postsLoaded ? (<h4>Loading posts...</h4>) : (<><h4>Not following anyone yet.</h4><p>When you follow someone, their posts will appear here. Browse the parks pages to find people to follow.</p></>)
       }
     </>
   )

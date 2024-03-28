@@ -31,7 +31,7 @@ app.post("/api/createaccount", handlerFunctions.createAccount);
 app.post("/api/posts", handlerFunctions.getPosts);
 app.get("/api/parkMarkers", handlerFunctions.parkMarkers);
 // app.get('/api/activityMarkers', handlerFunctions.activityMarkers)
-
+app.post('/api/newInbox', handlerFunctions.newInbox)
 app.post("/api/addPost", handlerFunctions.addPost);
 app.post("/api/userInfo", handlerFunctions.userInfo);
 app.put("/api/user/update/:id", handlerFunctions.updateUser);

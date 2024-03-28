@@ -5,6 +5,7 @@ import {
   Post,
   Activity,
   Follow,
+  Inbox,
 } from "../database/model.js";
 import { Op } from "sequelize";
 
@@ -148,8 +149,9 @@ const handlerFunctions = {
   },
 
   getPosts: (req, res) => {
+    console.log('getPosts called with req.body = ', req.body)
     // set req.body.mode to 'park', 'friends', or 'user' to get posts filtered for that use case
-    console.log("getPosts", req.body);
+    // console.log("getPosts", req.body);
     if (typeof req.body.myId !== "number") {
       res.send({ message: "No id provided", success: false });
       return;
@@ -248,7 +250,7 @@ const handlerFunctions = {
           });
         return;
       case "friends": // get posts of friends
-        console.log("friends");
+        // console.log("friends");
         Follow.findAll({
           where: {
             followerId: req.body.myId,
@@ -317,7 +319,7 @@ const handlerFunctions = {
   },
 
   postComment: (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     Comment.create({
       commentText: req.body.commentText,
       postId: req.body.postId,
@@ -348,12 +350,12 @@ const handlerFunctions = {
 
   userInfo: async (req, res) => {
     const { userId } = req.body;
-    console.log("Recieved userId:", userId);
+    // console.log("Recieved userId:", userId);
     try {
       const user = await User.findByPk(userId.userId, {
         attributes: ["userId", "username", "password", "bio", "userPic"],
       });
-      console.log("Retrieved user:", user);
+      // console.log("Retrieved user:", user);
 
       res.send(user);
     } catch (error) {
@@ -361,62 +363,26 @@ const handlerFunctions = {
       res.status(500).send("Internal Server Error");
     }
   },
+  
+        userInfo: async (req, res) => {
+            // const { userId } = req.body
+            // console.log('Recieved userId:', req.body.id)
+            try {
+                const user = await User.findByPk(req.body.id, {
+                    attributes: ['userId', 'username', 'password', 'bio', 'userPic'],
+                });
+                // console.log('Retrieved user:', user);
+                
+                res.send(user);
+            } catch (error) {
+                console.error('Error retrieving user:', error);
+                res.status(500).send('Internal Server Error');
+            }
+    },
 
-  userInfo: async (req, res) => {
-    // const { userId } = req.body
-    console.log("Recieved userId:", req.body.id);
-    try {
-      const user = await User.findByPk(req.body.id, {
-        attributes: ["userId", "username", "password", "bio", "userPic"],
-      });
-      console.log("Retrieved user:", user);
-
-      res.send(user);
-    } catch (error) {
-      console.error("Error retrieving user:", error);
-      res.status(500).send("Internal Server Error");
-    }
-  },
-  // updateUser: async (req, res) => {
-  //   const {
-  //     username,
-  //     password,
-  //     bio,
-  //     userPic
-  //   } = req.body
-  //   console.log(req.body)
-  // },
-  // userInfo: async (req, res) => {
-  //   const { userId } = req.body;
-  //   console.log("Recieved userId:", userId);
-  //   try {
-  //     const user = await User.findByPk(userId.userId, {
-  //       attributes: ["userId", "username", "password", "bio", "userPic"],
-  //     });
-  //     console.log("Retrieved user:", user);
-  //     res.send(user);
-  //   } catch (error) {
-  //     console.error("Error retrieving user:", error);
-  //     res.status(500).send("Internal Server Error");
-  //   }
-  // },
-  // userInfo: async (req, res) => {
-  //   const { userId } = req.body;
-  //   console.log("Recieved userId:", userId);
-  //   try {
-  //     const user = await User.findByPk(userId.userId, {
-  //       attributes: ["userId", "username", "password", "bio", "userPic"],
-  //     });
-  //     console.log("Retrieved user:", user);
-  //     res.send(user);
-  //   } catch (error) {
-  //     console.error("Error retrieving user:", error);
-  //     res.status(500).send("Internal Server Error");
-  //   }
-  // },
   updateUser: async (req, res) => {
     const { username, password, bio, userPic } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
 
     const user = await User.findByPk(req.params.id);
 
@@ -508,10 +474,10 @@ const handlerFunctions = {
   getFollows: async (req, res) => {
     try {
       const followingPromise = Follow.findAll({
-        where: { followerId: req.params.id },
+        where: { followerId: req.params.id, isFollowing: true },
       });
       const followersPromise = Follow.findAll({
-        where: { followedId: req.params.id },
+        where: { followedId: req.params.id, isFollowing: true },
       });
       const [following, followers] = await Promise.all([
         followingPromise,
@@ -580,6 +546,20 @@ const handlerFunctions = {
         });
       });
     return;
+  },
+
+  newInbox: async (req, res) => {
+    const { name, email, message } = req.body
+    const newInboxMessage = await Inbox.create({
+      name,
+      email,
+      message
+    });
+    res.send({
+      message: "Message recieved",
+      status: true,
+      newInboxMessage: newInboxMessage
+    })
   },
 };
 

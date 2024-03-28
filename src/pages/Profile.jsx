@@ -11,10 +11,7 @@ function Profile() {
   const dispatch = useDispatch();
   const sessionCheck = async () => {
       const res = await axios.get('/api/session-check')
-      console.log(res.data)
       if (res.data.success) {
-          console.log(res.data)
-          console.log('res success')
           // setUsername(res.data.username)
           // setPassword(res.data.password)
           // setBio(res.data.bio)
@@ -48,7 +45,6 @@ function Profile() {
   const userId = useSelector((state) => state.userId);
   const profileId = useSelector((state) => state.profileId);
 
-  // console.log('userId', userId)
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [bio, setBio] = useState('');
@@ -69,11 +65,8 @@ function Profile() {
   })
 
   const getUserData = async (id) => {
-      console.log('getUserData', id)
       let followRes = await axios.get(`/api/follows/${id}`)
-      // console.log('followRes', followRes, followRes.data.followers)
       let infoRes = await axios.post(`/api/userInfo`, {id})
-      // console.log('infoRes', infoRes)
       setUserData({
         ...userData,
         username: infoRes.data.username,
@@ -84,8 +77,7 @@ function Profile() {
         following: followRes.data.following,
       })
 
-      setIsFollowing(followRes.data.followers.find(f=>f.followerId===userId.userId && f.isFollowing)?true:false)
-      console.log('userData', userData)
+      setIsFollowing(followRes.data.followers.find(f=>f.followerId===userId.userId)?true:false)
   }
 
   const handleFollow = () => {
@@ -109,20 +101,17 @@ function Profile() {
     if (profileId || userId) {
       getUserData(profileId ? profileId : userId.userId)
     }
-    setShowFollowing(userId?.userId && profileId && userId?.userId!==profileId)
+    setShowFollowing(userId?.userId && profileId && userId?.userId !== profileId)
   }, [userId, profileId])
 
-  useEffect(() => {
-
-  })
-  const followingRender = showFollowing && isFollowing ? (
+  const followingRender = (showFollowing && (isFollowing ? (
     <>
       <h4>Following</h4>
-      <button onClick={handleUnfollow}>unFollow</button>
+      <button onClick={handleUnfollow}>Unfollow</button>
     </>
   ) : (
     <button onClick={handleFollow}>Follow</button>
-  )
+  )))
 
   return (
     <div className="profile-page">
@@ -142,8 +131,8 @@ function Profile() {
             <h3>Followers: {userData.followers?.length}</h3>
           </div>
           <div className="profile-buttons">
-            {(userId && !profileId || (userId===profileId)) && <EditProfileBtn />}
-            {(userId && !profileId || (userId===profileId)) && <LogoutBtn />}
+            {!showFollowing && <EditProfileBtn />}
+            {!showFollowing && <LogoutBtn />}
           </div>
         </div>
       </div>

@@ -36,6 +36,8 @@ const parkPosts = park.posts.map((post) => <PostCard
   profileId={post.user.userId}
   comments={post.comments}
   activities={post.activities}
+  // parkName={post.park.fullName}
+  // parkId={post.park.parkId}
   showUser={true}
   key={post.postId} 
   fetchPosts={fetchPosts}
