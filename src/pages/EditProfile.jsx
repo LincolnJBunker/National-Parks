@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 
 function EditProfile() {
-    const [show, setShow] = useState(false)
+    const [show, setShow] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [deleteProfile, setDeleteProfile] = useState(false);
     const [username, setUsername] = useState('');
@@ -144,30 +144,6 @@ function EditProfile() {
                 Profile Pic:<img src={userPic} alt="profile pic" className="profile-pic" />
             </div>
         )}
-            {/* <div className="confirmation-container">
-                <div className="confirmation-text">
-                    Do you really want to delete your account?
-                </div>
-                <div className="button-container">
-                    <button className="cancel-button" onClick={() => handleConfirmationBox()}>
-                        Cancel
-                    </button>
-                    <button className="confirmation-button" onClick={deleteUser}>
-                        Delete
-                    </button>
-                </div>
-            </div>
-            <div className="confirm-bg" onClick={() => handleConfirmationBox()}>
-                <button>Delete</button>
-            </div> */}
-            {/* <button onClick={() => {
-                const confirmBox = window.confirm(
-                    "Do you really want to delete your profile?"
-                )
-                if (confirmBox === true) {
-                    deleteUser()
-                }
-            }}>Delete Profile</button> */}
             <button style={{color: 'red'}} className="delete-button" onClick={handleShow}>Delete Profile</button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Body>
