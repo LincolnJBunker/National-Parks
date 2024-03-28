@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "react-bootstrap";
 import axios from 'axios';
 
 function Login() {
+    const [show, setShow] = useState(false);
+    const [showError, setShowError] = useState(false)
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -38,7 +41,7 @@ function Login() {
             })
             navigate('/home')
         }
-        // alert(res.data.message)
+        alert(res.data.message)
     }
 
     const handleCreateAccount = async (e) => {
@@ -81,6 +84,56 @@ function Login() {
         };
     };
 
+    const handleClose = () => {
+        setShow(false);
+        setShowError(false)
+        navigate('/home')
+    };
+
+    const handleError = () => {
+        setShowError(true) 
+        return (
+            <Modal>
+                <Modal.Body>
+                    Reeeeee that is incorrect !!!!!!!!
+                </Modal.Body>
+                <Modal.Footer>
+                    <button onClick={handleClose}>try again</button>
+                </Modal.Footer>
+            </Modal>
+        )
+    }
+
+    const handleShow = async (e) => {
+        e.preventDefault();
+        
+        const bodyObj = {
+            username: username,
+            password: password
+        }
+        console.log(bodyObj)
+        // console.log(res.data)
+        const res = await axios.post('/api/login', bodyObj)
+
+        if (res.data.success) {
+            console.log(res.data)
+            dispatch({
+                type: 'USER_AUTH',
+                payload: {
+                    userId: res.data.userId,
+                    username: res.data.username,
+                    password: res.data.password,
+                    bio: res.data.bio,
+                    userPic: res.data.userPic
+                }
+            })
+            setShow(true);
+            setShowError(false)
+        } else {
+            setShowError(true)
+        }
+    };
+
     useEffect(() => {
         sessionCheck()
     }, [])
@@ -114,7 +167,7 @@ function Login() {
                     {/* <button onClick={() => setShowCreateAccount(false)}>Return to Login</button> */}
                 </form>
             ) : (
-                <form className="login-form" onSubmit={handleLogin}>
+                <div className="login-form">
                     <div className="login-inputs">
                         <input 
                             type="text" 
@@ -129,9 +182,26 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <button>Login</button>
+                    <button onClick={handleShow}>Login</button>
+                        <Modal show={showError} onHide={() => setShowError(false)}>
+                            <Modal.Body>
+                                <p>Incorrect Username or Password</p>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <button onClick={() => setShowError(false)}>Try Again</button>
+                            </Modal.Footer>
+                        </Modal>
+                
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Body>
+                            <p>User Logged in</p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <button onClick={handleClose}>Close</button>
+                        </Modal.Footer>
+                    </Modal>
                     <button onClick={() => setShowCreateAccount(true)}>Create an Account</button>
-                </form>
+                </div>
             )}
         </div>
     );
