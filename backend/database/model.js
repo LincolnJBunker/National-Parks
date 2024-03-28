@@ -119,16 +119,22 @@ Post.init(
       primaryKey: true,
     },
     postText: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
     postPic: {
-      type: DataTypes.STRING,
-      defaultValue:
-        "https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png",
+      type: DataTypes.TEXT,
+      // defaultValue:
+      //   "https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png",
+    },
+    secondPic: {
+      type: DataTypes.TEXT,
+    },
+    thirdPic: {
+      type: DataTypes.TEXT,
     },
   },
   {
@@ -299,18 +305,15 @@ export class Inbox extends Model {
 Park.belongsToMany(Activity, { through: "ParkActivity" });
 Activity.belongsToMany(Park, { through: "ParkActivity" });
 
+User.hasMany(Comment, { foreignKey: "userId" });
+Comment.belongsTo(User, { foreignKey: "userId" });
+Comment.belongsTo(Post, { foreignKey: "postId" });
+Post.hasMany(Comment, { foreignKey: "postId" });
 
-User.hasMany(Comment, {foreignKey: 'userId'});
-Comment.belongsTo(User, {foreignKey: 'userId'});
-Comment.belongsTo(Post, {foreignKey: 'postId'});
-Post.hasMany(Comment, {foreignKey: 'postId'});
+User.hasMany(Post, { foreignKey: "userId" });
+Post.belongsTo(User, { foreignKey: "userId" });
+Post.belongsTo(Park, { foreignKey: "parkId" });
+Park.hasMany(Post, { foreignKey: "parkId" });
 
-
-User.hasMany(Post, {foreignKey: 'userId'});
-Post.belongsTo(User, {foreignKey: 'userId'});
-Post.belongsTo(Park, {foreignKey: 'parkId'});
-Park.hasMany(Post, {foreignKey: 'parkId'});
-
-Post.belongsToMany(Activity, {through: "PostActivity"})
-Activity.belongsToMany(Post, {through: "PostActivity"})
-
+Post.belongsToMany(Activity, { through: "PostActivity" });
+Activity.belongsToMany(Post, { through: "PostActivity" });

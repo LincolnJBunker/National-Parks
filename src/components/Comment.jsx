@@ -13,7 +13,7 @@ function Comment({postId, isCommenting, setIsCommenting, commentArr, setCommentA
         .then(res => {
             let newComment = res.data.comment
             newComment = {...newComment, user: {username, userId}}
-            alert('Reply posted')
+            // alert('Reply posted')
             setIsCommenting(false)
             setCommentArr([...commentArr, newComment])
         })
@@ -28,7 +28,7 @@ function Comment({postId, isCommenting, setIsCommenting, commentArr, setCommentA
       </form>
     </div>
   ) : (
-    <div className='commentButton'><button onClick={() => setIsCommenting(!isCommenting)}>Reply</button></div>
+    <div className="commentButton"><button onClick={() => setIsCommenting(!isCommenting)}>Comment</button></div>
   )
 }
 

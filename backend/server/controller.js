@@ -259,7 +259,12 @@ const handlerFunctions = {
           .then((follows) => {
             User.findAll({
               where: {
-                userId: { [Op.in]: [...follows.map((follow) => follow.followedId), req.body.myId] },
+                userId: {
+                  [Op.in]: [
+                    ...follows.map((follow) => follow.followedId),
+                    req.body.myId,
+                  ],
+                },
               },
               include: [
                 {
@@ -374,43 +379,7 @@ const handlerFunctions = {
                 res.status(500).send('Internal Server Error');
             }
     },
-        // updateUser: async (req, res) => {
-        //   const {
-        //     username,
-        //     password,
-        //     bio,
-        //     userPic
-        //   } = req.body
-          // console.log(req.body)
-        // },
-  // userInfo: async (req, res) => {
-  //   const { userId } = req.body;
-    // console.log("Recieved userId:", userId);
-  //   try {
-  //     const user = await User.findByPk(userId.userId, {
-  //       attributes: ["userId", "username", "password", "bio", "userPic"],
-  //     });
-      // console.log("Retrieved user:", user);
-  //     res.send(user);
-  //   } catch (error) {
-  //     console.error("Error retrieving user:", error);
-  //     res.status(500).send("Internal Server Error");
-  //   }
-  // },
-  // userInfo: async (req, res) => {
-  //   const { userId } = req.body;
-    // console.log("Recieved userId:", userId);
-  //   try {
-  //     const user = await User.findByPk(userId.userId, {
-  //       attributes: ["userId", "username", "password", "bio", "userPic"],
-  //     });
-      // console.log("Retrieved user:", user);
-  //     res.send(user);
-  //   } catch (error) {
-  //     console.error("Error retrieving user:", error);
-  //     res.status(500).send("Internal Server Error");
-  //   }
-  // },
+
   updateUser: async (req, res) => {
     const { username, password, bio, userPic } = req.body;
     // console.log(req.body);
@@ -475,11 +444,17 @@ const handlerFunctions = {
     const pPic = req.body.postPic;
     const pText = req.body.postText;
     const pPark = req.body.parkId;
+    const pPicTwo = req.body.secondPic;
+    const pPicThree = req.body.thirdPic;
+    const pActivity = req.body.activityId;
 
     const newPost = {
       postPic: pPic,
+      secondPic: pPicTwo,
+      thirdPic: pPicThree,
       postText: pText,
       parkId: pPark,
+      activityId: pActivity,
     };
 
     let foundUser = await User.findByPk(req.session.userId);
