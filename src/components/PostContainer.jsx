@@ -37,13 +37,15 @@ function PostContainer({mode, myId}) {    // mode is either park, friends, or us
   const postList = posts.map((post, idx) => <PostCard
     postId={post.postId}
     postPic={post.postPic}
+    secondPic={post.secondPic}
+    thirdPic={post.thirdPic}
     postText={post.postText}
     username={post.user.username}
     profileId={post.user.userId}
     comments={post.comments}
     activities={post.activities}
-    // parkName={post.park.fullName}
-    // parkId={post.park.parkId}
+    parkName={post.park.fullName}
+    parkId={post.park.parkId}
     showUser={mode!=='user'}
     fetchPosts={fetchPosts}
     key={idx}

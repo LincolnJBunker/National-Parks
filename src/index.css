@@ -244,8 +244,8 @@ button:focus-visible {
 }
 
 .postPicBox {
-  width: 300px;
-  height: 200px;
+  max-width: 300px;
+  max-height: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -257,9 +257,9 @@ button:focus-visible {
   flex-direction: row;
 }
 
-.postBox div {
+/* .postBox div {
   margin: 5px;
-}
+} */
 
 .userDiv {
   margin-top: 10px;
@@ -275,6 +275,15 @@ button:focus-visible {
   background-color: white;
   padding: 8px;
 }
+
+.postBoxLeftSide {
+  max-width: 500px;
+}
+
+/* .post-car-inner {
+  max-height: 300px;
+  max-width: 500px;
+} */
 
 .commentButton {
   display: flex;

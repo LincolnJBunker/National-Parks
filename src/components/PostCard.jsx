@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux';
 import Comment from './Comment'; 
 import axios from "axios"
+import { Carousel } from "react-bootstrap"
 
 
 
-function PostCard({ postId, postPic, postText, username, profileId, profilePic, activities, parkName, parkId, comments, showUser, fetchPosts}) {
+function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, profileId, profilePic, activities, parkName, parkId, comments, showUser, fetchPosts}) {
 
 
   const [isCommenting, setIsCommenting] = useState(false)
@@ -47,11 +48,20 @@ function PostCard({ postId, postPic, postText, username, profileId, profilePic, 
         {/* <img src={profilePic} alt="post creator" /> */}
         <p onClick={() => clickUser(profileId)}>{username}</p>
       </div>}
+      
       <div className='postBoxMiddle'>
         <div className='postBoxLeftSide'>
-          <div className='postPicBox'>
-            <img className='postPic' src={postPic} />
-          </div>
+        <Carousel controls indicators>
+            <Carousel.Item key={1}>
+              <img className='postPic' src={postPic} />
+            </Carousel.Item>
+            <Carousel.Item key={2}>
+              <img className='postPic' src={secondPic} />
+            </Carousel.Item>
+            <Carousel.Item key={3}>
+              <img className='postPic' src={thirdPic} />
+            </Carousel.Item>
+          </Carousel>
           <div onClick={clickPark}>{parkName}</div>
           {activityList}
         </div>

@@ -22,6 +22,8 @@ function Home() {
   const [isEditing, setIsEditing] = useState(false)
   const [posts, setPosts] = useState([])
   const [parkValue, setParkValue] = useState("")
+  const [secondPic, setSecondPic] = useState("")
+  const [thirdPic, setThirdPic] = useState("")
 
   const editMode = () => setIsEditing(true)
 
@@ -35,6 +37,8 @@ function Home() {
   const handleSave = async () => {
     const bodyObj = {
       postPic,
+      secondPic, 
+      thirdPic,
       postText,
       parkId: parkValue
     }
@@ -62,7 +66,21 @@ function Home() {
       <button onClick={editMode}>Add Post</button>
       {isEditing &&
             <>
-            <input value={postPic} placeholder="Name" onChange={(e) => setPostPic(e.target.value)} /> 
+            <input 
+            value={postPic} 
+            type="text" 
+            placeholder="Picture" 
+            onChange={(e) => setPostPic(e.target.value)} /> 
+              <input 
+            value={secondPic} 
+            type="text" 
+            placeholder="Picture" 
+            onChange={(e) => setSecondPic(e.target.value)} /> 
+              <input 
+            value={thirdPic} 
+            type="text" 
+            placeholder="Picture" 
+            onChange={(e) => setThirdPic(e.target.value)} /> 
             <textarea value={postText} placeholder="Speak your thoughts!" onChange={(e) => setPostText(e.target.value)} />
             <select className="select" id="park-opt" onChange={(e) => setParkValue(e.target.value)}>
             <option>Pick a Park</option>
