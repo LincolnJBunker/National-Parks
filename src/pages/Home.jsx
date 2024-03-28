@@ -58,6 +58,7 @@ function Home() {
   return (
     <div className="home-page">
       <h4>Home</h4>
+      <p></p>
 
       <button onClick={editMode}>Add Post</button>
       {isEditing &&
