@@ -5,6 +5,7 @@ import {
   Post,
   Activity,
   Follow,
+  Inbox,
 } from "../database/model.js";
 import { Op } from "sequelize";
 
@@ -570,6 +571,20 @@ const handlerFunctions = {
         });
       });
     return;
+  },
+
+  newInbox: async (req, res) => {
+    const { name, email, message } = req.body
+    const newInboxMessage = await Inbox.create({
+      name,
+      email,
+      message
+    });
+    res.send({
+      message: "Message recieved",
+      status: true,
+      newInboxMessage: newInboxMessage
+    })
   },
 };
 
