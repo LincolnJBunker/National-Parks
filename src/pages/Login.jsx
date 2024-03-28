@@ -15,6 +15,7 @@ function Login() {
     const [showCreateAccount, setShowCreateAccount] = useState(false);
 
     const userId = useSelector((state) => state.userId);
+    console.log(userId)
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -29,35 +30,6 @@ function Login() {
             });
         };
     };
-
-    const handleCreateAccount = async (e) => {
-        e.preventDefault();
-        if (!username || !email || !password) {
-            alert('Please fill out all of the fields')
-            return
-        }
-        const res = await axios.post('/api/createaccount', {
-            username: username,
-            email: email,
-            password: password
-        })
-        console.log(res.data)
-            if (res.data.success) {
-                console.log(res.data)
-                dispatch({
-                    type: 'USER_AUTH',
-                    payload: {
-                        userId: res.data.userId,
-                        username: res.data.username,
-                        password: res.data.password,
-                        bio: res.data.bio,
-                        userPic: res.data.userPic
-                    }
-                })
-                navigate('/parks')
-            }
-            // alert(res.data.message)
-    }
 
     const handleClose = () => {
         setShow(false);
@@ -221,7 +193,7 @@ function Login() {
                 
                     <Modal show={show} onHide={handleClose}>
                         <Modal.Body>
-                            <p>User Logged in</p>
+                            <p>{username} Logged in</p>
                         </Modal.Body>
                         <Modal.Footer>
                             <button onClick={handleClose}>Close</button>
