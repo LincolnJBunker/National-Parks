@@ -154,6 +154,24 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+textarea.post-text {
+  width: 100%;
+  height: 400px;
+}
+
+input.pic-input {
+  width: 300px;
+  height: 300px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 40px;
+}
+
+div.add-post {
+  border: black 2px solid;
+  border-radius: 10px;
+}
+
 .home-nav {
   cursor: pointer;
 }
@@ -228,10 +246,10 @@ button:focus-visible {
   width: 100%;
   border: 1px solid black;
   border-radius: 10px;
-  background-color: #dddddd;
   margin: 5px;
   display: flex;
   flex-direction: column;
+  align-items:flex-start;
 }
 
 .postPic {
@@ -241,6 +259,10 @@ button:focus-visible {
   max-width: 100%;
   max-height: 100%;
   object-fit: cover;
+}
+
+.delete-btn {
+  max-width: 100px;
 }
 
 .postPicBox {
@@ -267,13 +289,15 @@ button:focus-visible {
   flex-direction: row;
   justify-content: center;
   font-weight: bold;
-  background-color: burlywood;
+  /* background-color: burlywood; */
   align-items: center;
+  margin-left: 20px;
 }
 
 .postBoxRightSide {
   background-color: white;
   padding: 8px;
+  overflow-wrap: break-word;
 }
 
 .postBoxLeftSide {

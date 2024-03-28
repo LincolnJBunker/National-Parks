@@ -480,6 +480,7 @@ const handlerFunctions = {
     const pPark = req.body.parkId;
     const pPicTwo = req.body.secondPic;
     const pPicThree = req.body.thirdPic;
+    const pActivity = req.body.activityId;
 
     const newPost = {
       postPic: pPic,
@@ -487,6 +488,7 @@ const handlerFunctions = {
       thirdPic: pPicThree,
       postText: pText,
       parkId: pPark,
+      activityId: pActivity,
     };
 
     let foundUser = await User.findByPk(req.session.userId);

@@ -119,7 +119,7 @@ Post.init(
       primaryKey: true,
     },
     postText: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     createdAt: {
       type: DataTypes.DATE,

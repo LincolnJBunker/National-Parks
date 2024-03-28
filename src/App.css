@@ -59,6 +59,15 @@ p.activity {
   margin-bottom: 0;
 }
 
+div.add-post {
+  border: black 2px solid;
+  border-radius: 5px black;
+}
+
+textarea.post-text {
+  max-width:300px
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

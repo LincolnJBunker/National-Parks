@@ -14,9 +14,10 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
   const dispatch = useDispatch();
   const navigateTo = useNavigate();   // This allows you to send someone to another page
   const activityList = activities.map((activity, idx) => <a key={idx}>{activity.name}</a>)
-  // const userId = useSelector(state => state.userId.userId)
+  const userId = useSelector(state => state.userId.userId)
+
   const [commentArr, setCommentArr] = useState(comments)
-  console.log(commentArr)
+  
   const commentList = commentArr.map((comment, idx) => (
     <div key={idx}>
       <p style={{borderTop: '1px solid #888888'}}>{comment.user.username}: {comment.commentText}</p>
@@ -45,8 +46,9 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
   return (
     <div key={1} className='postBox'>
       {showUser && <div className='userDiv'>
-        {/* <img src={profilePic} alt="post creator" /> */}
+        {/* <img src={profilePic} className="user-icon" alt="post creator" /> */}
         <p onClick={() => clickUser(profileId)}>{username}</p>
+        <button>Follow</button>
       </div>}
       
       <div className='postBoxMiddle'>
@@ -55,20 +57,25 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
             <Carousel.Item key={1}>
               <img className='postPic' src={postPic} />
             </Carousel.Item>
+            {secondPic &&
             <Carousel.Item key={2}>
               <img className='postPic' src={secondPic} />
             </Carousel.Item>
+            }
+            {thirdPic &&
             <Carousel.Item key={3}>
               <img className='postPic' src={thirdPic} />
             </Carousel.Item>
+}
           </Carousel>
           <div onClick={clickPark}>{parkName}</div>
           {activityList}
         </div>
         <div className='postBoxRightSide'><p>{postText}</p></div>
       </div>
+      {userId === profileId &&
       <button onClick={handleDelete} className="delete-btn">Delete</button>
-      
+}
       <Comment postId={postId} isCommenting={isCommenting} setIsCommenting={setIsCommenting} commentArr={commentArr} setCommentArr={setCommentArr}/>
       <div key={3}>
         {commentList}
