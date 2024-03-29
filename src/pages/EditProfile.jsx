@@ -4,10 +4,6 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "react-bootstrap";
-// import AWS from 'aws-sdk';
-import accessKeyId from '../hidden.js';
-import secretAccessKey from '../hidden.js';
-import region from '../hidden.js';
 
 
 function EditProfile() {
@@ -19,6 +15,7 @@ function EditProfile() {
     const [bio, setBio] = useState('');
     const [userPic, setUserPic] = useState('');
     const [info, setInfo] = useState([]);
+    const [selectedFile, setSelectedFile] = useState(null);
     const [formData, setFormData] = useState('')
     const [submissionStatus, setSubmissionStatus] = useState()
 
@@ -61,7 +58,7 @@ function EditProfile() {
 
     // useEffect(() => {
     //     const script = document.createElement("script");
-    //     script.src = '?'
+    //     script.src = "https://sdk.amazonaws.com/js/aws-sdk-2.1083.0.min.js"
     //     script.async = true
     //     script.onload = () => {
     //         window.AWS.config.update({

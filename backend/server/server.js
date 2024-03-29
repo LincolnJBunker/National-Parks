@@ -3,6 +3,9 @@ import morgan from "morgan";
 import ViteExpress from "vite-express";
 import session from "express-session";
 import handlerFunctions from "./controller.js";
+import awsFunctions from "./awsController.js";
+import multer from "multer";
+
 
 const app = express();
 
@@ -19,6 +22,8 @@ app.use(
     resave: false,
   })
 );
+
+
 
 app.get("/allParks", handlerFunctions.getAllParks);
 app.get("/api/park/:parkId", handlerFunctions.getOnePark);
@@ -42,6 +47,7 @@ app.delete("/api/post/delete/:postId", handlerFunctions.deletePost);
 app.get("/api/profile/:profileId", handlerFunctions.getOneUser);
 app.post("/api/followUser", handlerFunctions.followUser);
 app.put("/api/unfollowUser", handlerFunctions.unfollowUser);
+app.post('/api/upload', multer({ dest: 'uploads/' }).single('profilePic'), awsFunctions.upload)
 
 
 ViteExpress.listen(app, port, () =>

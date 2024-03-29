@@ -15,7 +15,6 @@ function Login() {
     const [showCreateAccount, setShowCreateAccount] = useState(false);
 
     const userId = useSelector((state) => state.userId);
-    console.log(userId)
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
