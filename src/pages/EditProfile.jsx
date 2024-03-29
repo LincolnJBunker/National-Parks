@@ -56,54 +56,6 @@ function EditProfile() {
         userInfoGet()
     }, [])
 
-    // useEffect(() => {
-    //     const script = document.createElement("script");
-    //     script.src = "https://sdk.amazonaws.com/js/aws-sdk-2.1083.0.min.js"
-    //     script.async = true
-    //     script.onload = () => {
-    //         window.AWS.config.update({
-    //             accessKeyId: accessKeyId,
-    //             secretAccessKey: secretAccessKey,
-    //             region: region
-    //         })
-    //     }
-    //     document.body.appendChild(script);
-    //     return () => {
-    //         document.body.removeChild(script)
-    //     }
-    // }, []);
-
-    const handleChange = (e) => {
-        if (e.target.name === "theimage") {
-            const file = e.target.files[0];
-            if (file) {
-                uploadFile(file)
-            }
-        } else {
-            setFormData({...FormData, [e.target.name]: e.target.value})
-        }
-    }
-
-    const uploadFile = (file) => {
-        const s3 = new window.AWS.S3();
-        const params = {
-            Bucket: "dev-mtn-national-parks",
-            Key: file.name,
-            Body: file
-        }
-        s3.upload(params, function (err,data) {
-            if (err) {
-                throw err;
-            }
-            console.log(`file uploaded successfully! ${data.location}`)
-            setFormData((currentFormData) => ({
-                ...currentFormData,
-                imgUrl: data.location
-            }))
-            setSubmissionStatus('file uploaded successfully')
-        })
-    }
-
     const userId = useSelector((state) => state.userId);
     console.log(userId)
 
@@ -124,7 +76,7 @@ function EditProfile() {
         })
     }
 
-    const handleSave = () => {
+    const handleSave = async () => {
         console.log( 'userId:', userId)
         const bodyObj = {
             username,
@@ -133,6 +85,22 @@ function EditProfile() {
             userPic
         };
         console.log(bodyObj)
+
+        if (selectedFile) {
+            const formData = new FormData();
+            formData.append('profilePic', selectedFile);
+
+            try {
+                const res = await axios.post('/api/upload', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                setUserPic(res.data.imageUrl);
+            } catch (error) {
+                console.log("errorrrrr uploading profile pic", error)
+            }
+        }
 
         axios.put(`/api/user/update/${userId.userId}`, bodyObj)
             .then((res) => {
@@ -152,6 +120,10 @@ function EditProfile() {
 
     const handleShow = () => {
         setShow(true)
+    }
+
+    const handleFileChange = (e) => {
+        setSelectedFile(e.target.files[0])
     }
 
   return isEditing ? (
@@ -179,10 +151,12 @@ function EditProfile() {
             />
             <p>Profile Pic:</p>            
             <input 
-            type="text"
-            value={userPic}
-            onChange={(e) => setUserPic(e.target.value)}
-            placeholder="Insert new pic"
+            // type="text"
+            // value={userPic}
+            // onChange={(e) => setUserPic(e.target.value)}
+            // placeholder="Insert new pic"
+            type="file"
+            onChange={handleFileChange}
             />
 
             <button onClick={handleSave}>Save</button>
