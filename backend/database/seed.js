@@ -198,36 +198,36 @@ for (const comment of comments) {
 
 let follows = [
   {
-    followerId: 1,
-    followedId: 2,
+    follower: 1,
+    following: 2,
   },
   {
-    followerId: 2,
-    followedId: 3,
+    follower: 2,
+    following: 3,
   },
   {
-    followerId: 3,
-    followedId: 1,
+    follower: 3,
+    following: 1,
   },
   {
-    followerId: 1,
-    followedId: 3,
+    follower: 1,
+    following: 3,
   },
   {
-    followerId: 3,
-    followedId: 2,
+    follower: 3,
+    following: 2,
   },
   {
-    followerId: 3,
-    followedId: 4,
+    follower: 3,
+    following: 4,
   },
   {
-    followerId: 3,
-    followedId: 5,
+    follower: 3,
+    following: 5,
   },
   {
-    followerId: 3,
-    followedId: 6,
+    follower: 3,
+    following: 6,
   },
 ];
 

@@ -107,4 +107,48 @@ import { Op } from "sequelize";
 // });
 // console.log(user)
 
-Follow.findAll({where: {followerId: '3'}}).then(follow => console.log(follow))
+// User.findByPk(3, {include: {
+//   model: User,
+//   as: 'Following',
+//   through: {where: {isFollowing: true}},
+//   attributes: ['userId', 'username']
+// },
+// }).then((followers => console.log(followers)))
+
+
+// User.findByPk(3, {include: {
+//   model: User,
+//   as: 'Followers',
+//   through: {where: {isFollowing: true}},
+//   attributes: ['userId', 'username']
+// },
+// }).then((followers => console.log(followers)))
+
+
+
+    const followingPromise = User.findByPk(2, {
+      include: {
+        model: User,
+        as: 'Following',
+        through: {where: {isFollowing: true}},
+        attributes: ['userId', 'username']
+      }
+    })
+
+
+    const followersPromise = User.findByPk(2, {
+      include: {
+        model: User,
+        as: 'Followers',
+        through: {where: {isFollowing: true}},
+        attributes: ['userId', 'username']
+      }
+    })
+
+
+    console.log(followingPromise, followersPromise)
+    const [following, followers] = await Promise.all([
+      followingPromise,
+      followersPromise
+    ])
+    console.log('Following: ', following, 'Followers: ', followers)

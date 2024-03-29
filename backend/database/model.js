@@ -244,12 +244,12 @@ Follow.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    followerId: {
+    follower: {
       // userId of the person who's following
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    followedId: {
+    following: {
       // userId of the person who is being followed
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -317,3 +317,9 @@ Park.hasMany(Post, { foreignKey: "parkId" });
 
 Post.belongsToMany(Activity, { through: "PostActivity" });
 Activity.belongsToMany(Post, { through: "PostActivity" });
+
+
+User.belongsToMany(User, { through: Follow, as: 'Following', foreignKey: 'follower'});
+User.belongsToMany(User, { through: Follow, as: 'Followers', foreignKey: 'following'});
+Follow.belongsTo(User, { foreignKey: 'following', as: 'Follower' });
+Follow.belongsTo(User, { foreignKey: 'follower', as: 'Following' });
