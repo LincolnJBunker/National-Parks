@@ -4,6 +4,11 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "react-bootstrap";
+// import AWS from 'aws-sdk';
+import accessKeyId from '../hidden.js';
+import secretAccessKey from '../hidden.js';
+import region from '../hidden.js';
+
 
 function EditProfile() {
     const [show, setShow] = useState(false);
@@ -14,6 +19,9 @@ function EditProfile() {
     const [bio, setBio] = useState('');
     const [userPic, setUserPic] = useState('');
     const [info, setInfo] = useState([]);
+    const [formData, setFormData] = useState('')
+    const [submissionStatus, setSubmissionStatus] = useState()
+
     const dispatch = useDispatch();
     const sessionCheck = async () => {
         const res = await axios.get('/api/session-check')
@@ -50,6 +58,54 @@ function EditProfile() {
         sessionCheck()
         userInfoGet()
     }, [])
+
+    // useEffect(() => {
+    //     const script = document.createElement("script");
+    //     script.src = '?'
+    //     script.async = true
+    //     script.onload = () => {
+    //         window.AWS.config.update({
+    //             accessKeyId: accessKeyId,
+    //             secretAccessKey: secretAccessKey,
+    //             region: region
+    //         })
+    //     }
+    //     document.body.appendChild(script);
+    //     return () => {
+    //         document.body.removeChild(script)
+    //     }
+    // }, []);
+
+    const handleChange = (e) => {
+        if (e.target.name === "theimage") {
+            const file = e.target.files[0];
+            if (file) {
+                uploadFile(file)
+            }
+        } else {
+            setFormData({...FormData, [e.target.name]: e.target.value})
+        }
+    }
+
+    const uploadFile = (file) => {
+        const s3 = new window.AWS.S3();
+        const params = {
+            Bucket: "dev-mtn-national-parks",
+            Key: file.name,
+            Body: file
+        }
+        s3.upload(params, function (err,data) {
+            if (err) {
+                throw err;
+            }
+            console.log(`file uploaded successfully! ${data.location}`)
+            setFormData((currentFormData) => ({
+                ...currentFormData,
+                imgUrl: data.location
+            }))
+            setSubmissionStatus('file uploaded successfully')
+        })
+    }
 
     const userId = useSelector((state) => state.userId);
     console.log(userId)
