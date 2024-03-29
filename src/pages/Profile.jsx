@@ -50,8 +50,8 @@ function Profile() {
   const [bio, setBio] = useState('');
   const [userPic, setUserPic] = useState('');
 
-  ///\\\///\\\///\\\///\\\///\\\///\\\///\\\///\\\///\\\
-
+  const [showFollowersBox, setShowFollowersBox] = useState(false)
+  const [showFollowingBox, setShowFollowingBox] = useState(false)
   const [isFollowing, setIsFollowing] = useState(false)
   const [showFollowing, setShowFollowing] = useState(false)
   const [userData, setUserData] = useState({
@@ -77,7 +77,7 @@ function Profile() {
         following: followRes.data.following,
       })
 
-      setIsFollowing(followRes.data.followers.find(f=>f.followerId===userId.userId)?true:false)
+      setIsFollowing(followRes.data.followers.find(f=>f.userId===userId.userId)?true:false)
   }
 
   const handleFollow = () => {
@@ -90,6 +90,7 @@ function Profile() {
   }
 
   const handleUnfollow = () => {
+    console.log('handleUnfollow', userId?.userId, profileId)
     if (!userId?.userId || !profileId) {
       return
     }
@@ -103,6 +104,27 @@ function Profile() {
     }
     setShowFollowing(userId?.userId && profileId && userId?.userId !== profileId)
   }, [userId, profileId])
+
+  const followersBox = (showFollowersBox && userData.followers?.map(follower => (
+    <div onClick={() => {
+      dispatch({type: 'SET_PROFILE', payload: follower.userId})
+      setShowFollowingBox(false)
+      setShowFollowersBox(false)
+    }}>
+      {/* <div><img src={follower.profilePic} alt={`${follower.username}'s picture`} /></div> */}
+      <div>{follower.username}</div>
+    </div>
+  )))
+  const followingBox = (showFollowingBox && userData.following?.map(following => (
+    <div onClick={() => {
+      dispatch({type: 'SET_PROFILE', payload: following.userId})
+      setShowFollowingBox(false)
+      setShowFollowersBox(false)
+    }}>
+      {/* <div><img src={following.profilePic} alt={`${following.username}'s picture`} /></div> */}
+      <div>{following.username}</div>
+    </div>
+  )))
 
   const followingRender = (showFollowing && (isFollowing ? (
     <>
@@ -125,10 +147,12 @@ function Profile() {
       </div>
         <div className="follower-following-container">
           <div className="following">
-            <h3>Following: {userData.following?.length}</h3> 
+            <h3 onClick={() => setShowFollowingBox(!showFollowingBox)}>Following: {userData.following?.length}</h3>
+            {followingBox}
           </div>
-          <div className="followers">
-            <h3>Followers: {userData.followers?.length}</h3>
+          <div className="followers" >
+            <h3 onClick={() => setShowFollowersBox(!showFollowersBox)}>Followers: {userData.followers?.length}</h3>
+            {followersBox}
           </div>
           <div className="profile-buttons">
             {!showFollowing && <EditProfileBtn />}
