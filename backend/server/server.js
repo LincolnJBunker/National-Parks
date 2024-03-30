@@ -36,6 +36,7 @@ app.post("/api/addPost", handlerFunctions.addPost);
 app.post("/api/userInfo", handlerFunctions.userInfo);
 app.put("/api/user/update/:id", handlerFunctions.updateUser);
 app.post("/api/comment", handlerFunctions.postComment);
+app.delete('/api/comment/:commentId', handlerFunctions.deleteComment)
 app.get("/api/follows/:id", handlerFunctions.getFollows);
 app.delete("/api/user/delete/:userId", handlerFunctions.deleteUser);
 app.delete("/api/post/delete/:postId", handlerFunctions.deletePost);
