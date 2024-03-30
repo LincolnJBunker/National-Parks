@@ -25,12 +25,14 @@ function Home() {
   const [thirdPic, setThirdPic] = useState("")
   const [parkValue, setParkValue] = useState("")
   const [activityVal, setActivityVal] = useState("")
+  const [changed, setChanged] = useState(false)
 
   const editMode = () => setIsEditing(true)
 
-  let userPosts = async () => {axios.post("/api/posts", {myId: userId, mode: 'friends'})
-  .then((res) => {
-    console.log('data', res.data)
+  let userPosts = async () => {
+    axios.post("/api/posts", {myId: userId, mode: 'friends'})
+    .then((res) => {
+      console.log('data', res.data)
       setPosts(res.data.posts)
   })
   }
@@ -50,12 +52,14 @@ function Home() {
       console.log('post endpoint success')
       userPosts()
       setIsEditing(false)
+      setChanged(!changed)
+      setPostText("")
     })
   }
 
   const handleCancel = async () => {
-    setPostPic(postPic),
-    setPostText(postText),
+    setPostPic(postPic);
+    setPostText(postText);
     setIsEditing(false)
   }
 
@@ -65,7 +69,6 @@ function Home() {
     <div className="home-page">
       <h4>Home</h4>
       <p></p>
-
       <button onClick={editMode}>Add Post</button>
       {isEditing &&
             <>
@@ -110,7 +113,7 @@ function Home() {
               </div>
             </>
             }
-      <PostContainer mode='friends' myId={userId}/>
+      <PostContainer changed={changed} mode='friends' myId={userId}/>
     </div>
   )
 }

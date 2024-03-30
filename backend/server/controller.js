@@ -23,13 +23,13 @@ const handlerFunctions = {
     // const { parkId } = req.params
     const park = await Park.findByPk(req.params.parkId, {
       include: [
-        { model: Activity },
+        { model: Activity, attributes: ["name"] },
         {
           model: Post,
           include: [
             { model: User },
             { model: Comment, include: { model: User } },
-            { model: Activity },
+            { model: Activity, attributes: ["name"] },
           ],
         },
       ],
@@ -43,11 +43,11 @@ const handlerFunctions = {
     res.send(allActivities);
   },
 
-  //   getParkActivity: async (req, res) => {
-  //     const parkActivity = await Activity.findAll({
-  //       where: {},
-  //     });
-  //   },
+  // getPostActivity: async (req, res) => {
+  //   const parkActivity = await Activity.findAll({
+  //     where: {},
+  //   });
+  // },
 
   sessionCheck: async (req, res) => {
     if (req.session.userId) {
@@ -149,7 +149,7 @@ const handlerFunctions = {
   },
 
   getPosts: (req, res) => {
-    console.log('getPosts called with req.body = ', req.body)
+    console.log("getPosts called with req.body = ", req.body);
     // set req.body.mode to 'park', 'friends', or 'user' to get posts filtered for that use case
     // console.log("getPosts", req.body);
     if (typeof req.body.myId !== "number") {
@@ -169,13 +169,13 @@ const handlerFunctions = {
                   include: [
                     {
                       model: User,
-                      attributes: ["userId", "username"],
+                      attributes: ["userId", "userPic", "username"],
                     },
                   ],
                 },
                 {
                   model: User,
-                  attributes: ["userId", "username"],
+                  attributes: ["userId", "userPic", "username"],
                 },
                 {
                   model: Park,
@@ -183,12 +183,14 @@ const handlerFunctions = {
                 },
                 {
                   model: Activity,
+                  attributes: ["name"],
                 },
               ],
             },
           ],
         })
           .then(({ posts }) => {
+            console.log(posts[0]);
             res.send({
               posts,
               message: "Here are the park's posts with comments",
@@ -215,13 +217,13 @@ const handlerFunctions = {
                   include: [
                     {
                       model: User,
-                      attributes: ["userId", "username"],
+                      attributes: ["userId", "userPic", "username"],
                     },
                   ],
                 },
                 {
                   model: User,
-                  attributes: ["userId", "username"],
+                  attributes: ["userId", "userPic", "username"],
                 },
                 {
                   model: Park,
@@ -229,6 +231,7 @@ const handlerFunctions = {
                 },
                 {
                   model: Activity,
+                  attributes: ["name"],
                 },
               ],
             },
@@ -282,7 +285,7 @@ const handlerFunctions = {
                     },
                     {
                       model: User,
-                      attributes: ["userId", "username"],
+                      attributes: ["userId", "userPic", "username"],
                     },
                     {
                       model: Park,
@@ -290,6 +293,7 @@ const handlerFunctions = {
                     },
                     {
                       model: Activity,
+                      attributes: ["name"],
                     },
                   ],
                 },
@@ -300,6 +304,7 @@ const handlerFunctions = {
                   return acc.concat(user.posts);
                 }, [])
                 .sort((a, b) => b.createdAt - a.createdAt);
+              console.log(posts[1]);
               res.send({
                 message: "Here are all the posts with comments",
                 success: true,
@@ -363,22 +368,22 @@ const handlerFunctions = {
       res.status(500).send("Internal Server Error");
     }
   },
-  
-        userInfo: async (req, res) => {
-            // const { userId } = req.body
-            // console.log('Recieved userId:', req.body.id)
-            try {
-                const user = await User.findByPk(req.body.id, {
-                    attributes: ['userId', 'username', 'password', 'bio', 'userPic'],
-                });
-                // console.log('Retrieved user:', user);
-                
-                res.send(user);
-            } catch (error) {
-                console.error('Error retrieving user:', error);
-                res.status(500).send('Internal Server Error');
-            }
-    },
+
+  userInfo: async (req, res) => {
+    // const { userId } = req.body
+    // console.log('Recieved userId:', req.body.id)
+    try {
+      const user = await User.findByPk(req.body.id, {
+        attributes: ["userId", "username", "password", "bio", "userPic"],
+      });
+      // console.log('Retrieved user:', user);
+
+      res.send(user);
+    } catch (error) {
+      console.error("Error retrieving user:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  },
 
   updateUser: async (req, res) => {
     const { username, password, bio, userPic } = req.body;
@@ -446,7 +451,7 @@ const handlerFunctions = {
     const pPark = req.body.parkId;
     const pPicTwo = req.body.secondPic;
     const pPicThree = req.body.thirdPic;
-    const pActivity = req.body.activityId;
+    const pActivityId = req.body.activityId;
 
     const newPost = {
       postPic: pPic,
@@ -454,11 +459,19 @@ const handlerFunctions = {
       thirdPic: pPicThree,
       postText: pText,
       parkId: pPark,
-      activityId: pActivity,
     };
 
     let foundUser = await User.findByPk(req.session.userId);
     let addedPost = await foundUser.createPost(newPost);
+    // create the post based on the user
+    // query the activyt in question
+    // use sequalize metho to add activity to post
+    // let activity = await Activity.findByPk(pActivity);
+    // await addedPost.addActivity(activity);
+    if (pActivityId) {
+      const activity = await Activity.findByPk(pActivityId);
+      await addedPost.addActivity(activity);
+    }
 
     res.send({
       message: "Here's a new post!",
@@ -549,17 +562,17 @@ const handlerFunctions = {
   },
 
   newInbox: async (req, res) => {
-    const { name, email, message } = req.body
+    const { name, email, message } = req.body;
     const newInboxMessage = await Inbox.create({
       name,
       email,
-      message
+      message,
     });
     res.send({
       message: "Message recieved",
       status: true,
-      newInboxMessage: newInboxMessage
-    })
+      newInboxMessage: newInboxMessage,
+    });
   },
 };
 

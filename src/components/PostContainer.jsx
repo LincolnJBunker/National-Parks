@@ -13,7 +13,7 @@ import React, {useState, useEffect} from 'react'
 import PostCard from './PostCard'
 import axios from 'axios'
 
-function PostContainer({mode, myId}) {    // mode is either park, friends, or user
+function PostContainer({mode, myId, changed}) {    // mode is either park, friends, or user
 
 
   const [posts, setPosts] = useState(null)
@@ -34,10 +34,11 @@ function PostContainer({mode, myId}) {    // mode is either park, friends, or us
 
   useEffect(() => {
     fetchPosts()
-  }, [myId, mode])
+  }, [myId, mode, changed])
 
   const postList = posts ? posts.map((post, idx) => <PostCard
     postId={post.postId}
+    userPic={post.user.userPic}
     postPic={post.postPic}
     secondPic={post.secondPic}
     thirdPic={post.thirdPic}
