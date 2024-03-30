@@ -253,7 +253,7 @@ const handlerFunctions = {
         // console.log("friends");
 
         User.findByPk(req.body.myId, {
-          include: {
+          include: [{
             model: User,
             as: 'Following',
             through: {where: {isFollowing: true}},
@@ -285,13 +285,40 @@ const handlerFunctions = {
                 ],
               },
             ],
+          },
+          {
+            model: Post,
+            include: [
+              {
+                model: Comment, // Include comments associated with each post
+                order: [["createdAt", "DESC"]],
+                include: [
+                  {
+                    model: User,
+                    attributes: ["userId", "username"],
+                  },
+                ],
+              },
+              {
+                model: User,
+                attributes: ["userId", "username"],
+              },
+              {
+                model: Park,
+                attributes: ["parkId", "fullName"],
+              },
+              {
+                model: Activity,
+              },
+            ],
           }
+        ]
         }).then((user) => {
-          console.log(user)
           const posts = user.Following
             .reduce((acc, user) => {
               return acc.concat(user.posts);
             }, [])
+            .concat(user.posts)
             .sort((a, b) => b.createdAt - a.createdAt);
           res.send({
             message: "Here are all the posts with comments",
@@ -404,6 +431,18 @@ const handlerFunctions = {
         });
         console.error(err);
       });
+  },
+
+  deleteComment: async (req, res) => {
+    Comment.findByPk(req.params.commentId).then(comment => {
+      comment.destroy()
+      res.send({message: 'comment deleted', success: true})
+      return
+    }).catch(err => {
+      console.error(err)
+      res.send({message: 'error deleting comment', success: false})
+      return
+    })
   },
 
   userInfo: async (req, res) => {

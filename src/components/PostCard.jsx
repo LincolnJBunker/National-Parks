@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Comment from './Comment'; 
 import axios from "axios"
 import { Carousel } from "react-bootstrap"
@@ -17,10 +17,17 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
   const userId = useSelector(state => state.userId.userId)
 
   const [commentArr, setCommentArr] = useState(comments)
+  const deleteComment = async commentId => {
+    await axios.delete(`/api/comment/${commentId}`, )
+    let newArr = [...commentArr]
+    newArr.splice(commentArr.findIndex(comment=>comment.commentId===commentId),1)
+    setCommentArr(newArr)
+  }
   
   const commentList = commentArr.map((comment, idx) => (
     <div key={idx}>
       <p style={{borderTop: '1px solid #888888'}}>{comment.user.username}: {comment.commentText}</p>
+      {userId===comment.userId && <button onClick={() => deleteComment(comment.commentId)}>Delete</button>}
     </div>
   ))
   
@@ -45,6 +52,7 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
 
   return (
     <div key={1} className='postBox'>
+      {/* <p>{JSON.stringify(comments)}</p> */}
       {showUser && <div className='userDiv'>
         {/* <img src={profilePic} className="user-icon" alt="post creator" /> */}
         <p onClick={() => clickUser(profileId)}>{username}</p>
