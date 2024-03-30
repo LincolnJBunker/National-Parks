@@ -1,4 +1,3 @@
-
 import {
   User,
   Park,
@@ -22,7 +21,6 @@ import { Op } from "sequelize";
 // const park = await Park.findByPk(61, {
 //   include: [{ model: Activity }, { model: Post, include: { model: Activity } }],
 // });
-
 
 // await User.findByPk(1, {
 //     include: Post // Include the associated posts
@@ -69,7 +67,6 @@ import { Op } from "sequelize";
 //     })
 // })
 
-
 // Park.findOne({include: [{model: Activity}, {model: Post}]}).then(activity => console.log(activity))
 
 // Park.findByPk(61, {
@@ -101,11 +98,24 @@ import { Op } from "sequelize";
 //   console.log(posts)
 //   })
 
-
 // const user = await User.findByPk(1, {
 //   attributes: ['userId', 'username', 'password', 'bio', 'userPic'],
 // });
 // console.log(user)
+
+// const u1 = await User.findByPk(1);
+// const park1 = await Park.findByPk(1);
+// const post1 = await Post.findByPk(1);
+
+// const activity1 = await Activity.findByPk(1);
+
+// await post1.addActivity(activity1);
+
+// const post1Update = await Post.findByPk(1, {
+//   include: [{ model: User }, { model: Park }, { model: Activity }],
+// });
+
+// console.log(post1Update);
 
 // User.findByPk(3, {include: {
 //   model: User,
@@ -152,3 +162,12 @@ import { Op } from "sequelize";
       followersPromise
     ])
     console.log('Following: ', following, 'Followers: ', followers)
+
+
+const act = await Activity.findByPk("");
+
+console.log(act);
+
+await db.close();
+
+

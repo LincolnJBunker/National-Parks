@@ -7,8 +7,7 @@ import { Carousel } from "react-bootstrap"
 
 
 
-function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, profileId, profilePic, activities, parkName, parkId, comments, showUser, fetchPosts}) {
-
+function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, profileId, userPic, activities, parkName, parkId, comments, showUser, fetchPosts}) {
 
   const [isCommenting, setIsCommenting] = useState(false)
   const dispatch = useDispatch();
@@ -30,7 +29,7 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
       {userId===comment.userId && <button onClick={() => deleteComment(comment.commentId)}>Delete</button>}
     </div>
   ))
-  
+  console.log(userPic)
   console.log(profileId)
   console.log('postId', postId)
 
@@ -54,8 +53,8 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
     <div key={1} className='postBox'>
       {/* <p>{JSON.stringify(comments)}</p> */}
       {showUser && <div className='userDiv'>
-        {/* <img src={profilePic} className="user-icon" alt="post creator" /> */}
-        <p onClick={() => clickUser(profileId)}>{username}</p>
+        <img src={userPic} className="user-icon" alt="post creator" />
+        <p className="post-username" onClick={() => clickUser(profileId)}>{username}</p>
         <button>Follow</button>
       </div>}
       
@@ -77,7 +76,7 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
 }
           </Carousel>
           <div onClick={clickPark}>{parkName}</div>
-          {activityList}
+          <ul>{activityList}</ul>
         </div>
         <div className='postBoxRightSide'><p>{postText}</p></div>
       </div>

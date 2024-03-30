@@ -61,7 +61,6 @@ function Profile() {
     userPic: null,
     followers: null,
     following: null,
-
   })
 
   const getUserData = async (id) => {

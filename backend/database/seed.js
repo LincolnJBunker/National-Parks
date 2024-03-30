@@ -19,36 +19,46 @@ let users = [
     username: "link",
     email: "jess90@gmail.com",
     password: "use",
+    userPic:
+      "https://media.licdn.com/dms/image/D4E03AQFtlYt-bVrtKQ/profile-displayphoto-shrink_800_800/0/1704831030407?e=2147483647&v=beta&t=NkWH-3hqMW5W7WpBXnNLjOIJwGk_wOq5E-gxpnyMHVQ",
   },
   {
     username: "cat",
-    email: "fredflint@gmail.com",
+    email: "fred@gmail.com",
     password: "use",
+    userPic:
+      "https://scontent-lax3-2.xx.fbcdn.net/v/t39.30808-6/428659387_10159868671225732_2012584730671016119_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFtMxtOevvVY25BaNWwJaWRxWF5j4cb6tjFYXmPhxvq2L-dMmAvPsRoEvqtYq2ySYk&_nc_ohc=ZMpYOBIXMHgAX9BglFO&_nc_ht=scontent-lax3-2.xx&oh=00_AfC7UEtLodYTYF7K_5m6zsvx_xU_pnmPoy53XEKOePeShQ&oe=660B0BEE",
   },
   {
     username: "david",
     email: "artsyfartsy@gmail.com",
     password: "use",
+    userPic:
+      "https://media.licdn.com/dms/image/D5603AQFOylu72kgGcA/profile-displayphoto-shrink_800_800/0/1691684632843?e=1717027200&v=beta&t=NSaw3788aUgZlMUNVjhDmsU4tnmm6YnYc8AvB0ZCIFs",
   },
   {
     username: "josh",
     email: "joshywoshy@gmail.com",
     password: "use",
+    userPic: "",
   },
   {
     username: "jesse",
     email: "tigerwoodsfan89@gmail.com",
     password: "use",
+    userPic: "",
   },
   {
     username: "michael",
     email: "hiimmichael@gmail.com",
     password: "use",
+    userPic: "",
   },
   {
     username: "ty",
     email: "tyguyhighfly@gmail.com",
     password: "use",
+    userPic: "",
   },
 ];
 
@@ -133,8 +143,7 @@ let posts = [
   {
     postPic:
       "https://pbs.twimg.com/media/GJBIvEqXAAE1th9?format=jpg&name=large",
-    postText:
-      "Acadia National Park, Maine 🇺🇸",
+    postText: "Acadia National Park, Maine 🇺🇸",
     userId: 4,
     parkId: 1,
     activities: [18],

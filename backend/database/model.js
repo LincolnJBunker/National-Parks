@@ -95,9 +95,9 @@ User.init(
     },
     userPic: {
       // could
-      type: DataTypes.STRING,
-      defaultValue:
-        "https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png",
+      type: DataTypes.TEXT,
+      // defaultValue:
+      //   "https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png",
     },
   },
   {
@@ -276,31 +276,31 @@ export class Inbox extends Model {
   }
 }
 
-  Inbox.init(
-    {
-      inboxId: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-      },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      message: {
-        type: DataTypes.STRING,
-        allowNull: false
-      }
+Inbox.init(
+  {
+    inboxId: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
     },
-    {
-      modelName: 'inbox',
-      sequelize: db,
-    }
-  );
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    message: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    modelName: "inbox",
+    sequelize: db,
+  }
+);
 
 Park.belongsToMany(Activity, { through: "ParkActivity" });
 Activity.belongsToMany(Park, { through: "ParkActivity" });

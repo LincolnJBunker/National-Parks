@@ -298,6 +298,7 @@ div.add-post {
   background-color: white;
   padding: 8px;
   overflow-wrap: break-word;
+  border-radius: 10px;;
 }
 
 .postBoxLeftSide {
@@ -308,6 +309,17 @@ div.add-post {
   max-height: 300px;
   max-width: 500px;
 } */
+
+img.user-icon {
+  width: 50px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  margin-right: 10px
+}
+
+.post-username {
+  margin-right: 20px
+}
 
 .commentButton {
   display: flex;
