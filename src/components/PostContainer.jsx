@@ -60,14 +60,18 @@ function PostContainer({mode, myId, changed}) {    // mode is either park, frien
 
   return (
     <>
-    <div>{myId}</div>
       {posts?.length > 0 ? 
         <div className='postAreaWrapper'>
           <h4>Latest Posts</h4>
           {postList}
         </div>
       : 
-        !postsLoaded ? (<h4>Loading posts...</h4>) : (<><h4>Not following anyone yet.</h4><p>When you follow someone, their posts will appear here. Browse the parks pages to find people to follow.</p></>)
+        !postsLoaded ? (<h4>Loading posts...</h4>) : 
+            mode==='friends' ? (
+          <><h4>Not following anyone yet.</h4><p>When you follow someone, their posts will appear here. Browse the parks pages to find people to follow.</p></>
+          ) : (
+            <><h4>User has no posts</h4><p>When they make posts, their posts will appear here.</p></>
+        )
       }
     </>
   )

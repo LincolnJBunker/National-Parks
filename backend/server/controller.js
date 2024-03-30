@@ -254,71 +254,154 @@ const handlerFunctions = {
         return;
       case "friends": // get posts of friends
         // console.log("friends");
-        Follow.findAll({
-          where: {
-            followerId: req.body.myId,
-          },
-        })
-          .then((follows) => {
-            User.findAll({
-              where: {
-                userId: {
-                  [Op.in]: [
-                    ...follows.map((follow) => follow.followedId),
-                    req.body.myId,
-                  ],
-                },
+
+        User.findByPk(req.body.myId, {
+          include: [{
+            model: User,
+            as: 'Following',
+            through: {where: {isFollowing: true}},
+            include: [
+              {
+                model: Post,
+                include: [
+                  {
+                    model: Comment, // Include comments associated with each post
+                    order: [["createdAt", "DESC"]],
+                    include: [
+                      {
+                        model: User,
+                        attributes: ["userId", "username"],
+                      },
+                    ],
+                  },
+                  {
+                    model: User,
+                    attributes: ["userId", "username"],
+                  },
+                  {
+                    model: Park,
+                    attributes: ["parkId", "fullName"],
+                  },
+                  {
+                    model: Activity,
+                  },
+                ],
               },
-              include: [
-                {
-                  model: Post,
-                  include: [
-                    {
-                      model: Comment, // Include comments associated with each post
-                      order: [["createdAt", "DESC"]],
-                      include: [
-                        {
-                          model: User,
-                          attributes: ["userId", "username"],
-                        },
-                      ],
-                    },
-                    {
-                      model: User,
-                      attributes: ["userId", "userPic", "username"],
-                    },
-                    {
-                      model: Park,
-                      attributes: ["parkId", "fullName"],
-                    },
-                    {
-                      model: Activity,
-                      attributes: ["name"],
-                    },
-                  ],
-                },
-              ],
-            }).then((users) => {
-              const posts = users
-                .reduce((acc, user) => {
-                  return acc.concat(user.posts);
-                }, [])
-                .sort((a, b) => b.createdAt - a.createdAt);
-              console.log(posts[1]);
-              res.send({
-                message: "Here are all the posts with comments",
-                success: true,
-                posts,
-              });
-            });
+            ],
+          },
+          {
+            model: Post,
+            include: [
+              {
+                model: Comment, // Include comments associated with each post
+                order: [["createdAt", "DESC"]],
+                include: [
+                  {
+                    model: User,
+                    attributes: ["userId", "username"],
+                  },
+                ],
+              },
+              {
+                model: User,
+                attributes: ["userId", "username"],
+              },
+              {
+                model: Park,
+                attributes: ["parkId", "fullName"],
+              },
+              {
+                model: Activity,
+              },
+            ],
+          }
+        ]
+        }).then((user) => {
+          const posts = user.Following
+            .reduce((acc, user) => {
+              return acc.concat(user.posts);
+            }, [])
+            .concat(user.posts)
+            .sort((a, b) => b.createdAt - a.createdAt);
+          res.send({
+            message: "Here are all the posts with comments",
+            success: true,
+            posts,
           })
-          .catch((err) => {
-            console.error(err);
-            res.send({
-              message: "Error fetching posts",
-              success: false,
-            });
+        }).catch((err) => {
+          console.error(err);
+          res.send({
+            message: "Error fetching posts",
+            success: false,
           });
+        })
+
+
+
+
+        // Follow.findAll({
+        //   where: {
+        //     followerId: req.body.myId,
+        //   },
+        // })
+        //   .then((follows) => {
+        //     User.findAll({
+        //       where: {
+        //         userId: {
+        //           [Op.in]: [
+        //             ...follows.map((follow) => follow.followedId),
+        //             req.body.myId,
+        //           ],
+        //         },
+        //       },
+        //       include: [
+        //         {
+        //           model: Post,
+        //           include: [
+        //             {
+        //               model: Comment, // Include comments associated with each post
+        //               order: [["createdAt", "DESC"]],
+        //               include: [
+        //                 {
+        //                   model: User,
+        //                   attributes: ["userId", "username"],
+        //                 },
+        //               ],
+        //             },
+        //             {
+        //               model: User,
+        //               attributes: ["userId", "username"],
+        //             },
+        //             {
+        //               model: Park,
+        //               attributes: ["parkId", "fullName"],
+        //             },
+        //             {
+        //               model: Activity,
+        //             },
+        //           ],
+        //         },
+        //       ],
+        //     }).then((users) => {
+        //       const posts = users
+        //         .reduce((acc, user) => {
+        //           return acc.concat(user.posts);
+        //         }, [])
+        //         .sort((a, b) => b.createdAt - a.createdAt);
+        //       res.send({
+        //         message: "Here are all the posts with comments",
+        //         success: true,
+        //         posts,
+        //       });
+        //     });
+        //   })
+        //   .catch((err) => {
+        //     console.error(err);
+        //     res.send({
+        //       message: "Error fetching posts",
+        //       success: false,
+        //     });
+        //   });
     }
     return;
   },
@@ -351,6 +434,18 @@ const handlerFunctions = {
         });
         console.error(err);
       });
+  },
+
+  deleteComment: async (req, res) => {
+    Comment.findByPk(req.params.commentId).then(comment => {
+      comment.destroy()
+      res.send({message: 'comment deleted', success: true})
+      return
+    }).catch(err => {
+      console.error(err)
+      res.send({message: 'error deleting comment', success: false})
+      return
+    })
   },
 
   userInfo: async (req, res) => {
@@ -485,22 +580,35 @@ const handlerFunctions = {
   },
 
   getFollows: async (req, res) => {
+    console.log('getFollows called with id: ', req.params.id)
     try {
-      const followingPromise = Follow.findAll({
-        where: { followerId: req.params.id, isFollowing: true },
-      });
-      const followersPromise = Follow.findAll({
-        where: { followedId: req.params.id, isFollowing: true },
-      });
+      const followingPromise = User.findByPk(req.params.id, {
+        include: {
+          model: User,
+          as: 'Following',
+          through: {where: {isFollowing: true}},
+          attributes: ['userId', 'username', 'userPic']
+        }
+      })
+      const followersPromise = User.findByPk(req.params.id, {
+        include: {
+          model: User,
+          as: 'Followers',
+          through: {where: {isFollowing: true}},
+          attributes: ['userId', 'username', 'userPic']
+        }
+      })
       const [following, followers] = await Promise.all([
         followingPromise,
-        followersPromise,
-      ]);
+        followersPromise
+      ])
+      let followingArr = following.Following.map(f => {return {username: f.username, userId: f.userId}})
+      let followersArr = followers.Followers.map(f => {return {username: f.username, userId: f.userId}})
       res.send({
         message: "Here are the follows",
         success: true,
-        following,
-        followers,
+        following: followingArr,
+        followers: followersArr,
       });
     } catch (err) {
       console.error(err);
@@ -512,13 +620,13 @@ const handlerFunctions = {
 
   followUser: (req, res) => {
     Follow.findOne({
-      where: { followerId: req.body.userId, followedId: req.body.profileId },
+      where: { follower: req.body.userId, following: req.body.profileId },
     })
       .then((follow) => {
         if (!follow) {
           Follow.create({
-            followerId: req.body.userId,
-            followedId: req.body.profileId,
+            follower: req.body.userId,
+            following: req.body.profileId,
           }).then(() => {
             res.send({ message: "Successfully followed", success: true });
             return;
@@ -538,7 +646,7 @@ const handlerFunctions = {
 
   unfollowUser: (req, res) => {
     Follow.findOne({
-      where: { followerId: req.body.userId, followedId: req.body.profileId },
+      where: { follower: req.body.userId, following: req.body.profileId },
     })
       .then((follow) => {
         if (!follow) {
