@@ -25,6 +25,8 @@ function Home() {
   const [thirdPic, setThirdPic] = useState("")
   const [parkValue, setParkValue] = useState("")
   const [activityVal, setActivityVal] = useState("")
+  const [secondActVal, setSecondActVal] = useState("")
+  const [thirdActVal, setThirdActVal] = useState("")
   const [changed, setChanged] = useState(false)
 
   const editMode = () => setIsEditing(true)
@@ -44,7 +46,9 @@ function Home() {
       thirdPic,
       postText,
       parkId: parkValue,
-      activityId: activityVal
+      activityId: activityVal,
+      secondActivityId: secondActVal,
+      thirdActivityId: thirdActVal
     }
     
     axios.post("/api/addPost", bodyObj)
@@ -102,6 +106,18 @@ function Home() {
                 ))}
                 </select>
                 <select className="select" id="park-opt" onChange={(e) => setActivityVal(e.target.value)}>
+                  <option>Pick an Activity</option>
+                {activities.map((activity) => (
+                  <option key={activity.activityId} value={activity.activityId}>{activity.name}</option>
+                ))}
+                </select>
+                <select className="select" id="park-opt" onChange={(e) => setSecondActVal(e.target.value)}>
+                  <option>Pick an Activity</option>
+                {activities.map((activity) => (
+                  <option key={activity.activityId} value={activity.activityId}>{activity.name}</option>
+                ))}
+                </select>
+                <select className="select" id="park-opt" onChange={(e) => setThirdActVal(e.target.value)}>
                   <option>Pick an Activity</option>
                 {activities.map((activity) => (
                   <option key={activity.activityId} value={activity.activityId}>{activity.name}</option>

@@ -325,7 +325,30 @@ img.user-icon {
   display: flex;
   flex-direction: row;
   justify-content: right;
+  margin-left: 10px
 }
+
+button.delete-btn {
+  margin-left: 10px
+}
+
+p.comment {
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+strong.act-name {
+  padding-left: 60px
+}
+
+h4.park-name {
+  margin-left: 5px
+}
+
+/* .post-activities {
+  
+} */
 
 .profile-page {
   display: flex;
