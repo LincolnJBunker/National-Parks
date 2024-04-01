@@ -430,7 +430,6 @@ const handlerFunctions = {
 
   parkMarkers: async (req, res) => {
     const allMarkers = await Park.findAll({
-      attributes: ["parkId", "fullName", "latitude", "longitude"],
       attributes: ["parkId", "fullName", "latitude", "longitude", "images"],
       include: [
         {

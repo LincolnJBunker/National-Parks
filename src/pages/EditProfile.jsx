@@ -68,67 +68,67 @@ function EditProfile() {
         userInfoGet()
     }, [])
 
-    useEffect(() => {
-        const script = document.createElement("script");
-        script.src = "https://sdk.amazonaws.com/js/aws-sdk-2.1083.0.min.js";
-        script.async = true;
-        script.onload = () => {
-          window.AWS.config.update({
-            accessKeyId: accessKeyId,
-            secretAccessKey: secretAccessKey,
-            region: region,
-          });
-        };
+    // useEffect(() => {
+    //     const script = document.createElement("script");
+    //     script.src = "https://sdk.amazonaws.com/js/aws-sdk-2.1083.0.min.js";
+    //     script.async = true;
+    //     script.onload = () => {
+    //       window.AWS.config.update({
+    //         accessKeyId: accessKeyId,
+    //         secretAccessKey: secretAccessKey,
+    //         region: region,
+    //       });
+    //     };
     
-        document.body.appendChild(script);
+    //     document.body.appendChild(script);
     
-        return () => {
-          document.body.removeChild(script);
-        };
-      }, [accessKeyId, secretAccessKey, region]);
+    //     return () => {
+    //       document.body.removeChild(script);
+    //     };
+    //   }, [accessKeyId, secretAccessKey, region]);
 
-      const handleChange = (e, type) => {
-        if (e.target.name === "theimage") {
-          const file = e.target.files[0];
-          if (file) {
-            uploadFile(file)
-          }
-        } else {
-          setFormData({ ...formData, [e.target.name]: e.target.value });
-        }
-      };
+    //   const handleChange = (e, type) => {
+    //     if (e.target.name === "theimage") {
+    //       const file = e.target.files[0];
+    //       if (file) {
+    //         uploadFile(file)
+    //       }
+    //     } else {
+    //       setFormData({ ...formData, [e.target.name]: e.target.value });
+    //     }
+    //   };
 
-      function uploadFile(file, type) {
-        const s3 = new window.AWS.S3();
-        const keyPrefix = "user-profiles/"
-        const params = {
-            Bucket: "national-parks-dev-mtn",
-            Key: `${keyPrefix}${file.name}`,
-            Body: file,
-          };
+    //   function uploadFile(file, type) {
+    //     const s3 = new window.AWS.S3();
+    //     const keyPrefix = "user-profiles/"
+    //     const params = {
+    //         Bucket: "national-parks-dev-mtn",
+    //         Key: `${keyPrefix}${file.name}`,
+    //         Body: file,
+    //       };
     
-          s3.upload(params, async (err, data) => {
-            if (err) {
-              console.error("Error uploading file:", err);
-              setImgUploadStatus(`Failed to upload ${type} image.`);
-            } else {
-              console.log(`File uploaded successfully. ${data.Location}`);
-              try {
-                const updateEndpoint =
-                  type === "profile"
-                    ? `/updateUserProfileImg/${userId}`
-                    : `/updateUserHeaderImg/${userId}`
-                await axios.put(updateEndpoint, {
-                  [type === "profile" ? "imgUrl" : "headerImgUrl"]: data.Location,
-                });
-                setReload(!reload); // Trigger reload to fetch updated user info
-              } catch (error) {
-                console.error(`Error updating ${type} profile image:`, error);
-                setImgUploadStatus(`Failed to update ${type} profile image.`);
-              }
-            }
-          });
-      }
+    //       s3.upload(params, async (err, data) => {
+    //         if (err) {
+    //           console.error("Error uploading file:", err);
+    //           setImgUploadStatus(`Failed to upload ${type} image.`);
+    //         } else {
+    //           console.log(`File uploaded successfully. ${data.Location}`);
+    //           try {
+    //             const updateEndpoint =
+    //               type === "profile"
+    //                 ? `/updateUserProfileImg/${userId}`
+    //                 : `/updateUserHeaderImg/${userId}`
+    //             await axios.put(updateEndpoint, {
+    //               [type === "profile" ? "imgUrl" : "headerImgUrl"]: data.Location,
+    //             });
+    //             setReload(!reload); // Trigger reload to fetch updated user info
+    //           } catch (error) {
+    //             console.error(`Error updating ${type} profile image:`, error);
+    //             setImgUploadStatus(`Failed to update ${type} profile image.`);
+    //           }
+    //         }
+    //       });
+    //   }
     
     const upload = (e) => {
         console.log(e.target.files[0])
@@ -137,7 +137,7 @@ function EditProfile() {
             console.log(data)
         })
         .catch( (err) => {
-            alert(err)
+            console.log(err)
         })
     }
     const userId = useSelector((state) => state.userId);

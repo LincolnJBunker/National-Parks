@@ -30,6 +30,7 @@ body {
   place-items: center;
   max-width: 1200px;
   min-height: 100vh;
+  background-color: #eed1c4;
 }
 
 .park-card {
@@ -423,4 +424,8 @@ div.add-post {
 .cancel-button:hover {
   background-color: #b2b2b2;
   cursor: pointer;
+}
+
+.map-header {
+  text-align: center;
 }

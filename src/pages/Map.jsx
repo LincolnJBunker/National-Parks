@@ -32,6 +32,13 @@ const handleClick = async () => {
 }
   
   return (
+    <>
+    <div className="map-header">
+      <h2>Map</h2>
+      <p>Checkout all of the national parks below! Click on a marker to see the park, activities to 
+        do there, and some pictures!
+      </p>
+    </div>
     <APIProvider apiKey={googleAPIKey} >
       <div className="google-map" style={ {height: '100vh', width: '175vh'} }>
         <Map
@@ -81,6 +88,8 @@ const handleClick = async () => {
         </Map>
       </div>
     </APIProvider>
+
+    </>
   )
 }
 
