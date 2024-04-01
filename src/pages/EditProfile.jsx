@@ -132,7 +132,7 @@ function EditProfile() {
     
     const upload = (e) => {
         console.log(e.target.files[0])
-        uploadFile(e.target.files[0] , config)
+        ReactS3.uploadFile(e.target.files[0] , config)
         .then( (data) => {
             console.log(data)
         })

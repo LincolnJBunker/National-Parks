@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import tree_img from '../../public/tree2.png'
 
 function Maps() {
   const [isMapInitialized, setMapInitialized] = useState(false);
@@ -52,16 +53,22 @@ const handleClick = async () => {
             key={park.park_id}
             position={{ lat: park.latitude, lng: park.longitude }}
             onClick={() => setSelectedPark(park)}
-            />
+            >
+              <img src={tree_img} alt="Park" style={{ width: '30px', height: '30px' }} />
+
+            </AdvancedMarker>
           ))}
 
           {selectedPark && (
             <InfoWindow 
               position={{lat: selectedPark.latitude, lng: selectedPark.longitude }} 
-              onCloseClick={() => setSelectedPark(null)}>
-                <div>
-                  <h3 style={{color: 'black'}}>{selectedPark.fullName}</h3>
-                  <p style={{ color: 'black' }}>Popular Actvities in {selectedPark.fullName}</p>
+              onCloseClick={() => setSelectedPark(null)}
+              >
+                <div className="park-infowindow">
+                  <div className="park-header">
+                    <h2 style={{color: 'black'}}>{selectedPark.fullName}</h2>
+                    <p style={{ color: 'black' }}>Popular Actvities in {selectedPark.fullName}</p>
+                  </div>
                   <div className="marker-activities">
                     <ul>
                       {selectedPark.activities.map(activity => (
