@@ -114,8 +114,10 @@ function Login() {
     }, [])
 
   return (
+    
     <div className="login-page">
-            <h3>{showCreateAccount ? 'Create an Account' : 'Login Below'}</h3>
+        <div className="login-container">
+            <h3 className="login-title">{showCreateAccount ? 'Create an Account' : 'Login Below'}</h3>
             {showCreateAccount ? (
                 <div className="create-account">
                     <div className="login-inputs">
@@ -180,6 +182,7 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
+                    <div className="login-btns">
                     <button onClick={handleShow}>Login</button>
                         <Modal show={showError} onHide={() => setShowError(false)}>
                             <Modal.Body>
@@ -200,7 +203,9 @@ function Login() {
                     </Modal>
                     <button onClick={() => setShowCreateAccount(true)}>Create an Account</button>
                 </div>
+                </div>
             )}
+            </div>
         </div>
     );
 }
