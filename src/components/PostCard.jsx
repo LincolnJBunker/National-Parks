@@ -6,13 +6,12 @@ import axios from "axios"
 import { Carousel } from "react-bootstrap"
 
 
-
 function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, profileId, userPic, activities, parkName, parkId, comments, showUser, fetchPosts}) {
 
   const [isCommenting, setIsCommenting] = useState(false)
   const dispatch = useDispatch();
   const navigateTo = useNavigate();   // This allows you to send someone to another page
-  const activityList = activities.map((activity, idx) => <a key={idx}>{activity.name}</a>)
+  const activityList = activities.map((activity, idx) => <ul className="post-activities" key={idx}>{activity.name}</ul>)
   const userId = useSelector(state => state.userId.userId)
 
   const [commentArr, setCommentArr] = useState(comments)
@@ -25,7 +24,7 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
   
   const commentList = commentArr.map((comment, idx) => (
     <div key={idx}>
-      <p style={{borderTop: '1px solid #888888'}}>{comment.user.username}: {comment.commentText}</p>
+      <p className="comment">{comment.user.username}: {comment.commentText}</p>
       {userId===comment.userId && <button onClick={() => deleteComment(comment.commentId)}>Delete</button>}
     </div>
   ))
@@ -75,8 +74,11 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
             </Carousel.Item>
 }
           </Carousel>
-          <div onClick={clickPark}>{parkName}</div>
-          <ul>{activityList}</ul>
+          <div onClick={clickPark}>
+            <h4 className="park-name">{parkName}</h4>
+            </div>
+            <strong className="act-name">Activities:</strong>
+          <ul className="post-activities">{activityList}</ul>
         </div>
         <div className='postBoxRightSide'><p>{postText}</p></div>
       </div>
