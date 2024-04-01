@@ -502,7 +502,8 @@ h4.park-name {
 }
 
 .google-map {
-  border: solid 4px #134022;
+  margin-top: 1%;
+  border: solid 4px #7e8779;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -510,4 +511,59 @@ h4.park-name {
   height: 100vh;
   /* width: auto; */
 }
+
+.contact-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-page h3 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.contact-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 15px;
+}
+
+.input-holders {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 5px;
+}
+
+.form-inputs {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.contact-button-container {
+  text-align: center;
+}
+
+.contact-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.contact-button:hover {
+  background-color: #0056b3;
+}
+
 

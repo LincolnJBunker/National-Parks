@@ -49,8 +49,8 @@ function Contact() {
           <label htmlFor="message">Message</label>
           <input type="text" className="form-inputs" value={message} onChange={(e) => setMessage(e.target.value)} />
         </div>
-        <div className="contact-button">
-          <button type="submit">Submit</button>
+        <div className="contact-button-container">
+          <button className="contact-button" type="submit">Submit</button>
           {/* success */}
           <Modal show={show} onHide={handleClose}>
             <Modal.Body>
