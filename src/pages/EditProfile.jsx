@@ -234,18 +234,17 @@ function EditProfile() {
             />
             <p>Profile Pic:</p>            
             <input 
-            type="file"
-            onChange={upload}
-            // type="text"
-            // value={userPic}
-            // onChange={(e) => setUserPic(e.target.value)}
-            // placeholder="Insert new pic"
+            // type="file"
+            // onChange={upload}
+            type="text"
+            value={userPic}
+            onChange={(e) => setUserPic(e.target.value)}
+            placeholder="Insert new pic"
             // type="file"
             // name="theimage"
             // id="fileUpload"
             // onChange={handleChange}
             />
-            <label htmlFor="Image">Image test</label>
             {info?.headerImgUrl && (
           <img
             src={info.imgUrl}
