@@ -47,7 +47,7 @@ app.delete("/api/post/delete/:postId", handlerFunctions.deletePost);
 app.get("/api/profile/:profileId", handlerFunctions.getOneUser);
 app.post("/api/followUser", handlerFunctions.followUser);
 app.put("/api/unfollowUser", handlerFunctions.unfollowUser);
-app.post('/api/upload', multer({ dest: 'uploads/' }).single('profilePic'), awsFunctions.upload)
+// app.post('/api/upload', multer({ dest: 'uploads/' }).single('profilePic'), awsFunctions.upload)
 
 
 ViteExpress.listen(app, port, () =>
