@@ -14,7 +14,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-
 a {
   font-weight: 500;
   color: #646cff;
@@ -24,12 +23,21 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0 auto;
-  /* display: flex; */
+/* body {
   place-items: center;
-  max-width: 1200px;
+  max-width: 100%;
   min-height: 100vh;
+  padding: 20px;
+  margin: 0
+} */
+
+body {
+  margin: 0;
+  /* display: flex;
+  place-items: center; */
+  min-width: 320px;
+  min-height: 100vh;
+  padding: 0;
 }
 
 .park-card {
@@ -113,18 +121,20 @@ header nav a{
 header nav a.active {
   color: #535bf3
 }
-/*
-.footer {
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  margin-top: 3%;
+
+div.footer {
+    min-height: 150px;
+    margin-top: 50px;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .footer a {
   margin-right: 25px;
   text-decoration: none;
-} */
+}
 
 h1 {
   font-size: 3.2em;
@@ -228,6 +238,37 @@ div.add-post {
   }
 }
 
+main {
+  max-width: 1400px;
+  min-height: 500px;
+  margin: auto;
+  position: relative;
+  padding-bottom: 250px; 
+}
+
+div.login-inputs {
+  display: flex;
+  justify-content: center;
+  height: 50px
+}
+
+div.login-btns {
+  display: flex;
+  justify-content: center;
+}
+
+h3.login-title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px
+}
+
+div.login-page {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .postAreaWrapper {
   /* border: 1px solid black; */
