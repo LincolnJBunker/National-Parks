@@ -276,7 +276,7 @@ const handlerFunctions = {
                   },
                   {
                     model: User,
-                    attributes: ["userId", "username"],
+                    attributes: ["userId", "username", "userPic"],
                   },
                   {
                     model: Park,

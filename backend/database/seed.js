@@ -284,11 +284,101 @@ let posts = [
   },
   {
     "postPic": "https://capitolreefcountry.com/wp-content/uploads/2023/02/Capitol-Reef-Couple-1200-x-800.jpg",
-    "postText": "Took a boat tour in Capitol Reef National Park. The rock formations from the water were spectacular!",
+    "postText": "Explored the stunning rock formations of Capitol Reef National Park. The scenic drive was unforgettable!!",
     "userId": 9,
     "parkId": 9,
+    "activities": [2, 16]
+  },
+  // Third batch of gpt posts
+  {
+    "postPic": "https://d2dzi65yjecjnt.cloudfront.net/813380-4.jpg",
+    "secondPic": "https://www.hotsprings.org/site/assets/files/5693/hot_springs_national_park_thermal_pool_arlington_park2.533x0-is.jpg",
+    "postText": "Just finished a relaxing day at Hot Springs National Park. The thermal waters were incredibly soothing!",
+    "userId": 10,
+    "parkId": 31,
+    "activities": [14, 36]
+  },
+  {
+    "postPic": "https://media.cntraveler.com/photos/5c6c25735ac5fd121f4375a1/16:9/w_1600,c_limit/Indiana-Dunes-Nat'l-Park_A7DC44.jpg",
+    "secondPic": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSShBvgyL_R9aRToj4JPbDr1TnaeOR88d_G2A&usqp=CAU",
+    "postText": "Spent the day exploring the beautiful sand dunes at Indiana Dunes National Park. The views of Lake Michigan were breathtaking!",
+    "userId": 11,
+    "parkId": 32,
+    "activities": [4, 6]
+  },
+  {
+    "postPic": "https://www.rei.com/assets/adventures/images/trip/gallery/northamerica/irk_08/live.jpg",
+    "secondPic": "https://adventurehacks.com/wp-content/uploads/2020/12/isle.jpg",
+    "thirdPic": "https://www.michigan.org/sites/default/files/styles/listing_slideshow/public/listing_images/profile/7504/4915a262d983ef81457109057e934b38_dmss18_isleroyalenationalpark_hiking08_drewmason.jpg?itok=XR_dC5_Q",
+    "postText": "Isle Royale National Park is a hidden gem! The remote wilderness and pristine lakes make it a perfect escape from the city.",
+    "userId": 12,
+    "parkId": 33,
+    "activities": [18, 20]
+  },
+  {
+    "postPic": "https://cdn.outsideonline.com/wp-content/uploads/2019/10/15/joshua-tree-sunset_h.jpg?crop=16:9&width=1600&enable=upscale&quality=100",
+    "secondPic": "https://as1.ftcdn.net/v2/jpg/03/53/12/42/1000_F_353124252_ZpoXAHg0bIHN8TNgoluEuDU5fJXVMG9l.jpg",
+    "thirdPic": "https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/gorgeous-sunset-at-joshua-tree-national-park-melanie-viola.jpg",
+    "postText": "Just watched the sunset amidst the iconic Joshua Trees in Joshua Tree National Park. Nature's beauty at its finest!",
+    "userId": 1,
+    "parkId": 34,
+    "activities": [18, 32]
+  },
+  {
+    "postPic": "https://i.abcnewsfe.com/a/82da8627-4e5d-4e34-964f-2bfa614fded3/katmai-national-park-alaska-gty-moe-025-231001_1696179697977_hpMain_16x9.jpg?w=992",
+    "secondPic": "https://www.travelalaska.com/sites/default/files/2021-12/Destinations_ParksPublicLands_Katmai%20National%20Park_Hero_1.jpg",
+    "thirdPic": "https://kuliklodge.com/wp-content/uploads/2019/03/Kulik-Lodge-Katmai-National-Park.jpg",
+    "postText": "Got to witness grizzly bears fishing for salmon in Katmai National Park & Preserve. Such a raw and untouched wilderness!",
+    "userId": 2,
+    "parkId": 35,
+    "activities": [12, 40]
+  },
+  {
+    "postPic": "https://www.worldtribune.org/wp-content/uploads/sites/2/2021/11/Kenai-Fjords-National-Park_GettyImages-523835516-copy-scaled.jpg",
+    "secondPic": "https://www.tripsavvy.com/thmb/g4NsRgMhfftZZQOerhIiEHoULeA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-523837768-d8db3dd9768549fc9a3716c7f6edfecc.jpg",
+    "thirdPic": "https://i.natgeofe.com/n/d742d396-567e-4813-a33b-9fa263fb1f15/2123_2x3.jpg",
+    "postText": "Today, I cruised through the icy waters and towering fjords of Kenai Fjords National Park. What a surreal experience!",
+    "userId": 3,
+    "parkId": 36,
     "activities": [5, 16]
   },
+  {
+    "postPic": "https://quirkytravelguy.com/wp-content/uploads/2023/08/tent-kobuk-valley.jpg",
+    "secondPic": "https://www.nps.gov/kova/planyourvisit/images/Dunes_Niaktovik-Creek_stopping-for-a-rest.jpg?maxwidth=1300&autorotate=false",
+    "thirdPic": "https://upgradedpoints.com/wp-content/uploads/2023/07/Caribou-Kobuk-River.jpg?auto=webp&disable=upscale&width=1200",
+    "postText": "Ventured into the vast wilderness of Kobuk Valley National Park. The sand dunes and caribou herds were truly mesmerizing!",
+    "userId": 4,
+    "parkId": 37,
+    "activities": [6, 40]
+  },
+  {
+    "postPic": "https://www.nps.gov/articles/000/images/LACL_2006_BullMooseTelaquana_JMills_1.jpg",
+    "secondPic": "https://uploads.alaska.org/general/_1200x630_crop_center-center_82_none/Lake-Clark-National-Park2.jpg?mtime=1592022554",
+    "thirdPic": "",
+    "postText": "Lake Clark National Park & Preserve is a paradise for outdoor enthusiasts like me. Hiked along the pristine lakeshores and spotted some majestic wildlife!",
+    "userId": 5,
+    "parkId": 38,
+    "activities": [18, 40]
+  },
+  {
+    "postPic": "https://www.americansouthwest.net/california/photographs700/white-mud-pot.jpg",
+    "secondPic": "https://media-cdn.tripadvisor.com/media/photo-s/0c/b6/1a/fe/bumpass-hell-mud-pots.jpg",
+    "thirdPic": "https://drupal8-prod.visitcalifornia.com/sites/drupal8-prod.visitcalifornia.com/files/vc_ca101_nationalparks_lassenvolcanic_manzanitalake_rf_628846294_1280x640.jpg",
+    "postText": "Witnessed bubbling mud pots and steaming fumaroles at Lassen Volcanic National Park. Nature's geothermal wonders never cease to amaze me!",
+    "userId": 6,
+    "parkId": 39,
+    "activities": [2, 6]
+  },
+  {
+    "postPic": "https://www.visittheusa.com/sites/default/files/styles/16_9_1280x720/public/2016-10/Mammoth%20Cave.jpg?h=0f4230fa&itok=nd7doyUh",
+    "secondPic": "https://baldthoughts.boardingarea.com/wp-content/uploads/2021/01/Mammoth-Cave-National-Park-entrance-sign-Timothy-and-Scarlett.jpg",
+    "thirdPic": "https://i.natgeofe.com/n/3f37cb9b-10ff-4c6a-8c9d-a89b89f24ba5/NationalGeographic_2306935.JPG",
+    "postText": "Explored the eerie underground world of Mammoth Cave National Park. The stalactites and stalagmites were like something out of a fantasy!",
+    "userId": 7,
+    "parkId": 40,
+    "activities": [8, 24]
+  }
+  
 
   
 ];
