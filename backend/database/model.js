@@ -99,6 +99,10 @@ User.init(
       // defaultValue:
       //   "https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png",
     },
+    imgUrl: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }
   },
   {
     modelName: "user",
