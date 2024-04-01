@@ -38,6 +38,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   padding: 0;
+  background-color: #eed1c4;
 }
 
 .park-card {
@@ -129,6 +130,7 @@ div.footer {
     width: 100%;
     display: flex;
     justify-content: center;
+
 }
 
 .footer a {
@@ -191,14 +193,6 @@ div.add-post {
   height: 500px;
   object-fit: cover;
   border-radius: 5px;
-}
-
-.visit-park {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 1%;
 }
 
 .visit {
@@ -500,3 +494,54 @@ h4.park-name {
   background-color: #b2b2b2;
   cursor: pointer;
 }
+
+.map-header {
+  text-align: center;
+  /* border: solid 4px #134022; */
+  padding: 1%;
+  margin-top: 10px;
+}
+
+.marker-activities ul {
+  list-style-type: none;
+  display: grid;
+  grid-gap: 5px;
+  justify-content: center;
+  grid-template-columns: repeat(3, calc(33.33% - 20px));
+  font-size: medium;
+}
+
+.marker-activities li {
+  margin: 10px;
+}
+
+
+.visit-park {
+  /* font-size: x-large; */
+  border: solid 4px #134022;
+  padding: 1%;
+  text-align: center;
+  background-color: #f0efeb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.park-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.park-header p {
+  font-size: large;
+}
+
+.google-map {
+  border: solid 4px #134022;
+}
+
