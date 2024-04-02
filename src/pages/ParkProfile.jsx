@@ -52,7 +52,7 @@ const parkPosts = park.posts.map((post) => <PostCard
   following={following}
   setFollowing={setFollowing}
   postId={post.postId}
-  />}
+  />
   )
 
   return (
