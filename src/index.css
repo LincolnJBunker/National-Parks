@@ -310,7 +310,10 @@ div.login-page {
 
 .postBox {
   width: 100%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  border: solid 4px #7e8779;
+  background-color: #e0d7d4;
+  /* background-color: white; */
   border-radius: 10px;
   margin: 5px;
   display: flex;
@@ -362,7 +365,8 @@ div.login-page {
 
 .postBoxMiddle {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
+  align-items: stretch;
 }
 
 /* .postBox div {
@@ -381,15 +385,38 @@ div.login-page {
 }
 
 .postBoxRightSide {
-  background-color: white;
-  padding: 8px;
+  background-color: #e0d7d4;
   overflow-wrap: break-word;
   border-radius: 10px;
-  background-color: #eed1c4;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 0 20px;
+  /* align-items: stretch; */
+  font-size: 130%;
+}
+.post-information {
+  display: flex;
+  justify-content: space-between; /* Align children at the ends */
+  margin-bottom: 10px; /* Add spacing between park name and activities */
 }
 
+.post-information > div {
+  flex: 1; /* Each div takes equal space */
+}
+
+.postBoxRightSide p {
+  margin: 0; /* Remove default margin */
+}
+
+
 .postBoxLeftSide {
-  max-width: 500px;
+  /* max-width: 500px; */
+  flex: 1;
+}
+
+.post-activities {
+  margin-top: 5px;
 }
 
 img.delete-comment {
@@ -421,7 +448,7 @@ img.user-icon {
 }
 
 button.delete-btn {
-  margin-left: 10px
+  margin-left: 10pxƒ
 }
 
 p.comment {
@@ -435,12 +462,9 @@ strong.act-name {
 }
 
 h4.park-name {
-  margin-left: 5px
+  margin-left: 5px;
+  letter-spacing: 7px;
 }
-
-/* .post-activities {
-  
-} */
 
 .profile-page {
   display: flex;
