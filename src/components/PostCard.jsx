@@ -6,7 +6,8 @@ import axios from "axios"
 import { Carousel } from "react-bootstrap"
 
 
-function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, profileId, userPic, activities, parkName, parkId, comments, showUser, fetchPosts}) {
+
+function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, profileId, userPic, activities, parkName, parkId, comments, showUser, fetchPosts, following, setFollowing}) {
   const [isCommenting, setIsCommenting] = useState(false)
   const dispatch = useDispatch();
   const navigateTo = useNavigate();   // This allows you to send someone to another page
@@ -35,17 +36,26 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
       dispatch({type: 'SET_PROFILE', payload: profileId});
       navigateTo(`/profile/${profileId}`)
   };
+  // const clickPark = () => {
+  //     dispatch({type: 'SET_PARK', payload: parkId});
+  //     navigateTo(`/park/${parkId}`)
+  // };
   const clickPark = () => {
-      dispatch({type: 'SET_PARK', payload: parkId});
-      navigateTo(`/park/${parkId}`)
-  };
+    navigateTo(`/park/${parkId}`)
+  }
 
   const handleDelete = async () => {axios.delete(`/api/post/delete/${postId}`)
-  .then((res) => {
-    fetchPosts(res.data.allPosts)
-    window.location.reload()
-  })
-}
+    .then((res) => {
+      fetchPosts(res.data.allPosts)
+      window.location.reload()
+    })
+  }
+
+  const handleFollow = () => {
+    axios.post('/api/followUser', {userId: userId, profileId}).then(res=> {
+      window.location.reload()
+    })
+  }
 
   return (
     <div key={1} className='postBox'>
@@ -53,7 +63,7 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
       {showUser && <div className='userDiv'>
         <img src={userPic} className="user-icon" alt="post creator" />
         <p className="post-username" onClick={() => clickUser(profileId)}>{username}</p>
-        <button>Follow</button>
+        {!following.some(x=>x.userId===profileId) && !(profileId===userId) && <button onClick={handleFollow}>Follow</button>}
       </div>}
       
       <div className='postBoxMiddle'>

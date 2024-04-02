@@ -1,5 +1,5 @@
 import axios from "axios"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import { useLoaderData } from "react-router-dom"
 import PostCard from "../components/PostCard"
 import { Carousel } from "react-bootstrap"
@@ -13,7 +13,14 @@ function ParkProfile() {
     const park = useLoaderData()
     const userId = useSelector((state) => state.userId);
     const [posts, setPosts] = useState(park.posts)
-    console.log('park', park)
+    const [following, setFollowing] = useState(park.posts)
+
+    useEffect(_ => {
+      axios.get(`/api/follows/${userId.userId}`).then(res=>{
+        console.log('follow res', res)
+        setFollowing(res.data.following)
+      })
+    }, [userId])
 
     const fetchPosts = () => {
       axios.post('/api/posts', {mode:'park', myId: park.parkId})
@@ -26,11 +33,9 @@ function ParkProfile() {
   }
 
 //map through the actvities and then pass in under the description. Then map over posts
-const parkActivity = park.activities.map((activity) => <p key={activity.activityId} className="activity">{activity.name}</p>)
-const parkPosts = park.posts.map((post) =>{
-  console.log('post info', post)
-  return <PostCard 
-  postPic={post.postPic}
+
+const parkActivity = park.activities.map((activity, idx) => <p key={idx} className="activity">{activity.name}</p>)
+const parkPosts = park.posts.map((post) => <PostCard 
   userPic={post.user.userPic}
   secondPic={post.secondPic}
   thirdPic={post.thirdPic}
@@ -44,6 +49,8 @@ const parkPosts = park.posts.map((post) =>{
   showUser={true}
   key={post.postId} 
   fetchPosts={fetchPosts}
+  following={following}
+  setFollowing={setFollowing}
   postId={post.postId}
   />}
   )
