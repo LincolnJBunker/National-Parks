@@ -377,6 +377,208 @@ let posts = [
     "userId": 7,
     "parkId": 40,
     "activities": [8, 24]
+  },
+  // Fourth batch of GPT posts
+  // {
+  //   postPic: "https://www.nps.gov/common/uploads/grid_builder/pinn/crop16_9/F1FA95BE-CB3E-1B90-73096E29BBA7A5CF.jpg?width=640&quality=90&mode=crop",
+  //   secondPic: "https://www.nps.gov/pinn/learn/nature/images/IMG_2194_1.jpg",
+  //   thirdPic: "https://www.utahsadventurefamily.com/wp-content/uploads/2022/07/Pinnacles-National-Park-2.jpeg",
+  //   postText: "Took a scenic hike at Pinnacles National Park. The rock formations are stunning!",
+  //   userId: 1,
+  //   parkId: 41,
+  //   activities: [18] // Hiking
+  // },
+  // {
+  //   postPic: "https://www.conservancyforcvnp.org/wp-content/uploads/2023/12/Mikyway-MSR-tent-copy-1024x678.png",
+  //   secondPic: "https://thenationsvacation.com/wp-content/uploads/2020/07/Header-Stargazing.jpg",
+  //   thirdPic: "https://npca.s3.amazonaws.com/images/8784/7b1be657-31f5-4b7e-a28d-a0c58adc7631-banner.jpg?1445970620",
+  //   postText: "Camped under the stars at Cuyahoga Valley National Park. What a peaceful night!",
+  //   userId: 2,
+  //   parkId: 42,
+  //   activities: [6] // Camping
+  // },
+
+  // Fourth batch of GPT posts
+
+  {
+    postPic: "https://www.nps.gov/common/uploads/grid_builder/meve/crop16_9/FC9A8477-D9C0-68BE-9270F91A24CB4B88.jpg?width=1300&quality=90&mode=crop",
+    secondPic: "https://images.squarespace-cdn.com/content/v1/564d14dfe4b0290681184a82/1491524148199-271WCHY0MTDWEQMHFECN/Mesa+Verde+National+Park+-+005.jpg",
+    thirdPic: "https://images.squarespace-cdn.com/content/v1/57a626bc893fc0f0fd89ab8c/df820bcd-1486-405d-a66f-e80dadcda956/KVD_5988.jpg",
+    postText: "Drove through the winding roads of Mesa Verde National Park, marveling at the ancient cliff dwellings. History whispers in every stone!",
+    userId: 1,
+    parkId: 41,
+    activities: [2, 6, 10] // Astronomy, Camping, Guided Tours
+  },
+  {
+    postPic: "https://images.seattletimes.com/wp-content/uploads/2022/12/12052022_3_153635.jpg",
+    secondPic: "https://www.nps.gov/mora/planyourvisit/images/2014-1-14_Paradise_KLoving_web.jpeg",
+    thirdPic: "https://static.wixstatic.com/media/2ef742_0f0d97fd7c6d4be486b34ff463c18bed~mv2.png/v1/fill/w_1000,h_563,al_c,q_90,usm_0.66_1.00_0.01/2ef742_0f0d97fd7c6d4be486b34ff463c18bed~mv2.png",
+    postText: "Conquered the snowy trails of Mount Rainier National Park on my trusty mountain bike. The adrenaline rush was worth the climb!",
+    userId: 9,
+    parkId: 42,
+    activities: [4, 18] // Biking, Hiking
+  },
+  {
+    postPic: "https://www.nps.gov/common/uploads/grid_builder/neri/crop16_9/7C7B0247-1DD8-B71B-0B21F09BD8D7BB80.jpg?width=640&quality=90&mode=crop",
+    secondPic: "https://photos.thedyrt.com/photo/129427/media/west-virginia-stone-cliff-beach_5f28f663b0c947b1f27c4ce95d77f424.jpeg",
+    thirdPic: "https://pbs.twimg.com/media/Fu03wk2WIAsCRNV?format=jpg&name=4096x4096",
+    postText: "Set up camp by the rushing waters of New River Gorge National Park & Preserve. Falling asleep to the sound of nature's lullaby is pure bliss!",
+    userId: 3,
+    parkId: 43,
+    activities: [6, 17] // Camping, Hands-On
+  },
+  {
+    postPic: "https://live.staticflickr.com/3827/9505345293_16bd0b927e_h.jpg",
+    secondPic: "https://www.usatoday.com/gcdn/-mm-/e6c17e797b5584fba45ce76a17ac39049b00308b/c=0-0-1498-846/local/-/media/2018/10/09/USATODAY/USATODAY/636746887858298738-NorthCascadesNPMichaelRickardSTESmall.jpg?width=1498&height=846&fit=crop&format=pjpg&auto=webp",
+    thirdPic: "https://cache.desktopnexus.com/thumbseg/1764/1764468-bigthumbnail.jpg",
+    postText: "Witnessed the breathtaking beauty of the North Cascades National Park as the golden sun dipped behind the towering peaks. Nature's masterpiece!",
+    userId: 4,
+    parkId: 44,
+    activities: [2, 35] // Astronomy, Surfing (Surfing metaphorically in the beauty of nature!)
+  },
+  {
+    postPic: "",
+    secondPic: "",
+    thirdPic: "",
+    postText: "Immersed myself in the lush rainforests of Olympic National Park, where every step feels like a journey into a fairytale world!",
+    userId: 5,
+    parkId: 45,
+    activities: [18, 24] // Hiking, Museum Exhibits
+  },
+  {
+    postPic: "",
+    secondPic: "",
+    thirdPic: "",
+    postText: "Strolled through the otherworldly landscape of Petrified Forest National Park, feeling like a time traveler amidst ancient giants turned to stone!",
+    userId: 6,
+    parkId: 46,
+    activities: [18, 40] // Hiking, Wildlife Watching
+  },
+  {
+    postPic: "",
+    secondPic: "",
+    thirdPic: "",
+    postText: "Explored the rugged terrain of Pinnacles National Park, where every crag and crevice holds the promise of adventure!",
+    userId: 7,
+    parkId: 47,
+    activities: [18, 29] // Hiking, Shopping (Shopping for thrills in nature!)
+  },
+  {
+    postPic: "",
+    secondPic: "",
+    thirdPic: "",
+    postText: "Marveled at the towering giants of Redwood National and State Parks, where the trees seem to touch the sky. Nature's skyscrapers!",
+    userId: 8,
+    parkId: 48,
+    activities: [18, 24] // Hiking, Museum Exhibits
+  },
+  {
+    postPic: "",
+    secondPic: "",
+    thirdPic: "",
+    postText: "Took a scenic drive through the breathtaking landscapes of Rocky Mountain National Park, where every turn reveals a new vista of awe-inspiring beauty!",
+    userId: 9,
+    parkId: 49,
+    activities: [2, 5] // Scenic Driving, Boating (Metaphorical boating in the sea of mountains!)
+  },
+  {
+    postPic: "",
+    secondPic: "",
+    thirdPic: "",
+    postText: "Stood in awe beneath the majestic saguaros of Saguaro National Park, feeling like a tiny speck in the vastness of the desert landscape!",
+    userId: 10,
+    parkId: 50,
+    activities: [18, 40] // Hiking, Wildlife Watching
+  },
+  {
+    postPic: "",
+    secondPic: "",
+    thirdPic: "",
+    postText: "Ventured into the heart of the giant sequoias at Sequoia & Kings Canyon National Parks. Nature's skyscrapers make you feel small in the best way possible!",
+    userId: 1,
+    parkId: 51,
+    activities: [18, 40] // Hiking, Wildlife Watching
+  },
+  {
+    postPic: "",
+    secondPic: "",
+    thirdPic: "",
+    postText: "Embraced the scenic beauty of Shenandoah National Park, where each vista is a masterpiece painted by nature's brush!",
+    userId: 2,
+    parkId: 52,
+    activities: [2, 18, 40] // Astronomy, Hiking, Wildlife Watching
+  },
+  {
+    postPic: "",
+    secondPic: "",
+    thirdPic: "",
+    postText: "Immersed myself in the rugged landscapes of Theodore Roosevelt National Park, where the wild spirit of the west still roams free!",
+    userId: 3,
+    parkId: 53,
+    activities: [18, 40] // Hiking, Wildlife Watching
+  },
+  {
+    postPic: "",
+    secondPic: "",
+    thirdPic: "",
+    postText: "Explored the vibrant underwater world of Virgin Islands National Park, where colorful coral reefs teem with life beneath the azure waves!",
+    userId: 4,
+    parkId: 54,
+    activities: [5, 28] // Boating, SCUBA Diving (Metaphorically diving into nature's aquarium!)
+  },
+  {
+    postPic: "",
+    secondPic: "",
+    thirdPic: "",
+    postText: "Embarked on a thrilling boat tour through the maze of islands at Voyageurs National Park, where every twist and turn reveals a new adventure!",
+    userId: 5,
+    parkId: 55,
+    activities: [5, 16] // Boating, Guided Tours
+  },
+  {
+    postPic: "",
+    secondPic: "",
+    thirdPic: "",
+    postText: "Sank my toes into the soft sands of White Sands National Park, where the dunes stretch as far as the eye can see. Nature's sandbox!",
+    userId: 6,
+    parkId: 56,
+    activities: [18, 20] // Hiking, Hunting and Gathering (Hunting for the perfect dune view!)
+  },
+  {
+    postPic: "",
+    secondPic: "",
+    thirdPic: "",
+    postText: "Explored the mysterious depths of Wind Cave National Park, where underground wonders await at every twist and turn!",
+    userId: 7,
+    parkId: 57,
+    activities: [8, 18] // Caving, Hiking
+  },
+  {
+    postPic: "",
+    secondPic: "",
+    thirdPic: "",
+    postText: "Embarked on an epic adventure through the vast wilderness of Wrangell - St Elias National Park & Preserve. Nature's playground knows no bounds!",
+    userId: 8,
+    parkId: 58,
+    activities: [18, 40] // Hiking, Wildlife Watching
+  },
+  {
+    postPic: "",
+    secondPic: "",
+    thirdPic: "",
+    postText: "Witnessed the raw power of nature at Yellowstone National Park, where geysers erupt and wildlife roams free. A true natural wonder!",
+    userId: 9,
+    parkId: 59,
+    activities: [2, 18, 40] // Astronomy, Hiking, Wildlife Watching
+  },
+  {
+    postPic: "",
+    secondPic: "",
+    thirdPic: "",
+    postText: "Gazed in awe at the towering granite cliffs of Yosemite National Park, where every vista is a masterpiece crafted by Mother Nature herself!",
+    userId: 10,
+    parkId: 60,
+    activities: [18, 40] // Hiking, Wildlife Watching
   }
   
 
