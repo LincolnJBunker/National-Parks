@@ -34,6 +34,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   padding: 0;
+  /* background-color: #d6a387; */
   background-color: #eed1c4;
 }
 
@@ -78,7 +79,8 @@ img.park-img {
 
 .park-profile {
   margin-top: 100px;
-  text-align: center
+  text-align: center;
+  
 }
 
 .park-profile-info {
@@ -91,6 +93,11 @@ img.park-img {
 .park-pic {
   max-width: 1000px;
   border-radius: 10px;
+}
+.custom-carousel {
+  /* border: 4px solid #2ecc71;  */
+  box-shadow: 0 0 20px #7e8779; 
+  border-radius: 20px;
 }
 
 .park-profile-activities {
