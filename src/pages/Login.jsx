@@ -113,6 +113,13 @@ function Login() {
         sessionCheck()
     }, [])
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            console.log(e.key)
+            handleClose();
+          }
+    }
+
   return (
     
     <div className="login-page">
@@ -195,7 +202,7 @@ function Login() {
                         </Modal>
                 
                     <Modal show={show} onHide={handleClose}>
-                        <Modal.Body>
+                        <Modal.Body onKeyDown={handleKeyDown}>
                             <p>{username} Logged in</p>
                         </Modal.Body>
                         <Modal.Footer>
