@@ -81,13 +81,28 @@ img.park-img {
   text-align: center
 }
 
+.park-profile-info {
+  margin-top: 10px;
+  background-color: #e0d7d4;
+  border: solid 4px #7e8779;
+  padding: 1%;
+}
+
 .park-pic {
   max-width: 1000px;
   border-radius: 10px;
 }
 
+.park-profile-activities {
+  margin-top: 10px;
+  background-color: #e0d7d4;
+  border: solid 4px #7e8779;
+  padding: 1%;
+  margin-bottom: 10px;
+}
+
 p.description {
-  padding-top: 50px;
+  /* padding-top: 50px; */
 }
 
 div.prof-activity {
@@ -152,6 +167,7 @@ h2.park-name {
   font-weight: 400;
   font-size: 50px;
   font-style: normal;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 
 }
 
@@ -223,7 +239,7 @@ div.add-post {
 }
 @media only screen and (max-width: 600px) {
   .profile-pic {
-    max-width: 100px; /* Adjust size for smaller screens */
+    max-width: 100px;
   }
 }
 
@@ -575,9 +591,9 @@ h4.park-name {
   justify-content: center;
   align-items: center;
   background-color: #e0d7d4;
+  border: solid 4px #7e8779;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: solid 4px #7e8779;
 }
 
 .contact-page h3 {
