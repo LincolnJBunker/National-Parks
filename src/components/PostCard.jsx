@@ -90,13 +90,21 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
             </Carousel.Item>
 }
           </Carousel>
+        <div className="post-information">
           <div onClick={clickPark}>
             <h4 className="park-name">{parkName}</h4>
             </div>
+            <div>
             <strong className="act-name">Activities:</strong>
-          <ul className="post-activities">{activityList}</ul>
+            <ul className="post-activities">{activityList}</ul>
+          </div>
         </div>
-        <div className='postBoxRightSide'><p>{postText}</p></div>
+        </div>
+        <div className='postBoxRightSide'>
+          <div>
+            <p>{postText}</p>
+          </div>
+        </div>
       </div>
       {userId === profileId &&
       <button onClick={handleDelete} className="delete-btn">Delete</button>
