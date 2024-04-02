@@ -20,7 +20,7 @@ function PostContainer({mode, myId, changed}) {    // mode is either park, frien
   const [posts, setPosts] = useState([])
   const [postsLoaded, setPostsLoaded] = useState(false)
   const showUser = mode!=='user'
-  const userId = useSelector(state => state.userId.userId)
+  const userId = useSelector(state => state.userId?.userId)
   const [following, setFollowing] = useState([])
 
   const fetchPosts = () => {
