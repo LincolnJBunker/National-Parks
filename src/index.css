@@ -304,6 +304,26 @@ div.login-page {
   object-fit: cover;
 }
 
+.post-username, .park-name, .followHead, .userLink {
+  cursor: pointer;
+}
+
+.followContainer {
+  max-height: 70px;
+  background-color: white;
+  overflow: hidden;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.followBox {
+  overflow-y: auto;
+  max-height: inherit;
+  margin: 5px;
+  padding: 5px;
+}
+
+
 .delete-btn {
   max-width: 100px;
 }
@@ -440,6 +460,9 @@ h4.park-name {
 }
 .name-bio {
   margin-top: 25px;
+  overflow-wrap: break-word;
+  max-width: 150px;
+  margin-right: 25px;
 }
 
 .confirm-bg {
