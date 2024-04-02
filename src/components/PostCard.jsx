@@ -25,7 +25,8 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
   const commentList = commentArr.map((comment, idx) => (
     <div style={{display: "flex"}} key={idx}>
       <p className="comment">{comment.user.username}: {comment.commentText}</p>
-      {userId===comment.userId && <button style={{fontSize: "10px"}} onClick={() => deleteComment(comment.commentId)}>Delete Comment</button>}
+      {userId===comment.userId && <button style={{fontSize: "10px", backgroundColor: "#eed1c4" }} onClick={() => deleteComment(comment.commentId)}>
+        <img className="delete-comment" src="https://cdn0.iconfinder.com/data/icons/user-experience-27/48/14_trash_can_rubbish_garbage_button_delete-512.png" /></button>}
     </div>
   ))
   console.log(userPic)
