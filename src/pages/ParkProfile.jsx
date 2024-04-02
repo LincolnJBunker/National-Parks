@@ -59,7 +59,7 @@ const parkPosts = park.posts.map((post) => <PostCard
     <div className="park-profile">
             <h2 className="park-name">{park.fullName}</h2>
             <div>
-              <Carousel controls indicators>
+              <Carousel  className='custom-carousel' controls indicators>
                 {park.images.map((image, idx) => (
                   <Carousel.Item key={idx}>
                     <img className="carousel-image" src={image} alt={`Image ${idx}`} />
@@ -67,14 +67,17 @@ const parkPosts = park.posts.map((post) => <PostCard
                 ))}
               </Carousel>
             </div>
-    <p className="description">{park.description}</p>
-    <div>
+    <div className="park-profile-info">
+      <h3>Check the facts!</h3>
+      <p className="description">{park.description}</p>
         <p>Located in: {park.states}</p>
         <p>Longitude: {park.longitude}</p>
         <p>Latitude: {park.latitude}</p>
     </div>
-    <h3>Popular Activities:</h3>
-    <div className="prof-activity">{parkActivity}</div>
+    <div className="park-profile-activities">
+      <h3>Popular Activities:</h3>
+      <div className="prof-activity">{parkActivity}</div>
+    </div>
     <h3>Posts:</h3>
     <div className="prof-post">{parkPosts}</div>
     </div>
