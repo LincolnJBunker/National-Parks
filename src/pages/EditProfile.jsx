@@ -234,18 +234,17 @@ function EditProfile() {
             />
             <p>Profile Pic:</p>            
             <input 
-            type="file"
-            onChange={upload}
-            // type="text"
-            // value={userPic}
-            // onChange={(e) => setUserPic(e.target.value)}
-            // placeholder="Insert new pic"
+            // type="file"
+            // onChange={upload}
+            type="text"
+            value={userPic}
+            onChange={(e) => setUserPic(e.target.value)}
+            placeholder="Insert new pic"
             // type="file"
             // name="theimage"
             // id="fileUpload"
             // onChange={handleChange}
             />
-            <label htmlFor="Image">Image test</label>
             {info?.headerImgUrl && (
           <img
             src={info.imgUrl}
@@ -267,14 +266,14 @@ function EditProfile() {
                 Profile Pic:<img src={userPic} alt="profile-pic" className="profile-pic" />
             </div>
         )}
-            <button style={{color: 'red'}} className="delete-button" onClick={handleShow}>Delete Profile</button>
+            <button className="confirmation-button" onClick={handleShow}>Delete Profile</button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Body>
-                    You sure you tryna delete yo account ??
+                    Are you sure you want to delete your account?
                 </Modal.Body>
                 <Modal.Footer>
                     <button onClick={handleClose}>Close</button>
-                    <button onClick={deleteUser}>Yes, Delete</button>
+                    <button className="confirmation-button"onClick={deleteUser}>Yes, Delete</button>
                 </Modal.Footer>
             </Modal>
             <button onClick={() => setIsEditing(true)}>edit</button>

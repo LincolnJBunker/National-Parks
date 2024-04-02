@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import tree_img from '../../public/tree2.png'
+import tree_img from '/tree2.png'
 
 function Maps() {
   const [isMapInitialized, setMapInitialized] = useState(false);
@@ -41,7 +41,7 @@ const handleClick = async () => {
       </p>
     </div>
     <APIProvider apiKey={googleAPIKey} >
-      <div className="google-map" style={ {height: '100vh', width: '175vh'} }>
+      <div className="google-map">
         <Map
           zoom={isMapInitialized ? undefined : 4}
           center={isMapInitialized ? undefined : startingPosition} 
