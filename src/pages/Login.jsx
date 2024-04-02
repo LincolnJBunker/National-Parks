@@ -126,6 +126,7 @@ function Login() {
         <div className="log-form">
             <h3 className="login-title">{showCreateAccount ? 'Create an Account' : 'Login Below'}</h3>
             {showCreateAccount ? (
+            <form className="create-account-form">
                 <div className="create-account">
                     <div className="log-form">
                         <div className="input-holders">
@@ -183,6 +184,7 @@ function Login() {
                         </Modal.Footer>
                     </Modal>
                 </div>
+            </form>
             ) : (
                 <form className="login-form-container" onSubmit={handleShow}>
                 <div>
@@ -219,6 +221,7 @@ function Login() {
             )}
             </div>
         </div>
+    </>
     );
 }
 

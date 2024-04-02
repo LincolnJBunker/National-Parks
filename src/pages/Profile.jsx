@@ -104,26 +104,40 @@ function Profile() {
     setShowFollowing(userId?.userId && profileId && userId?.userId !== profileId)
   }, [userId, profileId])
 
-  const followersBox = (showFollowersBox && userData.followers?.map(follower => (
-    <div onClick={() => {
-      dispatch({type: 'SET_PROFILE', payload: follower.userId})
-      setShowFollowingBox(false)
-      setShowFollowersBox(false)
-    }}>
-      {/* <div><img src={follower.profilePic} alt={`${follower.username}'s picture`} /></div> */}
-      <div>{follower.username}</div>
+  const followersBox = (showFollowersBox &&
+    <div className="followContainer">
+      <div className="followBox">
+        {userData.followers?.map(follower => (
+        <div className='userLink' onClick={() => {
+          dispatch({type: 'SET_PROFILE', payload: follower.userId})
+          setShowFollowingBox(false)
+          setShowFollowersBox(false)
+        }}>
+          {/* <div><img src={follower.profilePic} alt={`${follower.username}'s picture`} /></div> */}
+          <div>{follower.username}</div>
+        </div>
+      )
+      )}
+      </div>
+  </div>)
+
+  const followingBox = (showFollowingBox &&
+    <div className="followContainer">
+      <div className="followBox">
+        {userData.following?.map(following => (
+        <div className='userLink' onClick={() => {
+          dispatch({type: 'SET_PROFILE', payload: following.userId})
+          setShowFollowingBox(false)
+          setShowFollowersBox(false)
+        }}>
+          {/* <div><img src={following.profilePic} alt={`${following.username}'s picture`} /></div> */}
+          <div>{following.username}</div>
+        </div>
+      ))}
+      </div>
     </div>
-  )))
-  const followingBox = (showFollowingBox && userData.following?.map(following => (
-    <div onClick={() => {
-      dispatch({type: 'SET_PROFILE', payload: following.userId})
-      setShowFollowingBox(false)
-      setShowFollowersBox(false)
-    }}>
-      {/* <div><img src={following.profilePic} alt={`${following.username}'s picture`} /></div> */}
-      <div>{following.username}</div>
-    </div>
-  )))
+  
+  )
 
   const followingRender = (showFollowing && (isFollowing ? (
     <>
@@ -146,11 +160,11 @@ function Profile() {
       </div>
         <div className="follower-following-container">
           <div className="following">
-            <h3 onClick={() => setShowFollowingBox(!showFollowingBox)}>Following: {userData.following?.length}</h3>
+            <h3 className="followHead" onClick={() => setShowFollowingBox(!showFollowingBox)}>Following: {userData.following?.length}</h3>
             {followingBox}
           </div>
           <div className="followers" >
-            <h3 onClick={() => setShowFollowersBox(!showFollowersBox)}>Followers: {userData.followers?.length}</h3>
+            <h3 className="followHead" onClick={() => setShowFollowersBox(!showFollowersBox)}>Followers: {userData.followers?.length}</h3>
             {followersBox}
           </div>
           <div className="profile-buttons">

@@ -34,6 +34,7 @@ function Contact() {
   }
 
   return (
+    <div className="contact-page-container">
     <div className="contact-page">
       <h3>Fill out the form to send us a question!</h3>
       <form className="contact-form" method="POST" onSubmit={handleSend}>
@@ -72,6 +73,7 @@ function Contact() {
         </div>
       </form>
     </div>
+  </div>
   )
 }
 

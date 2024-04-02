@@ -19,6 +19,7 @@ const config = {
 
 function EditProfile() {
     const [show, setShow] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [deleteProfile, setDeleteProfile] = useState(false);
     const [username, setUsername] = useState('');
@@ -205,68 +206,86 @@ function EditProfile() {
         setShow(true)
     }
 
-    // const handleFileChange = (e) => {
-    //     setSelectedFile(e.target.files[0])
-    // }
-
   return isEditing ? (
-        <div >
-            <p>Username:</p>
-            <input 
-             type="text"
-             value={username}
-             onChange={(e) => setUsername(e.target.value)}
-             placeholder="Enter new username"
-            />
-            <p>Password:</p>
-            <input 
-            type="text"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter new password"
-            />
-            <p>Bio:</p>
-            <input 
-            type="text"
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-            placeholder="Enter new bio"
-            />
-            <p>Profile Pic:</p>            
-            <input 
-            // type="file"
-            // onChange={upload}
-            type="text"
-            value={userPic}
-            onChange={(e) => setUserPic(e.target.value)}
-            placeholder="Insert new pic"
-            // type="file"
-            // name="theimage"
-            // id="fileUpload"
-            // onChange={handleChange}
-            />
-            {info?.headerImgUrl && (
-          <img
-            src={info.imgUrl}
-            alt="profile-pic"
-            className="profile-pic"
-            onClick={() => document.getElementById("fileUpload").click()}
-          />
-        )}
+      <div className="edit-info-container">
+            <h3>Edit Profile</h3>
+        <div className="edit-info-holder">
+            <div className="edit-info">
+                <p className="edit-label">Username:</p>
+                <input
+                className="edit-value" 
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter new username"
+                />
+            </div>
 
+            <div className="edit-info">
+                <p className="edit-label">Password:</p>
+                <input
+                className="edit-value"
+                type="text"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter new password"
+                />
+            </div>
+
+            <div className="edit-info">
+                <p className="edit-label">Bio:</p>
+                <input
+                className="edit-value" 
+                type="text"
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
+                placeholder="Enter new bio"
+                />
+            </div>
+
+            <div className="edit-info">
+                <p className="edit-label">Profile Pic:</p>            
+                <input
+                className="edit-value"
+                type="text"
+                value={userPic}
+                onChange={(e) => setUserPic(e.target.value)}
+                placeholder="Insert new pic"
+                />
+            </div>
             <button onClick={handleSave}>Save</button>
+            </div>
         </div>
   ) : (
-    <div>
+    <div className="user-info-container">
         {info && (
-            <div >
-                <p>Username: {username}</p>
-                <p>Password: {password}</p>
-                <p>Bio: {bio}</p>
-                Profile Pic:<img src={userPic} alt="profile-pic" className="profile-pic" />
+            <div className="user-info">
+                <div className="info-row">
+                    <p className="info-label">Username:</p>
+                    <p className="info-value">{username}</p>
+                </div>
+
+                <div className="info-row">
+                    <p className="info-label">Password:</p>
+                    <p className="info-value">{password}</p>   
+                </div>
+
+                <div className="info-row">
+                    <p className="info-label">Bio:</p> 
+                    <p className="info-value">{bio}</p>
+                </div>
+
+                <div className="info-row">
+                    <p className="info-label">Profile Pic:</p>
+                    <img src={userPic} alt="profile-pic" className="profile-pic" />
+                </div>
+
+                <div className="edit-profile-button-container">
+                    <button className="confirmation-button" onClick={handleShow}>Delete Account</button>
+                    <button onClick={() => setIsEditing(true)}>Edit</button>
+                </div>
             </div>
         )}
-            <button className="confirmation-button" onClick={handleShow}>Delete Profile</button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Body>
                     Are you sure you want to delete your account?
@@ -276,7 +295,6 @@ function EditProfile() {
                     <button className="confirmation-button"onClick={deleteUser}>Yes, Delete</button>
                 </Modal.Footer>
             </Modal>
-            <button onClick={() => setIsEditing(true)}>edit</button>
 
     </div>
   )
