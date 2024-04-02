@@ -39,7 +39,7 @@ div.footer {
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #7e8779);
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
@@ -50,7 +50,7 @@ div.footer {
 
 .park-card {
   border-radius: 10px;
-  border: 2px solid black;
+  border: 2px solid #7e8779;
   margin: 1em;
   padding: 2em;
   display: inline-block;
@@ -87,8 +87,8 @@ p.activity {
 }
 
 div.add-post {
-  border: black 2px solid;
-  border-radius: 5px black;
+  border: #7e8779 2px solid;
+  border-radius: 5px #7e8779;
 }
 
 textarea.post-text {

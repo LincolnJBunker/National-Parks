@@ -193,7 +193,7 @@ function Login() {
                         />
                     </div>
                     <div className="login-btns">
-                    <button type="submit">Login</button>
+                    <button onClick={handleClose} type="submit">Login</button>
                         <Modal show={showError} onHide={() => setShowError(false)}>
                             <Modal.Body>
                                 <p>Incorrect Username or Password</p>
@@ -202,15 +202,6 @@ function Login() {
                                 <button onClick={() => setShowError(false)}>Try Again</button>
                             </Modal.Footer>
                         </Modal>
-                
-                    <Modal show={show} onHide={handleClose}>
-                        <Modal.Body onKeyDown={handleKeyDown}>
-                            <p>{username} Logged in</p>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <button onClick={handleClose}>Close</button>
-                        </Modal.Footer>
-                    </Modal>
                     <button onClick={() => setShowCreateAccount(true)}>Create an Account</button>
                 </div>
                 </div>
