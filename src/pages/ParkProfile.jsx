@@ -37,6 +37,7 @@ function ParkProfile() {
 const parkActivity = park.activities.map((activity, idx) => <p key={idx} className="activity">{activity.name}</p>)
 const parkPosts = park.posts.map((post) => <PostCard 
   userPic={post.user.userPic}
+  postPic={post.postPic}
   secondPic={post.secondPic}
   thirdPic={post.thirdPic}
   postText={post.postText}
