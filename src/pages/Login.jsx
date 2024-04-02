@@ -167,6 +167,7 @@ function Login() {
                     </Modal>
                 </div>
             ) : (
+                <form className="login-form-container" onSubmit={handleShow}>
                 <div className="login-form">
                     <div className="login-inputs">
                         <input 
@@ -183,7 +184,7 @@ function Login() {
                         />
                     </div>
                     <div className="login-btns">
-                    <button onClick={handleShow}>Login</button>
+                    <button type="submit">Login</button>
                         <Modal show={showError} onHide={() => setShowError(false)}>
                             <Modal.Body>
                                 <p>Incorrect Username or Password</p>
@@ -204,6 +205,7 @@ function Login() {
                     <button onClick={() => setShowCreateAccount(true)}>Create an Account</button>
                 </div>
                 </div>
+            </form>
             )}
             </div>
         </div>
