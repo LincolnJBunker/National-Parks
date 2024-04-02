@@ -10,15 +10,18 @@
 
 
 import React, {useState, useEffect} from 'react'
+import { useSelector } from 'react-redux'
 import PostCard from './PostCard'
 import axios from 'axios'
 
 function PostContainer({mode, myId, changed}) {    // mode is either park, friends, or user
 
 
-  const [posts, setPosts] = useState(null)
+  const [posts, setPosts] = useState([])
   const [postsLoaded, setPostsLoaded] = useState(false)
   const showUser = mode!=='user'
+  const userId = useSelector(state => state.userId.userId)
+  const [following, setFollowing] = useState([])
 
   const fetchPosts = () => {
     console.log('fetch posts sent', myId)
@@ -29,12 +32,19 @@ function PostContainer({mode, myId, changed}) {    // mode is either park, frien
         setPosts(res.data.posts)
         setPostsLoaded(true)
       }
-    }).catch(err=>console.log(err))
+    }).then(_ => {
+      axios.get(`/api/follows/${userId}`).then(res => {
+        console.log('follows res', res.data)
+        setFollowing(res.data.following)
+      })
+    })
+    .catch(err=>console.log(err))
 }
 
   useEffect(() => {
     fetchPosts()
   }, [myId, mode, changed])
+
 
   const postList = posts ? posts.map((post, idx) => <PostCard
     postId={post.postId}
@@ -51,6 +61,8 @@ function PostContainer({mode, myId, changed}) {    // mode is either park, frien
     parkId={post.park.parkId}
     showUser={mode!=='user'}
     fetchPosts={fetchPosts}
+    following={following}
+    setFollowing={setFollowing}
     key={idx}
   />) : null
 
