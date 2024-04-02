@@ -15,7 +15,6 @@ function Login() {
     const [showCreateAccount, setShowCreateAccount] = useState(false);
 
     const userId = useSelector((state) => state.userId);
-    console.log(userId)
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -114,9 +113,18 @@ function Login() {
         sessionCheck()
     }, [])
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            console.log(e.key)
+            handleClose();
+          }
+    }
+
   return (
+    
     <div className="login-page">
-            <h3>{showCreateAccount ? 'Create an Account' : 'Login Below'}</h3>
+        <div className="login-container">
+            <h3 className="login-title">{showCreateAccount ? 'Create an Account' : 'Login Below'}</h3>
             {showCreateAccount ? (
                 <div className="create-account">
                     <div className="login-inputs">
@@ -166,6 +174,7 @@ function Login() {
                     </Modal>
                 </div>
             ) : (
+                <form className="login-form-container" onSubmit={handleShow}>
                 <div className="login-form">
                     <div className="login-inputs">
                         <input 
@@ -181,7 +190,8 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <button onClick={handleShow}>Login</button>
+                    <div className="login-btns">
+                    <button type="submit">Login</button>
                         <Modal show={showError} onHide={() => setShowError(false)}>
                             <Modal.Body>
                                 <p>Incorrect Username or Password</p>
@@ -192,7 +202,7 @@ function Login() {
                         </Modal>
                 
                     <Modal show={show} onHide={handleClose}>
-                        <Modal.Body>
+                        <Modal.Body onKeyDown={handleKeyDown}>
                             <p>{username} Logged in</p>
                         </Modal.Body>
                         <Modal.Footer>
@@ -201,7 +211,10 @@ function Login() {
                     </Modal>
                     <button onClick={() => setShowCreateAccount(true)}>Create an Account</button>
                 </div>
+                </div>
+            </form>
             )}
+            </div>
         </div>
     );
 }

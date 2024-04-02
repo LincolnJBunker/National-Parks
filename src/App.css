@@ -5,6 +5,33 @@
   text-align: center;
 }
 
+main {
+  max-width: 1400px;
+  min-height: 500px;
+  margin: auto;
+  position: relative;
+  padding-bottom: 250px; 
+}
+
+body {
+  margin: 0;
+  /* display: flex;
+  place-items: center; */
+  min-width: 320px;
+  min-height: 100vh;
+  padding: 0;
+}
+
+div.footer {
+  min-height: 150px;
+  margin-top: 50px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

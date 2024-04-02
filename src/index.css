@@ -14,7 +14,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-
 a {
   font-weight: 500;
   color: #646cff;
@@ -25,11 +24,13 @@ a:hover {
 }
 
 body {
-  margin: 0 auto;
-  /* display: flex; */
-  place-items: center;
-  max-width: 1200px;
+  margin: 0;
+  /* display: flex;
+  place-items: center; */
+  min-width: 320px;
   min-height: 100vh;
+  padding: 0;
+  background-color: #eed1c4;
 }
 
 .park-card {
@@ -113,18 +114,21 @@ header nav a{
 header nav a.active {
   color: #535bf3
 }
-/*
-.footer {
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  margin-top: 3%;
+
+div.footer {
+    min-height: 150px;
+    margin-top: 50px;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
 }
 
 .footer a {
   margin-right: 25px;
   text-decoration: none;
-} */
+}
 
 h1 {
   font-size: 3.2em;
@@ -183,14 +187,6 @@ div.add-post {
   border-radius: 5px;
 }
 
-.visit-park {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 1%;
-}
-
 .visit {
   display: flex;
   justify-content: center;
@@ -228,6 +224,37 @@ div.add-post {
   }
 }
 
+main {
+  max-width: 1400px;
+  min-height: 500px;
+  margin: auto;
+  position: relative;
+  padding-bottom: 250px; 
+}
+
+div.login-inputs {
+  display: flex;
+  justify-content: center;
+  height: 50px
+}
+
+div.login-btns {
+  display: flex;
+  justify-content: center;
+}
+
+h3.login-title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px
+}
+
+div.login-page {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .postAreaWrapper {
   /* border: 1px solid black; */
@@ -459,3 +486,118 @@ h4.park-name {
   background-color: #b2b2b2;
   cursor: pointer;
 }
+
+.map-header {
+  text-align: center;
+  /* border: solid 4px #134022; */
+  padding: 1%;
+  margin-top: 10px;
+  border: solid 4px #7e8779;
+  background-color: #e0d7d4;
+}
+
+.marker-activities ul {
+  list-style-type: none;
+  display: grid;
+  grid-gap: 5px;
+  justify-content: center;
+  grid-template-columns: repeat(3, calc(33.33% - 20px));
+  font-size: medium;
+}
+
+.marker-activities li {
+  margin: 10px;
+}
+
+
+.visit-park {
+  /* font-size: x-large; */
+  border: solid 4px #7e8779;
+  padding: 1%;
+  text-align: center;
+  background-color: #e0d7d4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.park-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.park-header p {
+  font-size: large;
+}
+
+.google-map {
+  margin-top: 1%;
+  border: solid 4px #7e8779;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  height: 100vh;
+  /* width: auto; */
+}
+
+.contact-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-page h3 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.contact-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 15px;
+}
+
+.input-holders {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 5px;
+}
+
+.form-inputs {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.contact-button-container {
+  text-align: center;
+}
+
+.contact-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.contact-button:hover {
+  background-color: #0056b3;
+}
+
+

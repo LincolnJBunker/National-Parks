@@ -6,9 +6,8 @@ import axios from "axios"
 import { Carousel } from "react-bootstrap"
 
 
-function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, profileId, userPic, activities, parkName, parkId, comments, showUser, fetchPosts, following, setFollowing}) {
 
-  console.log('following', following)
+function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, profileId, userPic, activities, parkName, parkId, comments, showUser, fetchPosts, following, setFollowing}) {
   const [isCommenting, setIsCommenting] = useState(false)
   const dispatch = useDispatch();
   const navigateTo = useNavigate();   // This allows you to send someone to another page
@@ -24,9 +23,9 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
   }
   
   const commentList = commentArr.map((comment, idx) => (
-    <div key={idx}>
+    <div style={{display: "flex"}} key={idx}>
       <p className="comment">{comment.user.username}: {comment.commentText}</p>
-      {userId===comment.userId && <button onClick={() => deleteComment(comment.commentId)}>Delete</button>}
+      {userId===comment.userId && <button style={{fontSize: "10px"}} onClick={() => deleteComment(comment.commentId)}>Delete Comment</button>}
     </div>
   ))
   console.log(userPic)

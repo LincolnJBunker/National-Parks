@@ -33,9 +33,9 @@ function ParkProfile() {
   }
 
 //map through the actvities and then pass in under the description. Then map over posts
+
 const parkActivity = park.activities.map((activity, idx) => <p key={idx} className="activity">{activity.name}</p>)
 const parkPosts = park.posts.map((post) => <PostCard 
-  postPic={post.postPic}
   userPic={post.user.userPic}
   secondPic={post.secondPic}
   thirdPic={post.thirdPic}
@@ -52,7 +52,7 @@ const parkPosts = park.posts.map((post) => <PostCard
   following={following}
   setFollowing={setFollowing}
   postId={post.postId}
-  />
+  />}
   )
 
   return (

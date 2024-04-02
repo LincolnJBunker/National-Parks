@@ -482,22 +482,39 @@ const handlerFunctions = {
   },
 
   updateUser: async (req, res) => {
-    const { username, password, bio, userPic } = req.body;
+    const {id} = req.params
+    console.log('userId:', id)
+    const { username, password, bio, userPic, imgUrl } = req.body;
     // console.log(req.body);
 
-    const user = await User.findByPk(req.params.id);
+    try {
+      const user = await User.findByPk(id);
+      if (!user) {
+          return res.status(404).send({
+              message: "User not found",
+              success: false,
+          });
+      }
 
-    await user.update({
-      username: username ?? user.username,
-      password: password ?? user.password,
-      bio: bio ?? user.bio,
-      userPic: userPic ?? user.userPic,
-    });
+      user.imgUrl = imgUrl;
+      user.username = username;
+      user.password = password;
+      user.bio = bio;
+      user.userPic = userPic;
+      await user.save();
 
-    res.send({
-      message: "user updated",
-      user: user,
-    });
+      res.send({
+          message: "User profile image updated successfully",
+          success: true,
+          user,
+      });
+  } catch (error) {
+      console.error('Error updating user profile image:', error);
+      res.status(500).send({
+          message: "Error updating user profile image",
+          success: false,
+      });
+  }
   },
 
   deleteUser: async (req, res) => {
@@ -514,6 +531,7 @@ const handlerFunctions = {
 
   parkMarkers: async (req, res) => {
     const allMarkers = await Park.findAll({
+      attributes: ["parkId", "fullName", "latitude", "longitude"],
       attributes: ["parkId", "fullName", "latitude", "longitude", "images"],
       include: [
         {
