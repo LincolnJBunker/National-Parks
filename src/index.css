@@ -550,9 +550,12 @@ h4.park-name {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f9f9f9;
+  justify-content: center;
+  align-items: center;
+  background-color: #e0d7d4;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: solid 4px #7e8779;
 }
 
 .contact-page h3 {
@@ -588,7 +591,7 @@ h4.park-name {
 
 .contact-button {
   padding: 10px 20px;
-  background-color: #007bff;
+  /* background-color: #007bff; */
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -607,18 +610,22 @@ h4.park-name {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  
 }
 
 .user-info {
   display: flex;
   flex-direction: column;
+  border: solid 4px #7e8779;
+  background-color: #e0d7d4;
+  padding: 5%;
 }
 
 .info-row {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  font-size: large;
+  font-size: 25px;
   font-weight: bold;
 }
 
@@ -646,6 +653,7 @@ h4.park-name {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  
 }
 
 .edit-info {
@@ -653,6 +661,7 @@ h4.park-name {
   flex-direction: row;
   align-items: center;
   margin-right: 10px;
+  
 }
 
 .edit-label {
@@ -670,4 +679,17 @@ h4.park-name {
   border: 1px solid #ccc;
   border-radius: 5px;
   /* margin-left: 10px; */
+}
+
+.edit-info-holder {
+  border: solid 4px #7e8779;
+  background-color: #e0d7d4;
+  padding: 5%;
+}
+
+.contact-page-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Take full viewport height */
 }

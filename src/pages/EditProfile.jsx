@@ -207,7 +207,9 @@ function EditProfile() {
     }
 
   return isEditing ? (
-        <div className="edit-info-container">
+      <div className="edit-info-container">
+            <h3>Edit Profile</h3>
+        <div className="edit-info-holder">
             <div className="edit-info">
                 <p className="edit-label">Username:</p>
                 <input
@@ -252,6 +254,7 @@ function EditProfile() {
                 />
             </div>
             <button onClick={handleSave}>Save</button>
+            </div>
         </div>
   ) : (
     <div className="user-info-container">
@@ -275,13 +278,14 @@ function EditProfile() {
                 <div className="info-row">
                     <p className="info-label">Profile Pic:</p>
                     <img src={userPic} alt="profile-pic" className="profile-pic" />
-                </div>                
+                </div>
+
+                <div className="edit-profile-button-container">
+                    <button className="confirmation-button" onClick={handleShow}>Delete Account</button>
+                    <button onClick={() => setIsEditing(true)}>Edit</button>
+                </div>
             </div>
         )}
-            <div className="edit-profile-button-container">
-                <button className="confirmation-button" onClick={handleShow}>Delete Account</button>
-                <button onClick={() => setIsEditing(true)}>edit</button>
-            </div>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Body>
                     Are you sure you want to delete your account?
