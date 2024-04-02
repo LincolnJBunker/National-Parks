@@ -71,16 +71,22 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
         <div className='postBoxLeftSide'>
         <Carousel controls indicators>
             <Carousel.Item key={1}>
-              <img className='postPic' src={postPic} />
+              <div className='carouselBox'>
+                <img className='postPic' src={postPic} />
+              </div>
             </Carousel.Item>
             {secondPic &&
             <Carousel.Item key={2}>
-              <img className='postPic' src={secondPic} />
+              <div className='carouselBox'>
+                <img className='postPic' src={secondPic} />
+              </div>
             </Carousel.Item>
             }
             {thirdPic &&
             <Carousel.Item key={3}>
-              <img className='postPic' src={thirdPic} />
+              <div className='carouselBox'>
+                <img className='postPic' src={thirdPic} />
+              </div>
             </Carousel.Item>
 }
           </Carousel>
