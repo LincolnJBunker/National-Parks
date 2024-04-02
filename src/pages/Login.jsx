@@ -122,30 +122,40 @@ function Login() {
 
   return (
     
-    <div className="login-page">
-        <div className="login-container">
+    <div className="log-page">
+        <div className="log-form">
             <h3 className="login-title">{showCreateAccount ? 'Create an Account' : 'Login Below'}</h3>
             {showCreateAccount ? (
                 <div className="create-account">
-                    <div className="login-inputs">
+                    <div className="log-form">
+                        <div className="input-holders">
                         <input 
+                        className="form-inputs"
                             type="text" 
                             placeholder="Create Username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
+                        </div>
+                        <div className="input-holders">
                         <input 
+                        className="form-inputs"
                         type="email"
                         placeholder="Enter your Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         />
+                        </div>
+                        <div className="input-holders">
+                        
                         <input 
+                        className="form-inputs"
                             type="password"
                             placeholder="Create Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
+                        </div>
                     </div>
                     <button onClick={handleNewAccount}>Register</button>
                     <Modal show={showEmailError} onHide={() => setShowEmailError(false)}>
@@ -175,15 +185,17 @@ function Login() {
                 </div>
             ) : (
                 <form className="login-form-container" onSubmit={handleShow}>
-                <div className="login-form">
-                    <div className="login-inputs">
+                <div>
+                    <div className="log-form">
                         <input 
+                        className="login-inputs"
                             type="text" 
                             placeholder="Username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
                         <input 
+                        className="login-inputs"
                             type="password"
                             placeholder="Password"
                             value={password}
