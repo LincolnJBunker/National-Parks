@@ -34,7 +34,7 @@ function RootLayout() {
     <div className="root-layout">
         <header className="header">
             <nav>
-                <h1 className='home-nav'onClick={() => navigate('home')}>National Parks</h1>
+                <h1 className='home-nav'onClick={() => navigate('home')}>NatureNetwork</h1>
                 
                 {!userId &&
                 <NavLink to='/'>Login</NavLink>

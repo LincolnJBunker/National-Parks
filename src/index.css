@@ -123,11 +123,12 @@ p.activity {
   margin-bottom: 0;
 }
 
-/* p.park-name {
-  margin-top: 5px;
+p.park-name {
+  margin-top: 10px;
   margin-bottom: 50px;
-  max-height: 20px
-} */
+  max-height: 20px;
+  font-weight: 400;
+}
 
 header nav {
   display: flex;
@@ -269,6 +270,7 @@ main {
   margin: auto;
   position: relative;
   padding-bottom: 250px; 
+  padding-top: 100px
 }
 
 div.login-inputs {
@@ -564,7 +566,6 @@ h4.park-name {
   text-align: center;
   /* border: solid 4px #134022; */
   padding: 1%;
-  margin-top: 10px;
   border: solid 4px #7e8779;
   background-color: #e0d7d4;
 }
@@ -656,6 +657,26 @@ h4.park-name {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
+}
+
+.log-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.log-page h3 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.log-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 15px;
 }
 
 .contact-button-container {
