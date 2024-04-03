@@ -12,7 +12,7 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
   const dispatch = useDispatch();
   const navigateTo = useNavigate();   // This allows you to send someone to another page
   const activityList = activities.map((activity, idx) => <ul className="post-activities" key={idx}>{activity.name}</ul>)
-  const userId = useSelector(state => state.userId.userId)
+  const userId = useSelector(state => state.userId?.userId)
 
   const [commentArr, setCommentArr] = useState(comments)
   const deleteComment = async commentId => {
