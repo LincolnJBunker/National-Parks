@@ -28,7 +28,7 @@ let users = [
     email: "fred@gmail.com",
     password: "use",
     userPic:
-      "https://scontent-lax3-2.xx.fbcdn.net/v/t39.30808-6/428659387_10159868671225732_2012584730671016119_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFtMxtOevvVY25BaNWwJaWRxWF5j4cb6tjFYXmPhxvq2L-dMmAvPsRoEvqtYq2ySYk&_nc_ohc=ZMpYOBIXMHgAX9BglFO&_nc_ht=scontent-lax3-2.xx&oh=00_AfC7UEtLodYTYF7K_5m6zsvx_xU_pnmPoy53XEKOePeShQ&oe=660B0BEE",
+      "https://scontent-lax3-2.xx.fbcdn.net/v/t39.30808-6/428659387_10159868671225732_2012584730671016119_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFtMxtOevvVY25BaNWwJaWRxWF5j4cb6tjFYXmPhxvq2L-dMmAvPsRoEvqtYq2ySYk&_nc_ohc=-YEAZWdid_EAb7JRMHR&_nc_ht=scontent-lax3-2.xx&oh=00_AfDmYfCLaWicnndPdbGQDotUXU7ZutvnrM1W1H25Wd5rrQ&oe=6613656E",
   },
   {
     username: "david",
@@ -41,20 +41,22 @@ let users = [
     username: "josh",
     email: "joshywoshy@gmail.com",
     password: "use",
-    userPic: "https://steamuserimages-a.akamaihd.net/ugc/1832425458640201190/52EA68A9E9DCF8D6FB23199C07DBCB539D1690F2/",
-
+    userPic:
+      "https://steamuserimages-a.akamaihd.net/ugc/1832425458640201190/52EA68A9E9DCF8D6FB23199C07DBCB539D1690F2/",
   },
   {
     username: "jesse",
     email: "tigerwoodsfan89@gmail.com",
     password: "use",
-    userPic: "https://c.ndtvimg.com/2021-03/flecai7g_elon-musk-in-1989-young-elon-musk_625x300_03_March_21.jpg",
+    userPic:
+      "https://c.ndtvimg.com/2021-03/flecai7g_elon-musk-in-1989-young-elon-musk_625x300_03_March_21.jpg",
   },
   {
     username: "michael",
     email: "hiimmichael@gmail.com",
     password: "use",
-    userPic: "https://media.uiargonaut.com/wp-content/uploads/2016/05/rawrfeb3.jpg",
+    userPic:
+      "https://media.uiargonaut.com/wp-content/uploads/2016/05/rawrfeb3.jpg",
   },
   {
     username: "ty",
@@ -66,31 +68,36 @@ let users = [
     username: "M",
     email: "missbettymiss@gmail.com",
     password: "use",
-    userPic: "https://www.cheatsheet.com/wp-content/uploads/2021/06/Headshot-of-Marilyn-Monroe-wearing-bright-red-lipstick-and-smiling-for-the-camera.jpg",
+    userPic:
+      "https://www.cheatsheet.com/wp-content/uploads/2021/06/Headshot-of-Marilyn-Monroe-wearing-bright-red-lipstick-and-smiling-for-the-camera.jpg",
   },
   {
     username: "Uncle Bob",
     email: "MrValleyMusic@gmail.com",
     password: "use",
-    userPic: "https://mockup-api.teespring.com/v3/image/P0L7YnhhEQSifBnwDfXXug8XMnk/800/800.jpg",
+    userPic:
+      "https://mockup-api.teespring.com/v3/image/P0L7YnhhEQSifBnwDfXXug8XMnk/800/800.jpg",
   },
   {
     username: "Kyle",
     email: "kyleftw@gmail.com",
     password: "use",
-    userPic: "https://dmsjourney.com/wp-content/uploads/elementor/thumbs/Dungeon-Master-q2hmz3ka657n8z57zxnidmaspfkvi1kznr5jjzymps.jpg",
+    userPic:
+      "https://dmsjourney.com/wp-content/uploads/elementor/thumbs/Dungeon-Master-q2hmz3ka657n8z57zxnidmaspfkvi1kznr5jjzymps.jpg",
   },
   {
     username: "Jackson",
     email: "jackson@gmail.com",
     password: "use",
-    userPic: "https://images.immediate.co.uk/production/volatile/sites/3/2023/04/naruto-762b09d.jpg?resize=768,574",
+    userPic:
+      "https://images.immediate.co.uk/production/volatile/sites/3/2023/04/naruto-762b09d.jpg?resize=768,574",
   },
   {
     username: "Sean",
     email: "seanthewonderful@gmail.com",
     password: "use",
-    userPic: "https://static.wikia.nocookie.net/wowpedia/images/e/e0/Illidan_the_Betrayer.jpg/revision/latest?cb=20150907112817",
+    userPic:
+      "https://static.wikia.nocookie.net/wowpedia/images/e/e0/Illidan_the_Betrayer.jpg/revision/latest?cb=20150907112817",
   },
 ];
 
@@ -118,7 +125,6 @@ const nationals = allParks.filter(
 //   return {id: idx+1, fullName: park.fullName, activites: park.activities.map(a=>a.name)}
 // })
 // console.log(JSON.stringify(myNationionals))
-
 
 for (const park of nationals) {
   const allImages = park.images.map((image) => image.url);
