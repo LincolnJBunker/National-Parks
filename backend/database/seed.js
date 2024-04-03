@@ -9,6 +9,7 @@ import {
   Follow,
   Comment,
 } from "./model.js";
+import posts from './posts.js';
 
 await db.sync({
   force: true,
