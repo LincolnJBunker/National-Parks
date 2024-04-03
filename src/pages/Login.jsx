@@ -121,7 +121,7 @@ function Login() {
     }
 
   return (
-    
+    <>
     <div className="log-page">
         <div className="log-form">
             <h3 className="login-title">{showCreateAccount ? 'Create an Account' : 'Login Below'}</h3>
