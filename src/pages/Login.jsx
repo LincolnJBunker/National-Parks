@@ -122,106 +122,107 @@ function Login() {
 
   return (
     <>
-    <div className="log-page">
-        <div className="log-form">
-            <h3 className="login-title">{showCreateAccount ? 'Create an Account' : 'Login Below'}</h3>
-            {showCreateAccount ? (
-            <form className="create-account-form">
-                <div className="create-account">
-                    <div className="log-form">
-                        <div className="input-holders">
-                        <input 
-                        className="form-inputs"
-                            type="text" 
-                            placeholder="Create Username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
+        <div className="log-page">
+            <div className="log-form">
+                <h3 className="login-title">{showCreateAccount ? 'Create an Account' : 'Login Below'}</h3>
+                {showCreateAccount ? (
+                <form className="create-account-form">
+                    <div className="create-account">
+                        <div className="log-form">
+                            <div className="input-holders">
+                            <input 
+                            className="form-inputs"
+                                type="text" 
+                                placeholder="Create Username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                            </div>
+                            <div className="input-holders">
+                            <input 
+                            className="form-inputs"
+                            type="email"
+                            placeholder="Enter your Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            />
+                            </div>
+                            <div className="input-holders">
+                            
+                            <input 
+                            className="form-inputs"
+                                type="password"
+                                placeholder="Create Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            </div>
                         </div>
-                        <div className="input-holders">
-                        <input 
-                        className="form-inputs"
-                        type="email"
-                        placeholder="Enter your Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        />
-                        </div>
-                        <div className="input-holders">
-                        
-                        <input 
-                        className="form-inputs"
-                            type="password"
-                            placeholder="Create Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        </div>
-                    </div>
-                    <button className='register' onClick={handleNewAccount}>Register</button>
-                    <Modal show={showEmailError} onHide={() => setShowEmailError(false)}>
-                            <Modal.Body>
-                                <p>Please Insert a Valid Email</p>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <button onClick={() => setShowEmailError(false)}>Try Again</button>
-                            </Modal.Footer>
-                        </Modal>
-                    <Modal show={showError} onHide={() => setShowError(false)}>
-                            <Modal.Body>
-                                <p>Please Insert all of the fields</p>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <button onClick={() => setShowError(false)}>Try Again</button>
-                            </Modal.Footer>
-                        </Modal>
-                    <Modal show={showNewAccount} onHide={handleCloseCreateAccount}>
-                        <Modal.Body>
-                            <p>Account successfully created!</p>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <button onClick={handleCloseCreateAccount}>Close</button>
-                        </Modal.Footer>
-                    </Modal>
-                </div>
-            </form>
-            ) : (
-                <form className="login-form-container" onSubmit={handleShow}>
-                <div>
-                    <div className="log-form">
-                        <input 
-                        className="login-inputs"
-                            type="text" 
-                            placeholder="Username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <input 
-                        className="login-inputs"
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                    <div className="login-btns">
-                    <button onClick={handleClose} type="submit">Login</button>
+                        <button className='register' onClick={handleNewAccount}>Register</button>
+                        <Modal show={showEmailError} onHide={() => setShowEmailError(false)}>
+                                <Modal.Body>
+                                    <p>Please Insert a Valid Email</p>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <button onClick={() => setShowEmailError(false)}>Try Again</button>
+                                </Modal.Footer>
+                            </Modal>
                         <Modal show={showError} onHide={() => setShowError(false)}>
+                                <Modal.Body>
+                                    <p>Please Insert all of the fields</p>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <button onClick={() => setShowError(false)}>Try Again</button>
+                                </Modal.Footer>
+                            </Modal>
+                        <Modal show={showNewAccount} onHide={handleCloseCreateAccount}>
                             <Modal.Body>
-                                <p>Incorrect Username or Password</p>
+                                <p>Account successfully created!</p>
                             </Modal.Body>
                             <Modal.Footer>
-                                <button onClick={() => setShowError(false)}>Try Again</button>
+                                <button onClick={handleCloseCreateAccount}>Close</button>
                             </Modal.Footer>
                         </Modal>
-                    <button onClick={() => setShowCreateAccount(true)}>Create an Account</button>
+                    </div>
+                </form>
+                ) : (
+                    <form className="login-form-container" onSubmit={handleShow}>
+                    <div>
+                        <div className="log-form">
+                            <input 
+                            className="login-inputs"
+                                type="text" 
+                                placeholder="Username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                            <input 
+                            className="login-inputs"
+                                type="password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+                        <div className="login-btns">
+                        <button onClick={handleClose} type="submit">Login</button>
+                            <Modal show={showError} onHide={() => setShowError(false)}>
+                                <Modal.Body>
+                                    <p>Incorrect Username or Password</p>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <button onClick={() => setShowError(false)}>Try Again</button>
+                                </Modal.Footer>
+                            </Modal>
+                        <button onClick={() => setShowCreateAccount(true)}>Create an Account</button>
+                    </div>
+                    </div>
+                </form>
+                )}
                 </div>
-                </div>
-            </form>
-            )}
             </div>
-        </div>
-    );
+    </>
+  )
 }
 
 export default Login
