@@ -1,3 +1,4 @@
+// This is working
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,7 +27,7 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
   const commentList = commentArr.map((comment, idx) => (
     <div style={{display: "flex"}} key={idx}>
       <p className="comment">{comment.user.username}: {comment.commentText}</p>
-      {userId===comment.userId && <button style={{fontSize: "10px", backgroundColor: "#eed1c4" }} onClick={() => deleteComment(comment.commentId)}>
+      {userId===comment.userId && <button style={{fontSize: "10px", backgroundColor: "#e0d7d4" }} onClick={() => deleteComment(comment.commentId)}>
         <img className="delete-comment" src="https://cdn0.iconfinder.com/data/icons/user-experience-27/48/14_trash_can_rubbish_garbage_button_delete-512.png" /></button>}
     </div>
   ))
@@ -65,7 +66,7 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
       {showUser && <div className='userDiv'>
         <img src={userPic} className="user-icon" alt="post creator" />
         <p className="post-username" onClick={() => clickUser(profileId)}>{username}</p>
-        {!following.some(x=>x.userId===profileId) && !(profileId===userId) && <button onClick={handleFollow}>Follow</button>}
+        {!following?.some(x=>x.userId===profileId) && !(profileId===userId) && <button onClick={handleFollow}>Follow</button>}
       </div>}
       
       <div className='postBoxMiddle'>

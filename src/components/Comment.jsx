@@ -1,18 +1,19 @@
+// This is working
 import React, {useState} from 'react'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 
 function Comment({postId, isCommenting, setIsCommenting, commentArr, setCommentArr}) {
 
-    // const userId = useSelector(state=>state.userId)
-    const {userId, username} = useSelector(state=>state.userId)
+    const userId = useSelector(state=>state.userId)
+
     const [commentText, setCommentText] = useState('')
     const postComment = (e) => {
         e.preventDefault()
-        axios.post('/api/comment', {commentText, userId, postId})
+        axios.post('/api/comment', {commentText, userId: userId?.userId, postId})
         .then(res => {
             let newComment = res.data.comment
-            newComment = {...newComment, user: {username, userId}}
+            newComment = {...newComment, user: {username: userId?.username, userId: userId?.userId}}
             // alert('Reply posted')
             setIsCommenting(false)
             setCommentArr([...commentArr, newComment])
