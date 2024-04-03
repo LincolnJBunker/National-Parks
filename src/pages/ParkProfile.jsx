@@ -16,7 +16,7 @@ function ParkProfile() {
     const [following, setFollowing] = useState(park.posts)
 
     useEffect(_ => {
-      axios.get(`/api/follows/${userId.userId}`).then(res=>{
+      axios.get(`/api/follows/${userId?.userId}`).then(res=>{
         console.log('follow res', res)
         setFollowing(res.data.following)
       })
