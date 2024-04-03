@@ -1,3 +1,4 @@
+// This is working
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
@@ -65,7 +66,7 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
       {showUser && <div className='userDiv'>
         <img src={userPic} className="user-icon" alt="post creator" />
         <p className="post-username" onClick={() => clickUser(profileId)}>{username}</p>
-        {!following.some(x=>x.userId===profileId) && !(profileId===userId) && <button onClick={handleFollow}>Follow</button>}
+        {!following?.some(x=>x.userId===profileId) && !(profileId===userId) && <button onClick={handleFollow}>Follow</button>}
       </div>}
       
       <div className='postBoxMiddle'>

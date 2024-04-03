@@ -1,3 +1,4 @@
+// This is working
 import EditProfileBtn from "../components/EditProfileBtn";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -156,7 +157,7 @@ function Profile() {
         </div>
       <div className="name-bio">
         <h3>{userData.username}</h3>
-        <p>{userData.bio}</p>
+        <p style={{overflowWrap: 'break-word'}}>{userData.bio}</p>
       </div>
         <div className="follower-following-container">
           <div className="following">
