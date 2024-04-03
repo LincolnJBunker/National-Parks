@@ -446,10 +446,10 @@ let posts = [
     activities: [2, 35] // Astronomy, Surfing (Surfing metaphorically in the beauty of nature!)
   },
   {
-    postPic: "https://media.cntraveler.com/photos/5b1e781ee1848c0ff63b208d/master/pass/GettyImages-649579554.jpg",
-    secondPic: "https://scontent-lax3-1.xx.fbcdn.net/v/t1.18169-9/1936426_143577242501_6046378_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_ohc=xPfEbeYoMRIAX_Uyncb&_nc_oc=AdgJ8ThDTWNW86N_1OoLhF2gQoOLKoLjGv503wMtnEdN3eQo6QaErFPaFs8Fc2DvcRg&_nc_ht=scontent-lax3-1.xx&oh=00_AfBCr9CWoEeZeMB7REmanwaXmFf7d04_WXQCC3QuXfoa3w&oe=66340801",
-    thirdPic: "https://scontent-lax3-1.xx.fbcdn.net/v/t1.18169-9/1936426_143583512501_6151341_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=x87o4zIDxjAAX8KmIQw&_nc_ht=scontent-lax3-1.xx&oh=00_AfAirCUtH4d9bLm4HElhDjFtTXuZc7yeoPlAw5Sc27T2pA&oe=66341235",
-    postText: "Immersed myself in the lush rainforests of Olympic National Park, where every step feels like a journey into a fairytale world!",
+    postPic: "https://scontent-lax3-1.xx.fbcdn.net/v/t1.18169-9/1936426_143583512501_6151341_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=x87o4zIDxjAAX8KmIQw&_nc_ht=scontent-lax3-1.xx&oh=00_AfAirCUtH4d9bLm4HElhDjFtTXuZc7yeoPlAw5Sc27T2pA&oe=66341235",
+    secondPic: "https://media.cntraveler.com/photos/5b1e781ee1848c0ff63b208d/master/pass/GettyImages-649579554.jpg",
+    thirdPic: "https://scontent-lax3-1.xx.fbcdn.net/v/t1.18169-9/1936426_143583502501_569080_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_ohc=83GdPK2NKd8AX9Agjw5&_nc_ht=scontent-lax3-1.xx&oh=00_AfCpWYm60-zZ3jdzeO42BYHUrUhBQPizNKqlI6A5iv6wug&oe=6633FA37",
+    postText: "Had the time of my life going to Washington. Visited Seattle as well as Olympic National Park.",
     userId: 3,
     parkId: 45,
     activities: [18, 24] // Hiking, Museum Exhibits
