@@ -705,32 +705,32 @@ for (const message of messages) {
 
 let comments = [
   {
-    commentText: "this is fine comment1.",
+    commentText: "Wow, this is so cool! Thanks for sharing",
     userId: 1,
     postId: 1,
   },
   {
-    commentText: "this is fine comment2.",
+    commentText: "No way! This is so pretty, I for sure need to try this hike! .",
     userId: 1,
     postId: 2,
   },
   {
-    commentText: "this is fine comment3.",
+    commentText: "Obeservation point is one of my favorite spots! Glad you had a good time!",
     userId: 2,
     postId: 3,
   },
   {
-    commentText: "this is fine comment4.",
+    commentText: "Angels Landing is a classic! The views can't be beat!",
     userId: 2,
     postId: 1,
   },
   {
-    commentText: "this is fine comment5.",
+    commentText: "This is so cool! Planning on doing this hike my next time in Zion's",
     userId: 3,
     postId: 2,
   },
   {
-    commentText: "Sick bro! (comment6).",
+    commentText: "Nice! These pictures are so cool!",
     userId: 3,
     postId: 3,
   },
