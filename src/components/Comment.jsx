@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux'
 
 function Comment({postId, isCommenting, setIsCommenting, commentArr, setCommentArr}) {
 
-
     const userId = useSelector(state=>state.userId)
+
     const [commentText, setCommentText] = useState('')
     const postComment = (e) => {
         e.preventDefault()

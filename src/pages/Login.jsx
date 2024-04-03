@@ -158,7 +158,7 @@ function Login() {
                         />
                         </div>
                     </div>
-                    <button onClick={handleNewAccount}>Register</button>
+                    <button className='register' onClick={handleNewAccount}>Register</button>
                     <Modal show={showEmailError} onHide={() => setShowEmailError(false)}>
                             <Modal.Body>
                                 <p>Please Insert a Valid Email</p>

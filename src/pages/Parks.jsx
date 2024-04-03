@@ -27,22 +27,27 @@ function Parks() {
 
   return  (
     <>
+    <div className="filter-container">
+    <div className="filter">
         <label htmlFor="where-to">Where to?</label>
         <input  
           style={{width: "200px"}} 
           name="where-to" 
           id="where-to" 
-          type="text" 
+          type="text"
+          className="where-to"
           placeholder="Enter a destination..." 
           value={searchVal}
           onChange={(e) => setSearchVal(e.target.value)}
         />
-   <select className="select" id="activity" onChange={(e) => setActivityVal(e.target.value)}>
+          <select className="select" id="activity" onChange={(e) => setActivityVal(e.target.value)}>
             <option>Pick an Activity</option>
             {activities.map((activity) => (
                 <option key={activity.activityId} value={activity.name}>{activity.name}</option>
             ))}
         </select>
+    </div>
+    </div>
     <div className="parks-page">
         {myContent}
       </div>

@@ -74,11 +74,11 @@ img.park-img {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin-top: 100px
+  /* margin-top: 100px */
 }
 
 .park-profile {
-  margin-top: 100px;
+  /* margin-top: 100px; */
   text-align: center;
   
 }
@@ -282,6 +282,18 @@ div.login-inputs {
 div.login-btns {
   display: flex;
   justify-content: center;
+  margin-top: 10px;
+  /* padding: 1%; */
+}
+
+.login-btns button {
+  margin-right: 10px;
+}
+
+.register {
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
 }
 
 h3.login-title {
@@ -811,3 +823,47 @@ h4.park-name {
   align-items: center; /* Center vertically */
   height: 100vh; /* Take full viewport height */
 }
+
+.where-to {
+  width: 200px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.select {
+  width: 200px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.filter {
+  border: solid 4px #7e8779;
+  background-color: #e0d7d4;
+  display: block;
+}
+
+.filter {
+  display: flex;
+  flex-direction: row;
+  border: solid 4px #7e8779;
+  background-color: #e0d7d4;
+  padding: 1%; 
+  width: fit-content; 
+}
+
+
+.filter input,
+.filter select {
+  margin-bottom: 10px; 
+  
+}
+
+.filter-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+}
+
