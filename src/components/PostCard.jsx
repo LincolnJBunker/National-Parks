@@ -14,6 +14,7 @@ function PostCard({ postId, postPic, secondPic, thirdPic, postText, username, pr
   const activityList = activities.map((activity, idx) => <ul className="post-activities" key={idx}>{activity.name}</ul>)
   const userId = useSelector(state => state.userId?.userId)
 
+
   const [commentArr, setCommentArr] = useState(comments)
   const deleteComment = async commentId => {
     await axios.delete(`/api/comment/${commentId}`, )
