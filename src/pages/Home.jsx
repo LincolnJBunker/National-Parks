@@ -72,7 +72,7 @@ function Home() {
   return (
     <div className="home-page">
       <p></p>
-      <button onClick={editMode}>Add Post</button>
+      <button style={{margin: '10px'}} onClick={editMode}>Add Post</button>
       {isEditing &&
             <>
             <div className="add-post">
