@@ -20,6 +20,7 @@ let users = [
     username: "link",
     email: "jess90@gmail.com",
     password: "use",
+    bio: 'Lover of national parks!',
     userPic:
       "https://media.licdn.com/dms/image/D4E03AQFtlYt-bVrtKQ/profile-displayphoto-shrink_800_800/0/1704831030407?e=2147483647&v=beta&t=NkWH-3hqMW5W7WpBXnNLjOIJwGk_wOq5E-gxpnyMHVQ",
   },
@@ -27,13 +28,15 @@ let users = [
     username: "cat",
     email: "fred@gmail.com",
     password: "use",
+    bio: 'Mother of parks',
     userPic:
       "https://scontent-lax3-2.xx.fbcdn.net/v/t39.30808-6/428659387_10159868671225732_2012584730671016119_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFtMxtOevvVY25BaNWwJaWRxWF5j4cb6tjFYXmPhxvq2L-dMmAvPsRoEvqtYq2ySYk&_nc_ohc=-YEAZWdid_EAb7JRMHR&_nc_ht=scontent-lax3-2.xx&oh=00_AfDmYfCLaWicnndPdbGQDotUXU7ZutvnrM1W1H25Wd5rrQ&oe=6613656E",
   },
   {
-    username: "david",
+    username: "David",
     email: "artsyfartsy@gmail.com",
     password: "use",
+    bio: `"One life to live. Make it count!"`,
     userPic:
       "https://media.licdn.com/dms/image/D5603AQFOylu72kgGcA/profile-displayphoto-shrink_800_800/0/1691684632843?e=1717027200&v=beta&t=NSaw3788aUgZlMUNVjhDmsU4tnmm6YnYc8AvB0ZCIFs",
   },
@@ -41,6 +44,7 @@ let users = [
     username: "josh",
     email: "joshywoshy@gmail.com",
     password: "use",
+    bio: 'I like rust',
     userPic:
       "https://steamuserimages-a.akamaihd.net/ugc/1832425458640201190/52EA68A9E9DCF8D6FB23199C07DBCB539D1690F2/",
   },
@@ -48,6 +52,7 @@ let users = [
     username: "jesse",
     email: "tigerwoodsfan89@gmail.com",
     password: "use",
+    bio: 'One life to live',
     userPic:
       "https://c.ndtvimg.com/2021-03/flecai7g_elon-musk-in-1989-young-elon-musk_625x300_03_March_21.jpg",
   },
@@ -55,6 +60,7 @@ let users = [
     username: "michael",
     email: "hiimmichael@gmail.com",
     password: "use",
+    bio: 'Tacos are great',
     userPic:
       "https://media.uiargonaut.com/wp-content/uploads/2016/05/rawrfeb3.jpg",
   },
@@ -62,12 +68,14 @@ let users = [
     username: "ty",
     email: "tyguyhighfly@gmail.com",
     password: "use",
+    bio: 'haHAAAAA!',
     userPic: "https://www.mafab.hu/static/2014t/284/20/43870_75.jpg",
   },
   {
     username: "M",
     email: "missbettymiss@gmail.com",
     password: "use",
+    bio: "I don't want to be rich, I just want to be wonderful.",
     userPic:
       "https://www.cheatsheet.com/wp-content/uploads/2021/06/Headshot-of-Marilyn-Monroe-wearing-bright-red-lipstick-and-smiling-for-the-camera.jpg",
   },
@@ -75,6 +83,7 @@ let users = [
     username: "Uncle Bob",
     email: "MrValleyMusic@gmail.com",
     password: "use",
+    bio: "Headed to Zion or Bryce? Come say hi to us!",
     userPic:
       "https://mockup-api.teespring.com/v3/image/P0L7YnhhEQSifBnwDfXXug8XMnk/800/800.jpg",
   },
@@ -82,6 +91,7 @@ let users = [
     username: "Kyle",
     email: "kyleftw@gmail.com",
     password: "use",
+    bio: "You don't always get what you want.",
     userPic:
       "https://dmsjourney.com/wp-content/uploads/elementor/thumbs/Dungeon-Master-q2hmz3ka657n8z57zxnidmaspfkvi1kznr5jjzymps.jpg",
   },
@@ -89,6 +99,7 @@ let users = [
     username: "Jackson",
     email: "jackson@gmail.com",
     password: "use",
+    bio: 'Hey handsome.',
     userPic:
       "https://images.immediate.co.uk/production/volatile/sites/3/2023/04/naruto-762b09d.jpg?resize=768,574",
   },
@@ -96,6 +107,7 @@ let users = [
     username: "Sean",
     email: "seanthewonderful@gmail.com",
     password: "use",
+    bio: 'First I must finish my cup of Tea',
     userPic:
       "https://static.wikia.nocookie.net/wowpedia/images/e/e0/Illidan_the_Betrayer.jpg/revision/latest?cb=20150907112817",
   },
@@ -247,6 +259,35 @@ let follows = [
   {
     follower: 3,
     following: 6,
+  },
+  {
+    follower: 6,
+    following: 3,
+  },
+  {
+    follower: 7,
+    following: 3,
+  },
+  {
+    follower: 8,
+    following: 3,
+  },
+  {
+    follower: 9,
+    following: 3,
+  },
+  {
+    follower: 10,
+    following: 3,
+  },
+  
+  {
+    follower: 11,
+    following: 3,
+  },
+  {
+    follower: 12,
+    following: 3,
   },
 ];
 
