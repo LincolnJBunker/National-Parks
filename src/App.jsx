@@ -33,7 +33,7 @@ const router = createBrowserRouter(
         element={<Home />} 
         loader={profileLoader}
         />
-      <Route path="map" element={<Map/>} />
+      {/* <Route path="map" element={<Map/>} /> */}
       <Route 
         path="parks" 
         element={<Parks />} 

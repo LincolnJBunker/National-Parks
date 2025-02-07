@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { APIProvider, Map, AdvancedMarker, Pin, InfoWindow } from '@vis.gl/react-google-maps';
-import googleAPIKey from "../hidden.js";
+// import googleAPIKey from "../hidden.js";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { Carousel } from 'react-bootstrap';
